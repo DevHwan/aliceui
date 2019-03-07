@@ -133,7 +133,7 @@ AUIEditWidget::AUIEditWidget()
 
 AUIEditWidget::AUIEditWidget( const std::wstring& captionhint )
     : AUITextWidget( DefaultCaption )
-    , m_CaptionHint( DefaultCaptionHint )
+    , m_CaptionHint( captionhint )
     , m_bTabToChar( DefaultTabToChar )
     , m_bReturnToChar( DefaultReturnToChar )
     , m_bUseBuffer( DefaultUseBuffered )
