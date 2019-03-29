@@ -393,24 +393,8 @@
     <Filter Include="10. MIT_alice\Widgets\2D\CloudTemplate">
       <UniqueIdentifier>{0a4e33af-2b36-49d3-b967-f7ef572f8688}</UniqueIdentifier>
     </Filter>
-    <Filter Include="10. MIT_alice\Widgets\2D\Calendar">
-      <UniqueIdentifier>{6a964fe3-56ec-4827-9100-1ac382666f90}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Platform Support\Raster Core">
       <UniqueIdentifier>{23c06bf4-7dba-4a5c-b6b5-fde88e0f5b19}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="10. MIT_alice\00. Resource">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="10. MIT_alice\00. Resource\Resource Files">
-      <UniqueIdentifier>{37d259aa-5c21-43c0-a06f-7adf29474eda}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="10. MIT_alice\00. Resource\Resource Files\GLSL">
-      <UniqueIdentifier>{4f6285a9-bd5d-4c39-8934-092d327958eb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="10. MIT_alice\00. Resource\Resource Files\GLSL\2D">
-      <UniqueIdentifier>{64772366-26ad-45f9-b6b8-d17dc15cecc6}</UniqueIdentifier>
     </Filter>
     <Filter Include="10. MIT_alice\Template">
       <UniqueIdentifier>{969446d1-773c-47ba-9ee5-f59312134c01}</UniqueIdentifier>
@@ -426,6 +410,31 @@
     </Filter>
     <Filter Include="00. Defines\..etc">
       <UniqueIdentifier>{756089e3-e745-4a1b-8a8c-a573626cfd08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Internationalization">
+      <UniqueIdentifier>{fcfe299d-04fb-4842-b5cb-598b8c6ed806}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Internationalization\01. Public">
+      <UniqueIdentifier>{667509e8-e346-4fff-86ac-2089790ffe1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Internationalization\02. Private">
+      <UniqueIdentifier>{22bb7efa-8dfb-4336-9405-33d3fa646146}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Calendar">
+      <UniqueIdentifier>{6a964fe3-56ec-4827-9100-1ac382666f90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..Resource">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="..Resource\Resource Files">
+      <UniqueIdentifier>{37d259aa-5c21-43c0-a06f-7adf29474eda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..Resource\Resource Files\GLSL">
+      <UniqueIdentifier>{4f6285a9-bd5d-4c39-8934-092d327958eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..Resource\Resource Files\GLSL\2D">
+      <UniqueIdentifier>{64772366-26ad-45f9-b6b8-d17dc15cecc6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -446,30 +455,6 @@
     </ClCompile>
     <ClCompile Include="MAUI3DDrawableWidget.cpp">
       <Filter>10. MIT_alice\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="MAUICalendarChangeButtonWidget.cpp">
-      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
-    </ClCompile>
-    <ClCompile Include="MAUICalendarFrameWidget.cpp">
-      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
-    </ClCompile>
-    <ClCompile Include="MAUICalendarFoldButton.cpp">
-      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
-    </ClCompile>
-    <ClCompile Include="MAUICalendarQuickButtonWidget.cpp">
-      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
-    </ClCompile>
-    <ClCompile Include="MAUICalendarBodyWidget.cpp">
-      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
-    </ClCompile>
-    <ClCompile Include="MAUICalendarTableWidget.cpp">
-      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
-    </ClCompile>
-    <ClCompile Include="MAUICalendarRowWidget.cpp">
-      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
-    </ClCompile>
-    <ClCompile Include="MAUICalendarElementWidget.cpp">
-      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
     </ClCompile>
     <ClCompile Include="MAUICloudTemplateWidget.cpp">
       <Filter>10. MIT_alice\Widgets\2D\CloudTemplate</Filter>
@@ -948,10 +933,73 @@
     <ClCompile Include="AUIDebug.cpp">
       <Filter>01. Core\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="AUICalendar.cpp">
+      <Filter>04. Internationalization\01. Public</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIDateFormat.cpp">
+      <Filter>04. Internationalization\01. Public</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIDateFormatSymbols.cpp">
+      <Filter>04. Internationalization\01. Public</Filter>
+    </ClCompile>
+    <ClCompile Include="AUILocale.cpp">
+      <Filter>04. Internationalization\01. Public</Filter>
+    </ClCompile>
+    <ClCompile Include="AUISimpleDateFormat.cpp">
+      <Filter>04. Internationalization\01. Public</Filter>
+    </ClCompile>
+    <ClCompile Include="AUITimeZone.cpp">
+      <Filter>04. Internationalization\01. Public</Filter>
+    </ClCompile>
+    <ClCompile Include="AUICalendarImpl.cpp">
+      <Filter>04. Internationalization\02. Private</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIDateFormatImpl.cpp">
+      <Filter>04. Internationalization\02. Private</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIDateFormatSymbolsImpl.cpp">
+      <Filter>04. Internationalization\02. Private</Filter>
+    </ClCompile>
+    <ClCompile Include="AUILocaleImpl.cpp">
+      <Filter>04. Internationalization\02. Private</Filter>
+    </ClCompile>
+    <ClCompile Include="AUISimpleDateFormatImpl.cpp">
+      <Filter>04. Internationalization\02. Private</Filter>
+    </ClCompile>
+    <ClCompile Include="AUITimeZoneImpl.cpp">
+      <Filter>04. Internationalization\02. Private</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIICUStringUtility.cpp">
+      <Filter>04. Internationalization\02. Private</Filter>
+    </ClCompile>
+    <ClCompile Include="AUICalendarBodyWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Calendar</Filter>
+    </ClCompile>
+    <ClCompile Include="AUICalendarChangeButtonWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Calendar</Filter>
+    </ClCompile>
+    <ClCompile Include="AUICalendarElementWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Calendar</Filter>
+    </ClCompile>
+    <ClCompile Include="AUICalendarFoldButton.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Calendar</Filter>
+    </ClCompile>
+    <ClCompile Include="AUICalendarFrameWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Calendar</Filter>
+    </ClCompile>
+    <ClCompile Include="AUICalendarQuickButtonWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Calendar</Filter>
+    </ClCompile>
+    <ClCompile Include="AUICalendarRowWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Calendar</Filter>
+    </ClCompile>
+    <ClCompile Include="AUICalendarTableWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Calendar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MIT_aliceRes.h">
-      <Filter>10. MIT_alice\00. Resource</Filter>
+      <Filter>..Resource</Filter>
     </ClInclude>
     <ClInclude Include="MAUIRulerWidget.h">
       <Filter>10. MIT_alice\Widgets\2D\Ruler</Filter>
@@ -976,33 +1024,6 @@
     </ClInclude>
     <ClInclude Include="MAUI3DDrawableWidget.h">
       <Filter>10. MIT_alice\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="MAUICalendarChangeButtonWidget.h">
-      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
-    </ClInclude>
-    <ClInclude Include="MAUICalendarFrameWidget.h">
-      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
-    </ClInclude>
-    <ClInclude Include="MAUICalendarFoldButton.h">
-      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
-    </ClInclude>
-    <ClInclude Include="MAUICalendarQuickButtonWidget.h">
-      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
-    </ClInclude>
-    <ClInclude Include="MAUICalendarBodyWidget.h">
-      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
-    </ClInclude>
-    <ClInclude Include="MAUICalendarTableWidget.h">
-      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
-    </ClInclude>
-    <ClInclude Include="MAUICalendarRowWidget.h">
-      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
-    </ClInclude>
-    <ClInclude Include="MAUICalendarElementWidget.h">
-      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
-    </ClInclude>
-    <ClInclude Include="MAUICalendarCommonDef.h">
-      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
     </ClInclude>
     <ClInclude Include="MAUICloudTemplateWidget.h">
       <Filter>10. MIT_alice\Widgets\2D\CloudTemplate</Filter>
@@ -1532,16 +1553,88 @@
     <ClInclude Include="MAUIPlaneDef.h">
       <Filter>00. Defines\..etc</Filter>
     </ClInclude>
+    <ClInclude Include="AUICalendar.h">
+      <Filter>04. Internationalization\01. Public</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIDateFormat.h">
+      <Filter>04. Internationalization\01. Public</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIDateFormatSymbols.h">
+      <Filter>04. Internationalization\01. Public</Filter>
+    </ClInclude>
+    <ClInclude Include="AUILocale.h">
+      <Filter>04. Internationalization\01. Public</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISimpleDateFormat.h">
+      <Filter>04. Internationalization\01. Public</Filter>
+    </ClInclude>
+    <ClInclude Include="AUITimeZone.h">
+      <Filter>04. Internationalization\01. Public</Filter>
+    </ClInclude>
+    <ClInclude Include="AUICalendarImpl.h">
+      <Filter>04. Internationalization\02. Private</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIDateFormatImpl.h">
+      <Filter>04. Internationalization\02. Private</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIDateFormatSymbolsImpl.h">
+      <Filter>04. Internationalization\02. Private</Filter>
+    </ClInclude>
+    <ClInclude Include="AUILocaleImpl.h">
+      <Filter>04. Internationalization\02. Private</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISimpleDateFormatImpl.h">
+      <Filter>04. Internationalization\02. Private</Filter>
+    </ClInclude>
+    <ClInclude Include="AUITimeZoneImpl.h">
+      <Filter>04. Internationalization\02. Private</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIICUStringUtility.h">
+      <Filter>04. Internationalization\02. Private</Filter>
+    </ClInclude>
+    <ClInclude Include="AUII18NCommonDef.h">
+      <Filter>04. Internationalization\01. Public</Filter>
+    </ClInclude>
+    <ClInclude Include="AUII18NPrivateDef.h">
+      <Filter>04. Internationalization\02. Private</Filter>
+    </ClInclude>
+    <ClInclude Include="AUICalendarBodyWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Calendar</Filter>
+    </ClInclude>
+    <ClInclude Include="AUICalendarChangeButtonWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Calendar</Filter>
+    </ClInclude>
+    <ClInclude Include="AUICalendarCommonDef.h">
+      <Filter>02. Implementation\Widgets\Drawable\Calendar</Filter>
+    </ClInclude>
+    <ClInclude Include="AUICalendarElementWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Calendar</Filter>
+    </ClInclude>
+    <ClInclude Include="AUICalendarFoldButton.h">
+      <Filter>02. Implementation\Widgets\Drawable\Calendar</Filter>
+    </ClInclude>
+    <ClInclude Include="AUICalendarFrameWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Calendar</Filter>
+    </ClInclude>
+    <ClInclude Include="AUICalendarQuickButtonWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Calendar</Filter>
+    </ClInclude>
+    <ClInclude Include="AUICalendarRowWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Calendar</Filter>
+    </ClInclude>
+    <ClInclude Include="AUICalendarTableWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Calendar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\MIT_alice.rc2">
-      <Filter>10. MIT_alice\00. Resource</Filter>
+      <Filter>..Resource</Filter>
     </None>
     <None Include="res\GLSL\2D\2DVert.glsl">
-      <Filter>10. MIT_alice\00. Resource\Resource Files\GLSL\2D</Filter>
+      <Filter>..Resource\Resource Files\GLSL\2D</Filter>
     </None>
     <None Include="res\GLSL\2D\2DFrag.glsl">
-      <Filter>10. MIT_alice\00. Resource\Resource Files\GLSL\2D</Filter>
+      <Filter>..Resource\Resource Files\GLSL\2D</Filter>
     </None>
     <None Include="README.md">
       <Filter>..Documentation</Filter>
@@ -1549,7 +1642,7 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MIT_alice.rc">
-      <Filter>10. MIT_alice\00. Resource</Filter>
+      <Filter>..Resource</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>

@@ -183,9 +183,6 @@
     <ProjectReference Include="..\MIT_alice\MIT_alice.vcxproj">
       <Project>{1ae7f1f0-7924-458a-a839-b16d1604d89d}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\MIT_i18n\MIT_i18n.vcxproj">
-      <Project>{08dca097-fac2-4f73-908a-f0f0788469fd}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

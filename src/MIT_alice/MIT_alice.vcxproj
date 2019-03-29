@@ -116,12 +116,13 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\include\icu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
       <AdditionalOptions> /ignore:4099 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Opengl32.lib;icudtd.lib;icuind.lib;icuiod.lib;icutud.lib;icuucd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -146,12 +147,13 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\include\icu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
       <AdditionalOptions> /ignore:4099 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Opengl32.lib;icudtd.lib;icuind.lib;icuiod.lib;icutud.lib;icuucd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -177,13 +179,14 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\include\icu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>Opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Opengl32.lib;icudt.lib;icuin.lib;icuio.lib;icutu.lib;icuuc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -209,13 +212,14 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\include\icu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>Opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Opengl32.lib;icudt.lib;icuin.lib;icuio.lib;icutu.lib;icuuc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -244,14 +248,14 @@
     <ClCompile Include="AUIStringUtil.cpp" />
     <ClCompile Include="AUIAbsoluteLayout.cpp" />
     <ClCompile Include="AUIArrayAdapter.cpp" />
-    <ClCompile Include="MAUICalendarBodyWidget.cpp" />
-    <ClCompile Include="MAUICalendarChangeButtonWidget.cpp" />
-    <ClCompile Include="MAUICalendarElementWidget.cpp" />
-    <ClCompile Include="MAUICalendarFoldButton.cpp" />
-    <ClCompile Include="MAUICalendarFrameWidget.cpp" />
-    <ClCompile Include="MAUICalendarQuickButtonWidget.cpp" />
-    <ClCompile Include="MAUICalendarRowWidget.cpp" />
-    <ClCompile Include="MAUICalendarTableWidget.cpp" />
+    <ClCompile Include="AUICalendarBodyWidget.cpp" />
+    <ClCompile Include="AUICalendarChangeButtonWidget.cpp" />
+    <ClCompile Include="AUICalendarElementWidget.cpp" />
+    <ClCompile Include="AUICalendarFoldButton.cpp" />
+    <ClCompile Include="AUICalendarFrameWidget.cpp" />
+    <ClCompile Include="AUICalendarQuickButtonWidget.cpp" />
+    <ClCompile Include="AUICalendarRowWidget.cpp" />
+    <ClCompile Include="AUICalendarTableWidget.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="AUICompass.cpp" />
     <ClCompile Include="AUISensor.cpp" />
@@ -398,6 +402,19 @@
     <ClCompile Include="AUIWnd.cpp" />
     <ClCompile Include="AUIStringFilter.cpp" />
     <ClCompile Include="AUIUnitString.cpp" />
+    <ClCompile Include="AUICalendar.cpp" />
+    <ClCompile Include="AUICalendarImpl.cpp" />
+    <ClCompile Include="AUIDateFormat.cpp" />
+    <ClCompile Include="AUIDateFormatImpl.cpp" />
+    <ClCompile Include="AUIDateFormatSymbols.cpp" />
+    <ClCompile Include="AUIDateFormatSymbolsImpl.cpp" />
+    <ClCompile Include="AUILocale.cpp" />
+    <ClCompile Include="AUILocaleImpl.cpp" />
+    <ClCompile Include="AUISimpleDateFormat.cpp" />
+    <ClCompile Include="AUISimpleDateFormatImpl.cpp" />
+    <ClCompile Include="AUITimeZone.cpp" />
+    <ClCompile Include="AUITimeZoneImpl.cpp" />
+    <ClCompile Include="AUIICUStringUtility.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -425,15 +442,15 @@
     <ClInclude Include="AUIAbsoluteLayout.h" />
     <ClInclude Include="AUIAPIDef.h" />
     <ClInclude Include="MAUI1DShapeDef.h" />
-    <ClInclude Include="MAUICalendarBodyWidget.h" />
-    <ClInclude Include="MAUICalendarChangeButtonWidget.h" />
-    <ClInclude Include="MAUICalendarCommonDef.h" />
-    <ClInclude Include="MAUICalendarElementWidget.h" />
-    <ClInclude Include="MAUICalendarFoldButton.h" />
-    <ClInclude Include="MAUICalendarFrameWidget.h" />
-    <ClInclude Include="MAUICalendarQuickButtonWidget.h" />
-    <ClInclude Include="MAUICalendarRowWidget.h" />
-    <ClInclude Include="MAUICalendarTableWidget.h" />
+    <ClInclude Include="AUICalendarBodyWidget.h" />
+    <ClInclude Include="AUICalendarChangeButtonWidget.h" />
+    <ClInclude Include="AUICalendarCommonDef.h" />
+    <ClInclude Include="AUICalendarElementWidget.h" />
+    <ClInclude Include="AUICalendarFoldButton.h" />
+    <ClInclude Include="AUICalendarFrameWidget.h" />
+    <ClInclude Include="AUICalendarQuickButtonWidget.h" />
+    <ClInclude Include="AUICalendarRowWidget.h" />
+    <ClInclude Include="AUICalendarTableWidget.h" />
     <ClInclude Include="AUICompass.h" />
     <ClInclude Include="AUISensor.h" />
     <ClInclude Include="MAUI3DDrawableWidget.h" />
@@ -595,6 +612,21 @@
     <ClInclude Include="AUIWidgetManager.h" />
     <ClInclude Include="AUIWidgetTreeHelper.h" />
     <ClInclude Include="AUIWnd.h" />
+    <ClInclude Include="AUICalendar.h" />
+    <ClInclude Include="AUICalendarImpl.h" />
+    <ClInclude Include="AUII18NCommonDef.h" />
+    <ClInclude Include="AUIDateFormat.h" />
+    <ClInclude Include="AUIDateFormatImpl.h" />
+    <ClInclude Include="AUIDateFormatSymbols.h" />
+    <ClInclude Include="AUIDateFormatSymbolsImpl.h" />
+    <ClInclude Include="AUILocale.h" />
+    <ClInclude Include="AUILocaleImpl.h" />
+    <ClInclude Include="AUII18NPrivateDef.h" />
+    <ClInclude Include="AUISimpleDateFormat.h" />
+    <ClInclude Include="AUISimpleDateFormatImpl.h" />
+    <ClInclude Include="AUITimeZone.h" />
+    <ClInclude Include="AUITimeZoneImpl.h" />
+    <ClInclude Include="AUIICUStringUtility.h" />
     <ClInclude Include="MITAliceDef.h" />
     <ClInclude Include="AUIStringFilter.h" />
     <ClInclude Include="AUIUnitString.h" />
@@ -610,11 +642,6 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MIT_alice.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MIT_i18n\MIT_i18n.vcxproj">
-      <Project>{08dca097-fac2-4f73-908a-f0f0788469fd}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="MIT_alice.natvis" />
