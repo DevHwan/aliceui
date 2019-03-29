@@ -6,11 +6,11 @@
 #include <thread>
 
 // Alice UI
-#include "../MIT_alice/AUIApplication.h"
-#include "../MIT_alice/AUIRasterWidgetManager.h"
-#include "../MIT_alice/AUISlotPool.h"
-#include "../MIT_alice/AUILinearLayoutWidget.h"
-#include "../MIT_alice/AUIEditWidget.h"
+#include <AUIApplication.h>
+#include <AUIRasterWidgetManager.h>
+#include <AUISlotPool.h>
+#include <AUILinearLayoutWidget.h>
+#include <AUIEditWidget.h>
 
 // Skia
 #include <SkSurface.h>
