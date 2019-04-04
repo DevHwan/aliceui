@@ -12,13 +12,39 @@ class AUIWindow;
 class AUIHandle;
 class AUIForm;
 
+class ALICEUI_API AUIApplicationImpl
+{
+protected:
+    AUIApplicationImpl();
+public:
+    virtual ~AUIApplicationImpl();
+
+    virtual AUIHandle* GetApplicationHandle() const = 0;
+    virtual void GetApplicationSize(int& width, int& height) const = 0;
+    virtual void GetApplicationPosition(int& x, int& y) const = 0;
+    virtual void GetApplicationPositionAndSize(int& x, int& y, int& width, int& height) const = 0;
+    virtual std::wstring GetApplicationDirectory() const = 0;
+
+    virtual AUIHandle* const GetDesktopHandle() const = 0;
+    virtual void GetDesktopSize(int& width, int& height) const = 0;
+    virtual void GetVirtualScreenSize(int& width, int& height) const = 0;
+    virtual void GetMonitorCount(int& count) const = 0;
+    virtual void ConvertToDesktopPos(int& desktopX, int& desktopY, const int x, const int y, AUIHandle* const pHandle) = 0;
+    virtual void GetMonitorRectFromPoint(SkRect& monitorRect, const int& desktopX, const int& desktopY) = 0;
+
+    virtual void GetMousePosition(int& x, int& y) const = 0;
+    virtual void GetMouseDragOffset(int& x, int& y) const = 0;
+    virtual bool IsMouseRightHanded() const = 0;
+};
 
 class ALICEUI_API AUIApplication final
 {
 private:
-    AUIApplication();
+    AUIApplication(std::unique_ptr<AUIApplicationImpl>&& pAppImpl);
+public:
     ~AUIApplication();
 public:
+    static bool SetupApplication(std::unique_ptr<AUIApplicationImpl>&& pAppImpl);
     static AUIApplication& Instance();
 
     //////////////////////////////////////////////////////////////////////////
@@ -222,14 +248,14 @@ private:
     //////////////////////////////////////////////////////////////////////////
     // OS Implementation
 private:
-    class Impl;
-    Impl* const GetImpl() const { return m_pImpl.get(); }
-    std::unique_ptr< Impl > m_pImpl;
+    AUIApplicationImpl* const GetImpl() const { return m_pImpl.get(); }
+    std::unique_ptr<AUIApplicationImpl> m_pImpl;
 };
 
 class ALICEUI_API AUIApplicationAutoInit final
 {
 public:
     AUIApplicationAutoInit();
+    AUIApplicationAutoInit(std::unique_ptr<AUIApplicationImpl>&& pAppImpl);
     ~AUIApplicationAutoInit();
 };

@@ -4,6 +4,7 @@
 // STL
 #include <chrono>
 #include <thread>
+#include <memory>
 
 // Alice UI
 #include <AUIApplication.h>
@@ -11,6 +12,7 @@
 #include <AUISlotPool.h>
 #include <AUILinearLayoutWidget.h>
 #include <AUIEditWidget.h>
+#include <AUIMFCAppImpl.h>
 
 // Skia
 #include <SkSurface.h>
@@ -45,7 +47,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ int       nCmdShow)
 {
     // AliceUI framework auto initialization
-    AUIApplicationAutoInit appAutoInit;
+    AUIApplicationAutoInit appAutoInit(std::make_unique<AUIMFCAppImpl>());
 
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);

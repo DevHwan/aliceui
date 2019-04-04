@@ -430,6 +430,12 @@
     <Filter Include="..Deprecated\Template">
       <UniqueIdentifier>{969446d1-773c-47ba-9ee5-f59312134c01}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Platform Support\Win32\01. WinAPI\Application">
+      <UniqueIdentifier>{dfdf7f4b-3f2c-4201-b145-01a6ca5c40f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Platform Support\Win32\01. WinAPI\Handle">
+      <UniqueIdentifier>{1bff5374-63eb-442c-a7ce-295787ad8dd0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAUICloudTemplateWidget.cpp">
@@ -888,9 +894,6 @@
     <ClCompile Include="AUIMFCWindowHandle.cpp">
       <Filter>03. Platform Support\Win32\03. MFC\Wnd</Filter>
     </ClCompile>
-    <ClCompile Include="AUIMFCApplication.cpp">
-      <Filter>03. Platform Support\Win32\03. MFC\Application</Filter>
-    </ClCompile>
     <ClCompile Include="AUIResourceManager.cpp">
       <Filter>01. Core\Resource</Filter>
     </ClCompile>
@@ -989,6 +992,15 @@
     </ClCompile>
     <ClCompile Include="AUITemplateProcessor.cpp">
       <Filter>..Deprecated\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIMFCAppImpl.cpp">
+      <Filter>03. Platform Support\Win32\03. MFC\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIWin32AppImpl.cpp">
+      <Filter>03. Platform Support\Win32\01. WinAPI\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIWin32Handle.cpp">
+      <Filter>03. Platform Support\Win32\01. WinAPI\Handle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1481,9 +1493,6 @@
     <ClInclude Include="AUIMFCWindowHandle.h">
       <Filter>03. Platform Support\Win32\03. MFC\Wnd</Filter>
     </ClInclude>
-    <ClInclude Include="AUIMFCApplication.h">
-      <Filter>03. Platform Support\Win32\03. MFC\Application</Filter>
-    </ClInclude>
     <ClInclude Include="AUIResourceManager.h">
       <Filter>01. Core\Resource</Filter>
     </ClInclude>
@@ -1615,6 +1624,18 @@
     </ClInclude>
     <ClInclude Include="AliceUI_Res.h">
       <Filter>..Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="AliceUI.h">
+      <Filter>00. Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIMFCAppImpl.h">
+      <Filter>03. Platform Support\Win32\03. MFC\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIWin32AppImpl.h">
+      <Filter>03. Platform Support\Win32\01. WinAPI\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIWin32Handle.h">
+      <Filter>03. Platform Support\Win32\01. WinAPI\Handle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

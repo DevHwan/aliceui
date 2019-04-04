@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "AUIMFCApplication.h"
+#include "AUIMFCAppImpl.h"
 #include "AUIMFCHandle.h"
 
 namespace {
@@ -8,7 +8,7 @@ namespace {
     }
 }
 
-AUIApplication::Impl::Impl()
+AUIMFCAppImpl::AUIMFCAppImpl()
 {
     const auto hModule = GetModuleHandle(nullptr);
     wchar_t path[_MAX_PATH] = { L'\0', };
@@ -21,13 +21,13 @@ AUIApplication::Impl::Impl()
     AUIAssert( m_strExeDir.empty() == false );
 }
 
-AUIHandle* AUIApplication::Impl::GetApplicationHandle() const
+AUIHandle* AUIMFCAppImpl::GetApplicationHandle() const
 {
     static auto sApplicationHandle = std::make_shared<AUIMFCHandle>(funcGetMainWnd());
     return sApplicationHandle.get();
 }
 
-void AUIApplication::Impl::GetApplicationSize( int& width, int& height ) const
+void AUIMFCAppImpl::GetApplicationSize( int& width, int& height ) const
 {
     CRect rect;
     AUIAssert(funcGetMainWnd());
@@ -37,7 +37,7 @@ void AUIApplication::Impl::GetApplicationSize( int& width, int& height ) const
     height = rect.Height();
 }
 
-void AUIApplication::Impl::GetApplicationPosition( int& x, int& y ) const
+void AUIMFCAppImpl::GetApplicationPosition( int& x, int& y ) const
 {
     CRect rect;
     AUIAssert(funcGetMainWnd());
@@ -47,12 +47,12 @@ void AUIApplication::Impl::GetApplicationPosition( int& x, int& y ) const
     y = rect.top;
 }
 
-std::wstring AUIApplication::Impl::GetApplicationDirectory() const
+std::wstring AUIMFCAppImpl::GetApplicationDirectory() const
 {
     return m_strExeDir;
 }
 
-void AUIApplication::Impl::GetApplicationPositionAndSize( int& x, int& y, int& width, int& height ) const
+void AUIMFCAppImpl::GetApplicationPositionAndSize( int& x, int& y, int& width, int& height ) const
 {
     CRect rect;
     AUIAssert(funcGetMainWnd());
@@ -64,30 +64,30 @@ void AUIApplication::Impl::GetApplicationPositionAndSize( int& x, int& y, int& w
     height = rect.Height();
 }
 
-AUIHandle* const AUIApplication::Impl::GetDesktopHandle() const
+AUIHandle* const AUIMFCAppImpl::GetDesktopHandle() const
 {
     static auto sDesktopHandle = std::make_shared<AUIMFCHandle>(CWnd::GetDesktopWindow());
     return sDesktopHandle.get();
 }
 
-void AUIApplication::Impl::GetDesktopSize( int& width, int& height ) const
+void AUIMFCAppImpl::GetDesktopSize( int& width, int& height ) const
 {
     width = ::GetSystemMetrics( SM_CXSCREEN );
     height = ::GetSystemMetrics( SM_CYSCREEN );
 }
 
-void AUIApplication::Impl::GetMonitorCount( int& count ) const
+void AUIMFCAppImpl::GetMonitorCount( int& count ) const
 {
     count = ::GetSystemMetrics( SM_CMONITORS );
 }
 
-void AUIApplication::Impl::GetVirtualScreenSize( int& width, int& height ) const
+void AUIMFCAppImpl::GetVirtualScreenSize( int& width, int& height ) const
 {
     width = ::GetSystemMetrics( SM_CXVIRTUALSCREEN );
     height = ::GetSystemMetrics( SM_CYVIRTUALSCREEN );
 }
 
-void AUIApplication::Impl::GetMousePosition( int& x, int& y ) const
+void AUIMFCAppImpl::GetMousePosition( int& x, int& y ) const
 {
     CPoint point;
     ::GetCursorPos( &point );
@@ -95,18 +95,18 @@ void AUIApplication::Impl::GetMousePosition( int& x, int& y ) const
     y = int( point.y );
 }
 
-void AUIApplication::Impl::GetMouseDragOffset( int& x, int& y ) const
+void AUIMFCAppImpl::GetMouseDragOffset( int& x, int& y ) const
 {
     x = ::GetSystemMetrics( SM_CXDRAG );
     y = ::GetSystemMetrics( SM_CYDRAG );
 }
 
-bool AUIApplication::Impl::IsMouseRightHanded() const
+bool AUIMFCAppImpl::IsMouseRightHanded() const
 {
     return ( !::GetSystemMetrics( SM_SWAPBUTTON ) );
 }
 
-void AUIApplication::Impl::ConvertToDesktopPos( int& desktopX, int& desktopY, const int x, const int y, AUIHandle* const pHandle )
+void AUIMFCAppImpl::ConvertToDesktopPos( int& desktopX, int& desktopY, const int x, const int y, AUIHandle* const pHandle )
 {
     if ( nullptr == pHandle )
     {
@@ -132,7 +132,7 @@ void AUIApplication::Impl::ConvertToDesktopPos( int& desktopX, int& desktopY, co
     desktopY = pt.y;
 }
 
-void AUIApplication::Impl::GetMonitorRectFromPoint( SkRect& monitorRect, const int& desktopX, const int& desktopY )
+void AUIMFCAppImpl::GetMonitorRectFromPoint( SkRect& monitorRect, const int& desktopX, const int& desktopY )
 {
     const auto hMonitor = ::MonitorFromPoint( CPoint( desktopX, desktopY ), MONITOR_DEFAULTTONEAREST );
     MONITORINFOEX miex = { 0, };

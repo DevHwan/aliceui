@@ -1,12 +1,5 @@
 #include "pch.h"
 #include "AUIApplication.h"
-
-#if defined( _MSC_VER )
-#   include "AUIMFCApplication.h"
-#else
-#   error Implement OS dependent Impl
-#endif
-
 #include "AUIWidgetTreeHelper.h"
 #include "AUIWindow.h"
 #include "AUIInstance.h"
@@ -51,9 +44,18 @@ public:
 private:
 };
 
+AUIApplicationImpl::AUIApplicationImpl()
+{
 
-AUIApplication::AUIApplication()
-    : m_pImpl(std::make_unique<Impl>() )
+}
+
+AUIApplicationImpl::~AUIApplicationImpl()
+{
+
+}
+
+AUIApplication::AUIApplication(std::unique_ptr<AUIApplicationImpl>&& pAppImpl)
+    : m_pImpl(std::move(pAppImpl))
     , m_pWidgetTree(std::make_unique<AUIWidgetTreeHelper>() )
     , m_pLazyTaskManager(std::make_unique<AUILazyTaskManager>() )
     , m_bVisualizeLayout( false )
@@ -61,6 +63,7 @@ AUIApplication::AUIApplication()
     , m_bInUpdateInstanceTask( false )
     , m_bInitialized(false)
 {
+    AUIAssert(m_pImpl);
     m_arrWidgetLazyTask.reserve( 200 );
     SkGraphics::Init();
 }
@@ -71,10 +74,21 @@ AUIApplication::~AUIApplication()
     m_RegisteredWindows.clear();
 }
 
+static std::unique_ptr<AUIApplication> sGlobalApplication;
+
+bool AUIApplication::SetupApplication(std::unique_ptr<AUIApplicationImpl>&& pAppImpl)
+{
+    if (sGlobalApplication)
+        return false;
+    sGlobalApplication.reset(new AUIApplication(std::move(pAppImpl)));
+    AUIAssert(sGlobalApplication);
+    return true;
+}
+
 AUIApplication& AUIApplication::Instance()
 {
-    static AUIApplication sApplication;
-    return sApplication;
+    AUIAssert(sGlobalApplication);
+    return *sGlobalApplication;
 }
 
 AUIWidgetTreeHelper& AUIApplication::GetWidgetTree() const
@@ -777,6 +791,12 @@ AUIApplication::WidgetLazyTask AUIApplication::WidgetLazyTask::MakeDestroy(const
 
 AUIApplicationAutoInit::AUIApplicationAutoInit()
 {
+    AUIApplication::Instance().Initialize();
+}
+
+AUIApplicationAutoInit::AUIApplicationAutoInit(std::unique_ptr<AUIApplicationImpl>&& pAppImpl)
+{
+    AUIApplication::SetupApplication(std::move(pAppImpl));
     AUIApplication::Instance().Initialize();
 }
 

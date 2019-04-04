@@ -256,6 +256,8 @@
     <ClCompile Include="AUICalendarQuickButtonWidget.cpp" />
     <ClCompile Include="AUICalendarRowWidget.cpp" />
     <ClCompile Include="AUICalendarTableWidget.cpp" />
+    <ClCompile Include="AUIWin32AppImpl.cpp" />
+    <ClCompile Include="AUIWin32Handle.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="AUICompass.cpp" />
     <ClCompile Include="AUISensor.cpp" />
@@ -305,7 +307,7 @@
     <ClCompile Include="AUIImageButtonWidget.cpp" />
     <ClCompile Include="AUIImageCaptionButtonWidget.cpp" />
     <ClCompile Include="AUIFrameLayoutWidget.cpp" />
-    <ClCompile Include="AUIMFCApplication.cpp" />
+    <ClCompile Include="AUIMFCAppImpl.cpp" />
     <ClCompile Include="AUIMFCInstance.cpp" />
     <ClCompile Include="AUIMFCWidget.cpp" />
     <ClCompile Include="AUIOpenGL.cpp" />
@@ -424,6 +426,7 @@
     <ClCompile Include="AUIStateFeature.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AliceUI.h" />
     <ClInclude Include="AUIAutomata.h" />
     <ClInclude Include="AUIDebug.h" />
     <ClInclude Include="AUIKeyboardEvent.h" />
@@ -455,6 +458,8 @@
     <ClInclude Include="AUISensor.h" />
     <ClInclude Include="AUI3DDrawableWidget.h" />
     <ClInclude Include="AUIChildHelper.h" />
+    <ClInclude Include="AUIWin32AppImpl.h" />
+    <ClInclude Include="AUIWin32Handle.h" />
     <ClInclude Include="MAUICloudImportWidget.h" />
     <ClInclude Include="MAUICloudTemplateWidget.h" />
     <ClInclude Include="AUICompasses.h" />
@@ -506,7 +511,7 @@
     <ClInclude Include="AUIImageCaptionButtonWidget.h" />
     <ClInclude Include="AUIFrameLayoutWidget.h" />
     <ClInclude Include="AUIProperty.h" />
-    <ClInclude Include="AUIMFCApplication.h" />
+    <ClInclude Include="AUIMFCAppImpl.h" />
     <ClInclude Include="AUIMFCInstance.h" />
     <ClInclude Include="AUIMFCWidget.h" />
     <ClInclude Include="AUIOpenGL.h" />
