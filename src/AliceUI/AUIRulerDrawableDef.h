@@ -1,0 +1,11 @@
+#pragma once
+
+//////////////////////////////////////////////////////////////////////////
+// Ruler Location
+enum class AUIRulerLocation
+{
+    kLeft = 0,
+    kTop,
+    kRight,
+    kBottom
+};
