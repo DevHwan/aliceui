@@ -12,7 +12,7 @@
 #include <AUISlotPool.h>
 #include <AUILinearLayoutWidget.h>
 #include <AUIEditWidget.h>
-#include <AUIMFCAppImpl.h>
+#include <AUIWin32AppImpl.h>
 
 // Skia
 #include <SkSurface.h>
@@ -21,7 +21,8 @@
 constexpr int kMaxLoadStringLen = 100;
 
 // Global window data
-HINSTANCE gMainInstance = NULL;
+HINSTANCE gMainInstance = nullptr;
+HWND gRootWindow = nullptr;
 WCHAR gWindowTitle[kMaxLoadStringLen] = { L'\0', };
 WCHAR gWindowClass[kMaxLoadStringLen] = { L'\0', };
 
@@ -46,9 +47,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
-    // AliceUI framework auto initialization
-    AUIApplicationAutoInit appAutoInit(std::make_unique<AUIMFCAppImpl>());
-
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
@@ -58,6 +56,51 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     if (false == InitInstance(hInstance, nCmdShow))
         return FALSE;
+
+    // AliceUI framework auto initialization
+    AUIWin32AppImpl::InitRootWindow(gRootWindow);
+    AUIApplicationAutoInit appAutoInit(std::make_unique<AUIWin32AppImpl>());
+
+    // Create widget manager
+    gWidgetManager.reset(new AUIRasterWidgetManager());
+    gPrevTickTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+
+    auto pLayout = std::make_shared<AUILinearLayoutWidget>();
+    auto pEdit = std::make_shared<AUIEditWidget>(L"Hello, World!");
+    pEdit->SetDefaultSize(200.0f, 30.0f);
+    pLayout->SetSizePolicy(AUISizePolicy::kParent, AUISizePolicy::kParent);
+    pLayout->AddSubWidget(pEdit);
+    pLayout->UpdateChildPosition();
+    pLayout->UpdateSize();
+    gRootWidget = pLayout;
+
+    RECT rect{ 0, };
+    GetWindowRect(gRootWindow, &rect);
+    const auto width = rect.right - rect.left;
+    const auto height = rect.bottom - rect.top;
+    gSurface = SkSurface::MakeRaster(SkImageInfo::MakeN32(width, height, SkAlphaType::kOpaque_SkAlphaType));
+    gRootWidget->SetDefaultSize(SkIntToScalar(width), SkIntToScalar(height));
+
+    // Connect refresh signal
+    gMainSPool.Connect(AUIApplication::Instance().RefreshSignal, []() {
+        InvalidateRect(gRootWindow, nullptr, TRUE);
+    });
+
+    // Invoke refresh thread
+    gRunning = true;
+    std::packaged_task<int()> task([] {
+        while (gRunning) {
+            std::this_thread::sleep_for(std::chrono::milliseconds{ 1000 / 60 });
+            AUIApplication::Instance().Refresh();
+        }
+        return 0;
+    });
+    gRunningTask = task.get_future();
+    std::thread t(std::move(task));
+    t.detach();
+
+    gWidgetManager->CreateInstance(gRootWidget);
+
 
     const auto hAccelTable = LoadAcceleratorsW(hInstance, MAKEINTRESOURCEW(IDC_HELLOWORLD));
 
@@ -100,46 +143,13 @@ bool InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    gMainInstance = hInstance;
 
-   // Create widget manager
-   gWidgetManager.reset(new AUIRasterWidgetManager());
-   gPrevTickTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-
-   auto pLayout = std::make_shared<AUILinearLayoutWidget>();
-   auto pEdit = std::make_shared<AUIEditWidget>(L"Hello, World!");
-   pEdit->SetDefaultSize(200.0f, 30.0f);
-   pLayout->SetSizePolicy(AUISizePolicy::kParent, AUISizePolicy::kParent);
-   pLayout->AddSubWidget(pEdit);
-   pLayout->UpdateChildPosition();
-   pLayout->UpdateSize();
-   gRootWidget = pLayout;
-
-   HWND hWnd = CreateWindowExW(NULL, gWindowClass, gWindowTitle, WS_OVERLAPPEDWINDOW,
+   gRootWindow = CreateWindowExW(NULL, gWindowClass, gWindowTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-   if (!hWnd)
+   if (!gRootWindow)
       return false;
 
-   ShowWindow(hWnd, nCmdShow);
-   UpdateWindow(hWnd);
-
-   // Connect refresh signal
-   gMainSPool.Connect(AUIApplication::Instance().RefreshSignal, [hWnd]() {
-       InvalidateRect(hWnd, nullptr, TRUE);
-   });
-
-   // Invoke refresh thread
-   gRunning = true;
-   std::packaged_task<int()> task([] {
-       while (gRunning) {
-           std::this_thread::sleep_for(std::chrono::milliseconds{ 1000 / 60 });
-           AUIApplication::Instance().Refresh();
-       }
-       return 0;
-   });
-   gRunningTask = task.get_future();
-   std::thread t(std::move(task));
-   t.detach();
-
-   gWidgetManager->CreateInstance(gRootWidget);
+   ShowWindow(gRootWindow, nCmdShow);
+   UpdateWindow(gRootWindow);
 
    return true;
 }
@@ -214,12 +224,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_SIZE:
     {
-        RECT rect{ 0, };
-        GetWindowRect(hWnd, &rect);
-        const auto width = rect.right - rect.left;
-        const auto height = rect.bottom - rect.top;
-        gSurface = SkSurface::MakeRaster(SkImageInfo::MakeN32(width, height, SkAlphaType::kOpaque_SkAlphaType));
-        gRootWidget->SetDefaultSize(SkIntToScalar(width), SkIntToScalar(height));
+        if (gRootWidget)
+        {
+            RECT rect{ 0, };
+            GetWindowRect(hWnd, &rect);
+            const auto width = rect.right - rect.left;
+            const auto height = rect.bottom - rect.top;
+            gSurface = SkSurface::MakeRaster(SkImageInfo::MakeN32(width, height, SkAlphaType::kOpaque_SkAlphaType));
+            gRootWidget->SetDefaultSize(SkIntToScalar(width), SkIntToScalar(height));
+        }
         break;
     }
     case WM_SETCURSOR:
