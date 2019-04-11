@@ -104,11 +104,11 @@ enum class AUIMonths
     kDecember,
     kUndecimber      // Lunar calendar -> 13th month
 };
-inline AUIMonths NumberToMonth(int32_t nThMonth)
+constexpr inline AUIMonths NumberToMonth(int32_t nThMonth)
 {
     return static_cast<AUIMonths>(nThMonth - 1);
 }
-inline int32_t MonthToNumber(AUIMonths month)
+constexpr inline int32_t MonthToNumber(AUIMonths month)
 {
     return static_cast<int32_t>(month) + 1;
 }

@@ -83,6 +83,12 @@ AUIDaysOfWeek AUICalendar::GetFirstDaysOfWeek() const
     return static_cast<AUIDaysOfWeek>( firstDayOfWeek );
 }
 
+AUICalendar::Impl * AUICalendar::GetImpl() const
+{
+    AUIAssert(m_pImpl);
+    return m_pImpl.get();
+}
+
 AUIDateUTC AUICalendar::GetNow()
 {
     return static_cast<AUIDateUTC>( icu::Calendar::getNow() );

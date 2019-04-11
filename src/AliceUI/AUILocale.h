@@ -72,5 +72,5 @@ private:
     class Impl;
     std::unique_ptr< Impl > m_pImpl;
 public:
-    Impl * GetImpl() const { assert(m_pImpl); return m_pImpl.get(); }
+    Impl * GetImpl() const;
 };

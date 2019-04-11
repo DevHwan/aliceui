@@ -38,6 +38,12 @@ bool AUIDateFormat::IsEqual( const AUIDateFormat& dateformat ) const
     return AUIICUStringUtility::UBoolToBool( *GetImpl()->GetDF() == *dateformat.GetImpl()->GetDF() );
 }
 
+AUIDateFormat::Impl * AUIDateFormat::GetImpl() const
+{
+    AUIAssert(m_pImpl);
+    return m_pImpl.get();
+}
+
 std::wstring AUIDateFormat::Fmt( const AUIDateUTC& date )
 {
     icu::UnicodeString ustr;

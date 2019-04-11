@@ -191,3 +191,9 @@ bool AUILocale::IsEqual( const AUILocale& locale ) const
 {
     return !!( GetImpl()->RefLocale() == locale.GetImpl()->RefLocale() );
 }
+
+AUILocale::Impl * AUILocale::GetImpl() const
+{
+    AUIAssert(m_pImpl);
+    return m_pImpl.get();
+}

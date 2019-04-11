@@ -4,7 +4,7 @@
 AUIDateFormat::Impl::Impl()
 {
     m_pDateFormat = std::unique_ptr< icu::DateFormat >(icu::DateFormat::createInstance());
-    assert(m_pDateFormat);
+    AUIAssert(m_pDateFormat);
 }
 
 AUIDateFormat::Impl::Impl(const Impl& other)
@@ -30,7 +30,7 @@ AUIDateFormat::Impl::Impl(const AUIDateFormat::Type type, const AUIDateFormat::S
         m_pDateFormat = std::unique_ptr< icu::DateFormat >(icu::DateFormat::createInstance());
         break;
     }
-    assert(m_pDateFormat);
+    AUIAssert(m_pDateFormat);
 }
 
 AUIDateFormat::Impl::Impl(const AUIDateFormat::Style styleDate, const AUIDateFormat::Style styleTime, const icu::Locale& locale)
@@ -38,7 +38,7 @@ AUIDateFormat::Impl::Impl(const AUIDateFormat::Style styleDate, const AUIDateFor
     const auto icuStyleDate = static_cast<icu::DateFormat::EStyle>(styleDate);
     const auto icuStyleTime = static_cast<icu::DateFormat::EStyle>(styleTime);
     m_pDateFormat = std::unique_ptr< icu::DateFormat >(icu::DateFormat::createDateTimeInstance(icuStyleDate, icuStyleTime, locale));
-    assert(m_pDateFormat);
+    AUIAssert(m_pDateFormat);
 }
 
 AUIDateFormat::Impl& AUIDateFormat::Impl::operator=(const Impl& other)
@@ -50,5 +50,5 @@ AUIDateFormat::Impl& AUIDateFormat::Impl::operator=(const Impl& other)
 void AUIDateFormat::Impl::CopyFrom(const Impl& other)
 {
     m_pDateFormat = std::unique_ptr< icu::DateFormat >(static_cast<icu::DateFormat*>(other.GetDF()->clone()));
-    assert(m_pDateFormat);
+    AUIAssert(m_pDateFormat);
 }
