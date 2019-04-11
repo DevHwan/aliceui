@@ -3,9 +3,6 @@
 // Used by MIT_alice.rc
 //
 
-#define MIT_ALICE_GLSL_2D_VERT      1501
-#define MIT_ALICE_GLSL_2D_FRAG      1502
-
 // 다음은 새 개체에 사용할 기본값입니다.
 //
 #ifdef APSTUDIO_INVOKED

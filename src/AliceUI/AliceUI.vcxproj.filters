@@ -386,15 +386,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="..Resource\Resource Files">
-      <UniqueIdentifier>{37d259aa-5c21-43c0-a06f-7adf29474eda}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="..Resource\Resource Files\GLSL">
-      <UniqueIdentifier>{4f6285a9-bd5d-4c39-8934-092d327958eb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="..Resource\Resource Files\GLSL\2D">
-      <UniqueIdentifier>{64772366-26ad-45f9-b6b8-d17dc15cecc6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="..Generated">
       <UniqueIdentifier>{36ff1ded-4549-4cba-b58b-c7b3e1225019}</UniqueIdentifier>
     </Filter>
@@ -435,6 +426,9 @@
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="..Resource\Resource Files">
+      <UniqueIdentifier>{c7dcece7-526e-4837-8106-4fc1c4bd4539}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1639,12 +1633,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\GLSL\2D\2DVert.glsl">
-      <Filter>..Resource\Resource Files\GLSL\2D</Filter>
-    </None>
-    <None Include="res\GLSL\2D\2DFrag.glsl">
-      <Filter>..Resource\Resource Files\GLSL\2D</Filter>
-    </None>
     <None Include="README.md">
       <Filter>..Documentation</Filter>
     </None>
