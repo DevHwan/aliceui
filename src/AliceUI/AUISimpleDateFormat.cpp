@@ -38,3 +38,8 @@ bool AUISimpleDateFormat::IsEqual(const AUISimpleDateFormat& dateformat) const
 {
     return AUIICUStringUtility::UBoolToBool(*GetImpl()->GetDF() == *dateformat.GetImpl()->GetDF());
 }
+
+AUISimpleDateFormat::Impl * AUISimpleDateFormat::GetImpl() const {
+    AUIAssert(m_pImpl);
+    return m_pImpl.get();
+}

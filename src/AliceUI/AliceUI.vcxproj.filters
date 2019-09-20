@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="..Documentation">
       <UniqueIdentifier>{a6846d7e-d3e1-4d6e-a28e-5cfd0bb39aea}</UniqueIdentifier>
     </Filter>
@@ -394,15 +386,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="..Resource\Resource Files">
-      <UniqueIdentifier>{37d259aa-5c21-43c0-a06f-7adf29474eda}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="..Resource\Resource Files\GLSL">
-      <UniqueIdentifier>{4f6285a9-bd5d-4c39-8934-092d327958eb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="..Resource\Resource Files\GLSL\2D">
-      <UniqueIdentifier>{64772366-26ad-45f9-b6b8-d17dc15cecc6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="..Generated">
       <UniqueIdentifier>{36ff1ded-4549-4cba-b58b-c7b3e1225019}</UniqueIdentifier>
     </Filter>
@@ -435,6 +418,17 @@
     </Filter>
     <Filter Include="03. Platform Support\Win32\01. WinAPI\Handle">
       <UniqueIdentifier>{1bff5374-63eb-442c-a7ce-295787ad8dd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="..Resource\Resource Files">
+      <UniqueIdentifier>{c7dcece7-526e-4837-8106-4fc1c4bd4539}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1639,12 +1633,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\GLSL\2D\2DVert.glsl">
-      <Filter>..Resource\Resource Files\GLSL\2D</Filter>
-    </None>
-    <None Include="res\GLSL\2D\2DFrag.glsl">
-      <Filter>..Resource\Resource Files\GLSL\2D</Filter>
-    </None>
     <None Include="README.md">
       <Filter>..Documentation</Filter>
     </None>

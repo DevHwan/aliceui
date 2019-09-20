@@ -4,7 +4,11 @@
 #include <array>
 
 #include <GL/glew.h>
+
+#define GLFW_EXPOSE_NATIVE_WIN32
+#define GLFW_EXPOSE_NATIVE_WGL
 #include <GLFW/glfw3.h>
+#include <GLFW/glfw3native.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -13,10 +17,11 @@
 #include <AUILinearLayoutWidget.h>
 #include <AUITextWidget.h>
 #include <AUIColorDrawable.h>
+#include <AUIWin32AppImpl.h>
 
 #include <SkSurface.h>
 
-constexpr auto VertexShaderCode = R"(
+constexpr auto kDefaultVertexShaderCode = R"(
 #version 330 core
 
 layout(location = 0) in vec3 position;
@@ -24,17 +29,14 @@ layout(location = 1) in vec2 texcoord;
 
 out vec2 oTexCoord;
 
-uniform mat4 uMatModelView;
-
 void main() {
     oTexCoord = texcoord;
 
-    //gl_Position = uMatModelView * vec4(position, 1.0);
     gl_Position.xyz = position;
     gl_Position.w = 1.0;
 }
 )";
-constexpr auto FragmentShaderCode = R"(
+constexpr auto kTextureFragmentShaderCode = R"(
 #version 330 core
 
 in vec2 oTexCoord;
@@ -282,12 +284,12 @@ public:
 
         glGenBuffers(1, &m_IdVtx);
         static const std::array<float, 18> sVtxData = {
-            -1.0f, -1.0f, 0.0f,
-            1.0f, -1.0f, 0.0f,
-            1.0f, 1.0f, 0.0f,
-            -1.0f, -1.0f, 0.0f,
-            1.0f, 1.0f, 0.0f,
-            -1.0f, 1.0f, 0.0f
+            -1.0f, -1.0f,  0.0f,
+             1.0f, -1.0f,  0.0f,
+             1.0f,  1.0f,  0.0f,
+            -1.0f, -1.0f,  0.0f,
+             1.0f,  1.0f,  0.0f,
+            -1.0f,  1.0f,  0.0f
         };
 
         glBindBuffer(GL_ARRAY_BUFFER, m_IdVtx);
@@ -345,7 +347,6 @@ private:
     GLuint m_IdTex = 0;
 };
 
-
 constexpr int kWindowWidth = 1280;
 constexpr int kWindowHeight = 720;
 
@@ -370,7 +371,8 @@ int main() {
     }
 
     // Init Alice UI Framework
-    AUIApplicationAutoInit appAutoInit;
+    AUIWin32AppImpl::InitRootWindow(glfwGetWin32Window(window));
+    AUIApplicationAutoInit appAutoInit(std::make_unique<AUIWin32AppImpl>());
 
     // Create raster widget manager
     std::unique_ptr<AUIRasterWidgetManager> pWidgetManager(new AUIRasterWidgetManager());
@@ -402,25 +404,25 @@ int main() {
     }
 
     Shader vertexShader;
-    if (false == vertexShader.CreateVertexShader(VertexShaderCode)) {
+    if (false == vertexShader.CreateVertexShader(kDefaultVertexShaderCode)) {
         std::cerr << "Failed to create vertex shader\n";
         return EXIT_FAILURE;
     }
 
-    Shader fragmentShader;
-    if (false == fragmentShader.CreateFragmentShader(FragmentShaderCode)) {
+    Shader texFragmentShader;
+    if (false == texFragmentShader.CreateFragmentShader(kTextureFragmentShaderCode)) {
         std::cerr << "Failed to create fragment shader\n";
         return EXIT_FAILURE;
     }
 
-    ShaderProgram program;
-    if (false == program.Create(vertexShader, fragmentShader)) {
+    ShaderProgram texProgram;
+    if (false == texProgram.Create(vertexShader, texFragmentShader)) {
         std::cerr << "Failed to create shader program\n";
         return EXIT_FAILURE;
     }
 
-    QuadModel model;
-    if (false == model.Create()) {
+    QuadModel quadModel;
+    if (false == quadModel.Create()) {
         std::cerr << "Failed to create model\n";
         return EXIT_FAILURE;
     }
@@ -474,17 +476,16 @@ int main() {
 
         // Render in OpenGL
 
-        program.UseProgram();
+        texProgram.UseProgram();
+        {
+            glUniform1i(texProgram.GetUniformId("uTexture"), 0);
+            glActiveTexture(GL_TEXTURE0 + 0);
+            texture.Bind();
+            glBindSampler(0, samplerState.Id());
 
-        glUniform1i(program.GetUniformId("uTexture"), 0);
-        glActiveTexture(GL_TEXTURE0 + 0);
-        texture.Bind();
-        glBindSampler(0, samplerState.Id());
-
-
-        model.Draw();
-
-        program.UnuseProgram();
+            quadModel.Draw();
+        }
+        texProgram.UnuseProgram();
 
         glfwSwapBuffers(window);
         glfwPollEvents();

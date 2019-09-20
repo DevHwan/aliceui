@@ -36,6 +36,12 @@ bool AUITimeZone::IsEqual( const AUITimeZone& timezone ) const
     return !!( *GetImpl()->GetTimeZone() == *timezone.GetImpl()->GetTimeZone() );
 }
 
+AUITimeZone::Impl * AUITimeZone::GetImpl() const
+{
+    AUIAssert(m_pImpl);
+    return m_pImpl.get();
+}
+
 AUITimeZone AUITimeZone::GetUnknown()
 {
     static std::once_flag sOnce;

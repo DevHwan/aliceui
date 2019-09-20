@@ -5,8 +5,8 @@ AUISimpleDateFormat::Impl::Impl(const std::wstring& pattern)
 {
     UErrorCode errCode(U_ZERO_ERROR);
     m_pDateFormat = std::unique_ptr<icu::SimpleDateFormat>(new icu::SimpleDateFormat(AUIICUStringUtility::CvtToUStr(pattern), errCode));
-    assert(U_SUCCESS(errCode));
-    assert(m_pDateFormat);
+    AUIAssert(U_SUCCESS(errCode));
+    AUIAssert(m_pDateFormat);
 }
 
 AUISimpleDateFormat::Impl::Impl(const Impl& other)
@@ -22,6 +22,6 @@ AUISimpleDateFormat::Impl& AUISimpleDateFormat::Impl::operator=(const Impl& othe
 
 void AUISimpleDateFormat::Impl::CopyFrom(const Impl& other)
 {
-    assert(m_pDateFormat);
+    AUIAssert(m_pDateFormat);
     *GetDF() = *other.GetDF();
 }

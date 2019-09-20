@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "AUIICUStringUtility.h"
+#include "AUIStringConvert.h"
 
 namespace
 {
@@ -34,11 +35,11 @@ namespace
         // Fill buffer
         const auto outLengh = ucnv_toUChars( pConverter, pOutBuf, _BufferSize, reinterpret_cast<const char*>( pStr ), strSizeInBytes, &err );
         pOutBuf[outLengh] = '\0';
-        assert( U_SUCCESS( err ) );
+        AUIAssert( U_SUCCESS( err ) );
 
         // Shrink buffer
         out.releaseBuffer( outLengh );
-        assert( outLengh == out.length() );
+        AUIAssert( outLengh == out.length() );
     }
 
     void ConvertString( UConverter* pConverter, std::wstring& out, const icu::UnicodeString& in )
@@ -66,7 +67,7 @@ namespace
             in.getBuffer(), inLength, &err );
         const auto outSizeInValueType = outSizeInBytes / sizeof( _targetstring::value_type );
         out.at( outSizeInValueType ) = L'0';
-        assert( U_SUCCESS( err ) );
+        AUIAssert( U_SUCCESS( err ) );
 
         // Shrink buffer
         out.resize( outSizeInValueType );
@@ -97,7 +98,7 @@ namespace
             in.getBuffer(), inLength, &err );
         const auto outSizeInValueType = outSizeInBytes / sizeof( _targetstring::value_type );
         out.at( outSizeInValueType ) = L'0';
-        assert( U_SUCCESS( err ) );
+        AUIAssert( U_SUCCESS( err ) );
 
         // Shrink buffer
         out.resize( outSizeInValueType );
@@ -112,8 +113,8 @@ namespace
         {
             UErrorCode err = U_ZERO_ERROR;
             m_pConverter = std::unique_ptr< UConverter, std::function< void( UConverter* ) > >( ucnv_open( GetPlatformTextEncoding(), &err ), ucnv_close );
-            assert( m_pConverter );
-            assert( U_SUCCESS( err ) );
+            AUIAssert( m_pConverter );
+            AUIAssert( U_SUCCESS( err ) );
         }
         ~ConverterImpl()
         {
@@ -127,7 +128,7 @@ namespace
             {
                 inLen = wcslen( pIn );
             }
-            assert(AUIICUNullTerm != inLen );
+            AUIAssert(AUIICUNullTerm != inLen );
             ConvertStringT< wchar_t >( GetConverter(), out, pIn, inLen );
         }
         void CvtStr( icu::UnicodeString& out, const char* pIn, const size_t len )
@@ -137,7 +138,7 @@ namespace
             {
                 inLen = strlen( pIn );
             }
-            assert(AUIICUNullTerm != inLen );
+            AUIAssert(AUIICUNullTerm != inLen );
             ConvertStringT< char >( GetConverter(), out, pIn, inLen );
         }
         void CvtStr( icu::UnicodeString& out, const std::wstring& in )
@@ -157,48 +158,9 @@ namespace
             ConvertString( GetConverter(), out, in );
         }
     private:
-        UConverter * GetConverter() const { assert( m_pConverter ); return m_pConverter.get(); }
+        UConverter * GetConverter() const { AUIAssert( m_pConverter ); return m_pConverter.get(); }
         std::unique_ptr< UConverter, std::function< void( UConverter* ) > > m_pConverter;
     };
-
-#ifdef _WIN32
-    std::wstring MultiToWide(const char* str, int len = -1, UINT CodePage = ::GetACP())
-    {
-        assert(str);
-        const DWORD flag = 0;//(CodePage == CP_UTF8) ? WC_ERR_INVALID_CHARS : 0;
-        const auto bufSize = ::MultiByteToWideChar(CodePage, flag, str, len, nullptr, 0);
-        auto strSize = bufSize;
-
-        if (len < 0)
-            strSize = bufSize - 1;
-        if (bufSize <= 0)
-            return {};
-
-        std::vector<wchar_t> wsv(bufSize);
-        if (0 == ::MultiByteToWideChar(CodePage, flag, str, len, wsv.data(), bufSize)) {
-            return {};
-        }
-        return std::wstring(wsv.begin(), wsv.begin() + strSize);
-    }
-    std::string WideToMulti(const wchar_t* str, int len = -1, UINT CodePage = ::GetACP())
-    {
-        assert(str);
-        const DWORD flag = 0;//(CodePage == CP_UTF8) ? WC_ERR_INVALID_CHARS : 0;
-        const auto bufSize = ::WideCharToMultiByte(CodePage, flag, str, len, NULL, 0, nullptr, nullptr);
-        auto strSize = bufSize;
-
-        if (len < 0)
-            strSize = bufSize - 1;
-        if (bufSize <= 0)
-            return {};
-
-        std::vector<char> wsv(bufSize);
-        if (0 == ::WideCharToMultiByte(CodePage, flag, str, len, wsv.data(), bufSize, nullptr, nullptr)) {
-            return {};
-        }
-        return std::string(wsv.begin(), wsv.begin() + strSize);
-    }
-#endif
 }
 
 icu::UnicodeString AUIICUStringUtility::CvtToUStr( const std::wstring& in )
@@ -243,43 +205,22 @@ std::wstring AUIICUStringUtility::CvtToWStr( const icu::UnicodeString& in )
 
 std::wstring AUIICUStringUtility::CvtToWStr( const std::string& in )
 {
-#ifdef _WIN32
-    return MultiToWide(in.c_str(), static_cast<int>(in.length()));
-#else
-    std::wstring_convert< std::codecvt_utf8< wchar_t > > UTF8Converter;
-    return UTF8Converter.from_bytes(in);
-#endif
+    return AUIStringConvert::ACPToWCS(in);
 }
 
 std::wstring AUIICUStringUtility::CvtToWStr( const char* in)
 {
-#ifdef _WIN32
-    return MultiToWide(in);
-#else
-    std::wstring_convert< std::codecvt_utf8< wchar_t > > UTF8Converter;
-    return UTF8Converter.from_bytes(in);
-#endif
+    return AUIStringConvert::ACPToWCS(in);
 }
 
 std::string AUIICUStringUtility::CvtToStr( const wchar_t* in )
 {
-#ifdef _WIN32
-    return WideToMulti(in);
-#else
-    std::wstring_convert< std::codecvt_utf8< wchar_t > > UTF8Converter;
-    return UTF8Converter.to_bytes(in);
-#endif
+    return AUIStringConvert::WCSToACP(in);
 }
 
 std::string AUIICUStringUtility::CvtToStr( const std::wstring& in )
 {
-
-#ifdef _WIN32
-    return WideToMulti(in.c_str(), static_cast<int>(in.length()));
-#else
-    std::wstring_convert< std::codecvt_utf8< wchar_t > > UTF8Converter;
-    return UTF8Converter.to_bytes(in);
-#endif
+    return AUIStringConvert::WCSToACP(in);
 }
 
 std::string AUIICUStringUtility::CvtToStr( const icu::UnicodeString& in )

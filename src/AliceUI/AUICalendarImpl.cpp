@@ -5,7 +5,7 @@ AUICalendar::Impl::Impl()
 {
     UErrorCode err(U_ZERO_ERROR);
     m_pCalendar = std::unique_ptr< icu::Calendar >(icu::Calendar::createInstance(icu::Locale::getDefault(), err));
-    assert(U_SUCCESS(err));
+    AUIAssert(U_SUCCESS(err));
 }
 
 AUICalendar::Impl::Impl(const Impl& other)
@@ -17,21 +17,21 @@ AUICalendar::Impl::Impl(const AUILocale& locale)
 {
     UErrorCode err;
     m_pCalendar = std::unique_ptr< icu::Calendar >(icu::Calendar::createInstance(locale.GetImpl()->RefLocale(), err));
-    assert(U_SUCCESS(err));
+    AUIAssert(U_SUCCESS(err));
 }
 
 AUICalendar::Impl::Impl(const AUITimeZone& timezone)
 {
     UErrorCode err;
     m_pCalendar = std::unique_ptr< icu::Calendar >(icu::Calendar::createInstance(*timezone.GetImpl()->GetTimeZone(), err));
-    assert(U_SUCCESS(err));
+    AUIAssert(U_SUCCESS(err));
 }
 
 AUICalendar::Impl::Impl(const AUITimeZone& timezone, const AUILocale& locale)
 {
     UErrorCode err;
     m_pCalendar = std::unique_ptr< icu::Calendar >(icu::Calendar::createInstance(*timezone.GetImpl()->GetTimeZone(), locale.GetImpl()->RefLocale(), err));
-    assert(U_SUCCESS(err));
+    AUIAssert(U_SUCCESS(err));
 }
 
 AUICalendar::Impl& AUICalendar::Impl::operator=(const Impl& other)
@@ -43,5 +43,5 @@ AUICalendar::Impl& AUICalendar::Impl::operator=(const Impl& other)
 void AUICalendar::Impl::CopyFrom(const Impl& other)
 {
     m_pCalendar = std::unique_ptr< icu::Calendar >(GetCalendar()->clone());
-    assert(m_pCalendar);
+    AUIAssert(m_pCalendar);
 }

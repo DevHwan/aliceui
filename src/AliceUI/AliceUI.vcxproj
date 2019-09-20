@@ -640,8 +640,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
-    <None Include="res\GLSL\2D\2DFrag.glsl" />
-    <None Include="res\GLSL\2D\2DVert.glsl" />
     <None Include="res\AliceUI.rc2" />
   </ItemGroup>
   <ItemGroup>

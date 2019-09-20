@@ -30,6 +30,12 @@ bool AUIDateFormatSymbols::IsEqual(const AUIDateFormatSymbols& dfmtsym) const
     return *GetImpl() == *dfmtsym.GetImpl();
 }
 
+AUIDateFormatSymbols::Impl * AUIDateFormatSymbols::GetImpl() const
+{
+    AUIAssert(m_pImpl);
+    return m_pImpl.get();
+}
+
 std::vector<std::wstring> AUIDateFormatSymbols::GetEras() const
 {
     int32_t cnt = 0;
