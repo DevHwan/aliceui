@@ -1,6 +1,3 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 #include <AUIRasterWidgetManager.h>
 #include <AUILinearLayoutWidget.h>
 #include <AUIColorDrawable.h>
@@ -9,6 +6,17 @@
 
 #include <core/SkSurface.h>
 
+#if defined(WIN32)
+#   define GLFW_EXPOSE_NATIVE_WIN32
+#   include <AUIWin32AppImpl.h>
+#elif defined(__APPLE__)
+#   define GLFW_EXPOSE_NATIVE_COCOA
+#   include <AUIDarwinAppImpl.h>
+#endif
+
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <GLFW/glfw3native.h>
 
 #include <iostream>
 #include <array>
@@ -357,11 +365,20 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // Create window
-    const auto window = glfwCreateWindow(kWindowWidth, kWindowHeight, "AliceUI Framework OpenGL Example", nullptr, nullptr);
+    const auto window = glfwCreateWindow(kWindowWidth, kWindowHeight, "AliceUI Framework GLFW Example", nullptr, nullptr);
     if (nullptr == window) {
         std::cerr << "Failed to create GLFW window.";
         return EXIT_FAILURE;
     }
+
+    // Init Alice UI Framework
+#if defined(WIN32)
+    AUIWin32AppImpl::InitRootWindow(glfwGetWin32Window(window));
+    AUIApplicationAutoInit appAutoInit(std::make_unique<AUIWin32AppImpl>());
+#elif defined(__APPLE__)
+    AUIDarwinAppImpl::InitRootWindow(glfwGetCocoaWindow(window));
+    AUIApplicationAutoInit appAutoInit(std::make_unique<AUIDarwinAppImpl>());
+#endif
 
     // Create raster widget manager
     std::unique_ptr<AUIRasterWidgetManager> pWidgetManager(new AUIRasterWidgetManager());

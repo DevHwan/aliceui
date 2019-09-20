@@ -5,7 +5,7 @@ project(AliceUI
     LANGUAGES CXX)
 
 # Build examples
-option(ALICEUI_BUILD_EXAMPLE_GLFW "Build examples" OFF)
+option(ALICEUI_BUILD_EXAMPLE_GLFW "Build glfw example" OFF)
 
 # Setup conan
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
