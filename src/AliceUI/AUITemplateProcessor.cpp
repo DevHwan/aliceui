@@ -531,7 +531,7 @@ bool AUITemplateProcessor::TrOptimize()
             }
             else if ( transaction.fWidget )
             {
-                if ( false == transaction.fWidget->GetParent() )
+                if ( nullptr == transaction.fWidget->GetParent() )
                 {
                     AUIAssertFailReason("No parent");
                     continue;

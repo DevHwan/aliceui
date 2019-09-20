@@ -57,6 +57,6 @@ AUIKeyboardEvent::AUIKeyboardEvent(AUIKeyboardEvent::EventType type, WPARAM wPar
 
 #else
 
-#   error TODO: Implement for other OS
+// TODO 
 
 #endif

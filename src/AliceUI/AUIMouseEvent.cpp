@@ -7,6 +7,10 @@ MAUIMouseEvent::MAUIMouseEvent(EventType type, UINT nFlags, POINT point, short d
 {
 
 }
+#elif defined(__APPLE__)
+
+// TODO
+
 #else
 
 #error TODO: Implement for other OS

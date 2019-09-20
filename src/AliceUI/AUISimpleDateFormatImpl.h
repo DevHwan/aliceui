@@ -1,9 +1,6 @@
 //////////////////////////////////////////////////////////////////////////
 // Private Header
 #pragma once
-#ifndef ALICEUI_EXPORTS
-#   error Do not include *Impl.h outside
-#endif
 
 #include "AUII18NPrivateDef.h"
 

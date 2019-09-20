@@ -43,8 +43,9 @@ void AUISkiaExampleWidget::OnDraw( SkCanvas * const canvas )
     SkPaint textPaint;
     textPaint.setColor(kAUIColorBlack );
     textPaint.setAntiAlias( true );
-    textPaint.setTextSize( 13.0f );
-    textPaint.setTextEncoding( SkPaint::kUTF16_TextEncoding );
+    // TODO
+    //textPaint.setTextSize( 13.0f );
+    //textPaint.setTextEncoding( SkPaint::kUTF16_TextEncoding );
     SkPaint defaultBorderPaint;
     defaultBorderPaint.setColor(kAUIColorBlack );
     defaultBorderPaint.setStyle( SkPaint::kStroke_Style );
@@ -65,7 +66,8 @@ void AUISkiaExampleWidget::OnDraw( SkCanvas * const canvas )
     canvasHelper.drawText( L"Hello, World!", 0.0f, 15.0f, textPaint );
     // Text by bound
     SkRect textRegion = SkRect::MakeXYWH( 100.0f, 0.0f, 100.0f, 15.0f );
-    canvasHelper.drawText( L"Çï·Î¿ì, ¿ùµå!", textRegion, AUITextVertAlign::kCenter, AUITextHorzAlign::kCenter, true, textPaint );
+    // TODO
+    //canvasHelper.drawText( L"Çï·Î¿ì, ¿ùµå!", textRegion, AUITextVertAlign::kCenter, AUITextHorzAlign::kCenter, true, textPaint );
     canvas->drawRect( textRegion, defaultBorderPaint );
     //////////////////////////////////////////////////////////////////////////
     canvas->translate( 0.0f, 20.0f );
@@ -254,7 +256,8 @@ void AUISkiaExampleWidget::OnDraw( SkCanvas * const canvas )
     localMat.postRotate( 30.0f );
     SkPaint shaderPaint;
     shaderPaint.setAntiAlias( true );
-    shaderPaint.setShader(pAliceBitmap->makeShader(SkShader::kRepeat_TileMode, SkShader::kRepeat_TileMode, &localMat ) );
+    // TODO
+    //shaderPaint.setShader(pAliceBitmap->makeShader(SkShader::kRepeat_TileMode, SkShader::kRepeat_TileMode, &localMat ) );
     canvas->drawRect( SkRect::MakeXYWH( bitmapOffsetX, 0.0f, static_cast<SkScalar>( pAliceBitmap->width() ), static_cast<SkScalar>( pAliceBitmap->height() ) ), shaderPaint );
     bitmapOffsetX += pAliceBitmap->width() + 5.0f;
     //////////////////////////////////////////////////////////////////////////

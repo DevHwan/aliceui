@@ -2,7 +2,7 @@
 
 #include "AUISkiaPreConfig.h"
 
-#include <skia/core/SkColor.h>
+#include <core/SkColor.h>
 
 // Alpha values
 constexpr SkAlpha kAUIAlphaOpaque               = 0xFF;

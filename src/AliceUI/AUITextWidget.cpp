@@ -352,8 +352,9 @@ void AUITextWidget::GetCaptionPaint( SkPaint& paint ) const
 {
     paint.setAntiAlias( GetCaptionAntialias() );
     paint.setStyle( SkPaint::kFill_Style );
-    paint.setTextSize( GetCaptionSize() );
-    paint.setTextEncoding( SkPaint::kUTF16_TextEncoding );
+    // TODO
+    //paint.setTextSize( GetCaptionSize() );
+    //paint.setTextEncoding( SkPaint::kUTF16_TextEncoding );
     paint.setColor( GetCaptionColor( AUIState::kDefault, true ) );
 
     if ( IsDisabled() )
@@ -397,19 +398,20 @@ void AUITextWidget::GetCaptionPaint( SkPaint& paint ) const
         SkTypeface::MakeDefault()->getFamilyName(&defaultFontName);
     }
     const auto kDefaultFontStyle = SkFontStyle::Normal();
-    if (GetCaptionFontName().empty() == false )
-    {
-        const auto fontName = AUIStringConvert::WCSToUTF8(GetCaptionFontName().c_str());
-        sk_sp<SkTypeface> pTypeface(pFontMgr->matchFamilyStyle(fontName.c_str(), GetCaptionStyle()));
-        if (nullptr == pTypeface)
-            pTypeface.reset(pFontMgr->matchFamilyStyle(defaultFontName.c_str(), GetCaptionStyle()));
-        paint.setTypeface(pTypeface);
-    }
-    else if (!(m_captionStyle == kDefaultFontStyle))
-    {
-        sk_sp<SkTypeface> pTypeface(pFontMgr->matchFamilyStyle(defaultFontName.c_str(), GetCaptionStyle()));
-        paint.setTypeface(pTypeface);
-    }
+    // TODO : Need alternative method for this feature
+//    if (GetCaptionFontName().empty() == false )
+//    {
+//        const auto fontName = AUIStringConvert::WCSToUTF8(GetCaptionFontName().c_str());
+//        sk_sp<SkTypeface> pTypeface(pFontMgr->matchFamilyStyle(fontName.c_str(), GetCaptionStyle()));
+//        if (nullptr == pTypeface)
+//            pTypeface.reset(pFontMgr->matchFamilyStyle(defaultFontName.c_str(), GetCaptionStyle()));
+//        paint.setTypeface(pTypeface);
+//    }
+//    else if (!(m_captionStyle == kDefaultFontStyle))
+//    {
+//        sk_sp<SkTypeface> pTypeface(pFontMgr->matchFamilyStyle(defaultFontName.c_str(), GetCaptionStyle()));
+//        paint.setTypeface(pTypeface);
+//    }
 
 }
 
@@ -521,7 +523,16 @@ void AUITextWidget::MeasureCaption(AUIScalar2& out, SkScalar width, AUIMeasureSp
                 auto tmpCaption = newlineCaptions[0];
                 while (idx < newlineCaptions.size())
                 {
-                    const auto possibleCharCount = paint.breakText(tmpCaption.c_str(), tmpCaption.length() * sizeof(std::wstring::value_type), possibleWidth) / sizeof(std::wstring::value_type);
+                    // TODO : Re-implement measurement using shaping library (e.g. Harfbuzz)
+                    const auto textWidth = SkFont().measureText(tmpCaption.c_str(), tmpCaption.length() * sizeof(std::wstring::value_type), (2 == sizeof(wchar_t)) ? SkTextEncoding::kUTF16 : SkTextEncoding::kUTF32);
+                    auto averageCharacterWidth = textWidth / static_cast<SkScalar>(tmpCaption.length());
+                    size_t possibleCharCount = 0;
+                    if (SkScalarNearlyZero(averageCharacterWidth)) {
+                        possibleCharCount = tmpCaption.length();
+                    } else {
+                        possibleCharCount = static_cast<size_t>(possibleWidth / averageCharacterWidth);
+                    }
+                    
                     if (tmpCaption.length() > possibleCharCount)
                     {
                         m_MeasuredCaption.emplace_back(tmpCaption.substr(0, possibleCharCount));
@@ -548,7 +559,15 @@ void AUITextWidget::MeasureCaption(AUIScalar2& out, SkScalar width, AUIMeasureSp
                 auto tmpCaption = newlineCaptions[0];
                 while (idx < newlineCaptions.size())
                 {
-                    auto possibleCharCount = paint.breakText(tmpCaption.c_str(), tmpCaption.length() * sizeof(std::wstring::value_type), possibleWidth) / sizeof(std::wstring::value_type);
+                    // TODO : Re-implement measurement using shaping library (e.g. Harfbuzz)
+                    const auto textWidth = SkFont().measureText(tmpCaption.c_str(), tmpCaption.length() * sizeof(std::wstring::value_type), (2 == sizeof(wchar_t)) ? SkTextEncoding::kUTF16 : SkTextEncoding::kUTF32);
+                    auto averageCharacterWidth = textWidth / static_cast<SkScalar>(tmpCaption.length());
+                    size_t possibleCharCount = 0;
+                    if (SkScalarNearlyZero(averageCharacterWidth)) {
+                        possibleCharCount = tmpCaption.length();
+                    } else {
+                        possibleCharCount = static_cast<size_t>(possibleWidth / averageCharacterWidth);
+                    }
                     if (0 == possibleCharCount)
                         possibleCharCount = 1;  // At least one character
                     if (tmpCaption.length() > possibleCharCount)

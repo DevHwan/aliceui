@@ -20,9 +20,9 @@ AUICalendarFrameWidget::AUICalendarFrameWidget() noexcept
 	m_Quick->SetMarginRight(55.0f);
 	m_UBtn->SetDefaultSize(30.0f, 20.0f);
 	m_UBtn->SetMarginRight(1.0f);
-	m_UBtn->SetCaption(L"¡ã");
+	m_UBtn->SetCaption(L"UP");
 	m_DBtn->SetDefaultSize(30.0f, 20.0f);
-	m_DBtn->SetCaption(L"¡å");
+	m_DBtn->SetCaption(L"DOWN");
 
 	m_Header->AddSubWidget(m_Quick);
 	m_Header->AddSubWidget(m_UBtn);

@@ -2,7 +2,7 @@
 
 #include "AUIAPIDef.h"
 #include "AUISkiaPreConfig.h"
-#include <skia/core/SkScalar.h>
+#include <core/SkScalar.h>
 
 #include <glm/glm.hpp>
 

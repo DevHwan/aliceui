@@ -4,7 +4,20 @@
 #if defined(_WIN32)
 #include "AUIClipboard_win32.h"
 #else
-#   error Implement clipboard
+// Null clipboard
+class AUIClipboard::Impl
+{
+public:
+    Impl() = default;
+    ~Impl() = default;
+
+    std::wstring GetText() const {
+        return {};
+    }
+    void SetText(const std::wstring& text) {
+        
+    }
+};
 #endif
 
 AUIClipboard::AUIClipboard()

@@ -9,7 +9,6 @@
 #include "AUIStringConvert.h"
 #include "AUIApplication.h"
 
-
 namespace {
     constexpr wchar_t DefaultCaption[] = L"";
     constexpr wchar_t DefaultCaptionHint[] = L"Insert Here";
@@ -402,7 +401,7 @@ void AUIEditWidget::OnDrawEditCaption_Single( SkCanvas* const canvas )
 
         if ( hasCompChar )
         {
-            captionPaint.setTextSize( GetCaptionSize() );
+            //captionPaint.setTextSize( GetCaptionSize() );
             captionPaint.setColor( GetCaptionCompColor() );
 
             SkRect compBound;
@@ -458,9 +457,10 @@ void AUIEditWidget::OnDrawEditCaption_Single( SkCanvas* const canvas )
         selBGPaint.setColor( GetSelectBGColor() );
         selBGPaint.setStyle( SkPaint::kFill_Style );
 
-        SkPaint::FontMetrics metric;
-        captionSelPaint.getFontMetrics( &metric );
-
+        // TODO : Add font setting parameters
+        SkFontMetrics metric;
+        SkFont().getMetrics(&metric);
+        
         if ( selCaption.empty() == false )
         {
             auto selBGRect = SkRect::MakeLTRB( strTargetPos.x() + preBound.left() + preBound.width(), strTargetPos.y() + metric.fTop, strTargetPos.x() + preBound.left() + preBound.width() + selBound.left() + selBound.width(), strTargetPos.y() + metric.fBottom );
@@ -485,7 +485,7 @@ void AUIEditWidget::OnDrawEditCaption_Single( SkCanvas* const canvas )
         if ( compChar.empty() == false )
         {
             auto captionCompPaint = captionPaint;
-            captionCompPaint.setTextSize( GetCaptionSize() );
+            //captionCompPaint.setTextSize( GetCaptionSize() );
             captionCompPaint.setColor( GetCaptionCompColor() );
 
             SkRect compBound;
@@ -519,8 +519,8 @@ void AUIEditWidget::OnDrawEditCaption_Single( SkCanvas* const canvas )
             SkRect strCompBound;
             auto strCompPos = AUISkiaUtil::CalcTextStartPos( compChar, captionArea, GetCaptionVertAlign(), GetCaptionHorzAlign(), true, strCompBound, captionPaint );
 
-            SkPaint::FontMetrics metric;
-            captionPaint.getFontMetrics( &metric );
+            SkFontMetrics metric;
+            SkFont().getMetrics(&metric);
 
             float x0 = 0.0f;
             float y0 = 0.0f;
@@ -1261,8 +1261,8 @@ SkPaint AUIEditWidget::GetCaptionPaint()
     captionPaint.setAntiAlias( GetCaptionAntialias() );
     captionPaint.setColor( targetCaptionColor );
     captionPaint.setStyle( SkPaint::kFill_Style );
-    captionPaint.setTextSize( targetCaptionSize );
-    captionPaint.setTextEncoding( SkPaint::kUTF16_TextEncoding );
+    //captionPaint.setTextSize( targetCaptionSize );
+    //captionPaint.setTextEncoding( SkPaint::kUTF16_TextEncoding );
 
 	if (IsDisabled())
 		captionPaint.setColor(GetCaptionColor(AUIState::kDisabled, true));
@@ -1271,7 +1271,8 @@ SkPaint AUIEditWidget::GetCaptionPaint()
     if (GetCaptionFontName().empty() == false )
     {
         const auto fontName = AUIStringConvert::WCSToUTF8(GetCaptionFontName().c_str());
-        captionPaint.setTypeface( SkTypeface::MakeFromName(fontName.c_str(), GetCaptionStyle()));
+        // TODO
+        //captionPaint.setTypeface( SkTypeface::MakeFromName(fontName.c_str(), GetCaptionStyle()));
     }
 
 

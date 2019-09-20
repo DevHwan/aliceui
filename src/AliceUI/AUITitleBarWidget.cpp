@@ -42,10 +42,11 @@ public:
 private:
 	void UpdateMaximizeState()
 	{
-		AUIGalleria galleria;
+#if defined(WIN32)
 		auto pMainWnd = ::AfxGetApp()->GetMainWnd();
 		if (pMainWnd && pMainWnd->GetSafeHwnd())
 			m_bZoomed = ::AfxGetApp()->GetMainWnd()->IsZoomed();
+#endif
 		if (m_bZoomed)
 			SetRestoreIcon();
 		else
@@ -211,7 +212,7 @@ void AUITitleBarWidget::SetVisibleSysButton(SysBtnFlag sysbtnFlag)
 {
 	auto funcSetupButton = [](std::shared_ptr<AUIImageButtonWidget>* ppBtnBefore, const SysBtnFlag flag, const SysBtnFlag target, const std::shared_ptr<AUIImageButtonWidget>& curBtn) {
         AUIAssert(ppBtnBefore);
-		if (!AUICheckEnumFlag(flag & target)) {
+		if (!(flag & target)) {
 			curBtn->SetIgnored(true);
 			return;
 		}
