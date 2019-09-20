@@ -29,5 +29,6 @@ target_compile_features(AliceUI
 target_include_directories(AliceUI
     PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/AliceUI
-        ${CMAKE_CURRENT_LIST_DIR}/../include)
+        ${CMAKE_CURRENT_LIST_DIR}/../include
+    PRIVATE)
 
