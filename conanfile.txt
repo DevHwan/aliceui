@@ -2,6 +2,8 @@
 icu/62.1@bincrafters/stable
 glm/0.9.9.5@g-truc/stable
 rapidjson/1.1.0@bincrafters/stable
+glfw/3.3@bincrafters/stable
+glew/2.1.0@bincrafters/stable
 
 [generators]
 cmake
