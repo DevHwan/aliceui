@@ -199,7 +199,7 @@ public:
         glGenTextures(1, &m_Id);
         glBindTexture(GL_TEXTURE_2D, m_Id);
         char tmp[4] = { 0, };
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_BGRA, 1, 1, 0, GL_BGRA, GL_UNSIGNED_BYTE, tmp);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_BGRA, GL_UNSIGNED_BYTE, tmp);
         if (false == IsValid())
             return false;
         return true;
@@ -209,7 +209,7 @@ public:
         if (false == IsValid())
             return false;
         glBindTexture(GL_TEXTURE_2D, m_Id);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_BGRA, pixmap.width(), pixmap.height(), 0, GL_BGRA, GL_UNSIGNED_BYTE, pixmap.addr());
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, pixmap.width(), pixmap.height(), 0, GL_BGRA, GL_UNSIGNED_BYTE, pixmap.addr());
         return true;
     }
 
@@ -246,8 +246,8 @@ public:
         glGenSamplers(1, &m_Id);
         if (false == IsValid())
             return false;
-        glSamplerParameteri(m_Id, GL_TEXTURE_WRAP_S, GL_CLAMP);
-        glSamplerParameteri(m_Id, GL_TEXTURE_WRAP_T, GL_CLAMP);
+        glSamplerParameteri(m_Id, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glSamplerParameteri(m_Id, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glSamplerParameteri(m_Id, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glSamplerParameteri(m_Id, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         return true;
@@ -364,6 +364,11 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+#if defined(__APPLE__)
+    glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
+    glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
+#endif
+    
     // Create window
     const auto window = glfwCreateWindow(kWindowWidth, kWindowHeight, "AliceUI Framework GLFW Example", nullptr, nullptr);
     if (nullptr == window) {
@@ -387,7 +392,7 @@ int main() {
     auto pRootLayout = std::make_shared<AUILinearLayoutWidget>();
     auto pText = std::make_shared<AUITextWidget>(L"Hello, World!");
     pText->SetDefaultSize(200.0f, 30.0f);
-    pText->SetBackgroundDrawable(std::make_shared<AUIColorDrawable>(SkColorSetARGB(128, 255, 128, 200)));
+    pText->SetBackgroundDrawable(std::make_shared<AUIColorDrawable>(SkColorSetARGB(255, 255, 0, 0)));
     pRootLayout->SetSizePolicy(AUISizePolicy::kParent, AUISizePolicy::kParent);
     pRootLayout->AddSubWidget(pText);
     pRootLayout->UpdateChildPosition();
@@ -403,7 +408,8 @@ int main() {
 
     glfwMakeContextCurrent(window);
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-
+    
+    glewExperimental = GL_TRUE;
     if (GLEW_OK != glewInit()) {
         std::cerr << "Failed to initialize GLEW\n";
         return EXIT_FAILURE;
@@ -414,36 +420,42 @@ int main() {
         std::cerr << "Failed to create vertex shader\n";
         return EXIT_FAILURE;
     }
+    assert(GL_NO_ERROR == glGetError());
 
     Shader texFragmentShader;
     if (false == texFragmentShader.CreateFragmentShader(kTextureFragmentShaderCode)) {
         std::cerr << "Failed to create fragment shader\n";
         return EXIT_FAILURE;
     }
+    assert(GL_NO_ERROR == glGetError());
 
     ShaderProgram texProgram;
     if (false == texProgram.Create(vertexShader, texFragmentShader)) {
         std::cerr << "Failed to create shader program\n";
         return EXIT_FAILURE;
     }
+    assert(GL_NO_ERROR == glGetError());
 
     QuadModel quadModel;
     if (false == quadModel.Create()) {
         std::cerr << "Failed to create model\n";
         return EXIT_FAILURE;
     }
+    assert(GL_NO_ERROR == glGetError());
 
     Texture2D texture;
     if (false == texture.Create()) {
         std::cerr << "Failed to create texture\n";
         return EXIT_FAILURE;
     }
+    assert(GL_NO_ERROR == glGetError());
 
     SampleState samplerState;
     if (false == samplerState.Create()) {
         std::cerr << "Failed to create sampler state\n";
         return EXIT_FAILURE;
     }
+    assert(GL_NO_ERROR == glGetError());
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
@@ -465,7 +477,7 @@ int main() {
             pWidgetManager->UpdateAllInstance();
 
             // Render
-            pSurface->getCanvas()->clear(SkColorSetARGB(200, 255, 255, 255));
+            pSurface->getCanvas()->clear(SkColorSetARGB(255, 255, 255, 255));
             pWidgetManager->Render(pSurface->getCanvas());
             const auto pImage = pSurface->makeImageSnapshot();
             if (nullptr == pImage)
@@ -484,7 +496,8 @@ int main() {
 
         texProgram.UseProgram();
         {
-            glUniform1i(texProgram.GetUniformId("uTexture"), 0);
+            const auto textureUniformId = texProgram.GetUniformId("uTexture");
+            glUniform1i(textureUniformId, 0);
             glActiveTexture(GL_TEXTURE0 + 0);
             texture.Bind();
             glBindSampler(0, samplerState.Id());
@@ -502,5 +515,8 @@ int main() {
         }
     }
 
+    // Terminate
+    glfwTerminate();
+    
     return EXIT_SUCCESS;
 }
