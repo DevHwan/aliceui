@@ -12,7 +12,7 @@ bool AUIStyleNotion::HasHorizontalAlign() const
 		std::array< bool, AUIProperty::kParentOptTotal_ParentOpt > parentOpt;
 		if (!itrAP->second.GetValue(parentOpt))
 		{
-			ASSERT(0);
+			assert(0);
 			return false;
 		}
 		if (parentOpt[AUIProperty::kParentCenter_ParentOpt] ||
@@ -32,7 +32,7 @@ bool AUIStyleNotion::HasVerticalAlign() const
 		std::array< bool, AUIProperty::kParentOptTotal_ParentOpt > parentOpt;
 		if (!itrAP->second.GetValue(parentOpt))
 		{
-			ASSERT(0);
+			assert(0);
 			return false;
 		}
 		if (parentOpt[AUIProperty::kParentCenter_ParentOpt] ||

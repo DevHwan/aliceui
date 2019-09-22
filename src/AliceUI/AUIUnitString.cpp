@@ -11,8 +11,8 @@ static const std::unordered_map< AUIUnitType, std::wstring > gMapUnitType2Str{
     { AUIUnitType::kYard,           L"yd" },
     { AUIUnitType::kInch,           L"in" },
     { AUIUnitType::kFoot,           L"ft" },
-    { AUIUnitType::kAngstrom,       L"（" },
-    { AUIUnitType::kSquaremeter,    L"С" },
+    { AUIUnitType::kAngstrom,       L"A" },
+    { AUIUnitType::kSquaremeter,    L"m^2" },
     { AUIUnitType::kHectare,        L"ha" },
     { AUIUnitType::kAcre,           L"a" },
     { AUIUnitType::kKilogram,       L"kg" },
@@ -39,10 +39,10 @@ static const std::unordered_map< AUIUnitType, std::wstring > gMapUnitType2Str{
     { AUIUnitType::kJoule,          L"J" },
     { AUIUnitType::kKilocalorie,    L"kcal" },
     { AUIUnitType::kCalorie,        L"cal" },
-    { AUIUnitType::kDegree,         L"━" },
-    { AUIUnitType::kRadian,         L"[rad," },
-    { AUIUnitType::kCelsius,        L"━C" },
-    { AUIUnitType::kFahrenheit,     L"━F" },
+    { AUIUnitType::kDegree,         L"deg" },
+    { AUIUnitType::kRadian,         L"rad" },
+    { AUIUnitType::kCelsius,        L"C" },
+    { AUIUnitType::kFahrenheit,     L"F" },
     { AUIUnitType::kPercent,        L"%" }
 };
 

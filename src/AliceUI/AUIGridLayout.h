@@ -6,8 +6,8 @@
 class ALICEUI_API AUIGridLayout : public AUILayoutBase
 {
 public:
-    AUIGridLayout() noexcept = default;
-    ~AUIGridLayout() noexcept override = default;
+    AUIGridLayout() = default;
+    ~AUIGridLayout() override = default;
 
     //////////////////////////////////////////////////////////////////////////
     // Interface

@@ -125,12 +125,15 @@ SkColor AUIRulerWidget::GetTextColor() const
 
 void AUIRulerWidget::SetTextSize( SkScalar size )
 {
-    GetRulerDrawable()->RefTextPaint().setTextSize( size );
+    // TODO
+    //GetRulerDrawable()->RefTextPaint().setTextSize( size );
 }
 
 SkScalar AUIRulerWidget::GetTextSize() const
 {
-    return GetRulerDrawable()->RefTextPaint().getTextSize();
+    // TODO
+    //return GetRulerDrawable()->RefTextPaint().getTextSize();
+    return 10.0f;
 }
 
 void AUIRulerWidget::SetRulerPadding( SkScalar l, SkScalar t, SkScalar r, SkScalar b )

@@ -34,7 +34,7 @@ public:
     //////////////////////////////////////////////////////////////////////////
     // Widgets
 public:
-    enum class SysBtnFlag {
+    enum SysBtnFlag {
         kNone = 0x0,
         kMinimize = 0x1,
         kMaximize = 0x2,
@@ -50,6 +50,4 @@ private:
     std::shared_ptr< AUIImageButtonWidget > m_pMaximizeButton;
     std::shared_ptr< AUIImageButtonWidget > m_pCloseButton;
 };
-
-AUIEnableEnumClassOperator(AUITitleBarWidget::SysBtnFlag);
 

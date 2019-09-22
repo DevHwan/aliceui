@@ -32,7 +32,7 @@ std::wstring AUIStringConvert::ACPToWCS(const char* str, size_t len)
     return out;
 #else
     // TODO : remove deprecated codecvt
-    std::wstring_convert<std::codecvt<wchar_t, char, std::mbstate_t>> converter;
+    std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
     return converter.from_bytes(str);
 #endif
 }
@@ -63,7 +63,7 @@ std::string AUIStringConvert::WCSToACP(const wchar_t* str, size_t len)
     return out;
 #else
     // TODO : remove deprecated codecvt
-    std::wstring_convert<std::codecvt<wchar_t, char, std::mbstate_t>> converter;
+    std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
     return converter.to_bytes(str);
 #endif
 }

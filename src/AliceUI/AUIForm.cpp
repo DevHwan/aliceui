@@ -5,7 +5,7 @@
 #if defined( _MSC_VER )
 #include "AUIMFCWindowHandle.h"
 #else
-#   error Implement handle
+    // TODO
 #endif
 
 AUIForm::AUIForm()
@@ -13,7 +13,7 @@ AUIForm::AUIForm()
 #if defined( _MSC_VER )
     m_pHandle = std::make_shared<AUIMFCWindowHandle>();
 #else
-#   error Implement handle
+    // TODO
 #endif
 }
 
@@ -23,7 +23,7 @@ AUIForm::AUIForm( AUIForm&& form )
 #if defined( _MSC_VER )
     form.m_pHandle = std::make_shared<AUIMFCWindowHandle>();
 #else
-#   error Implement handle
+    // TODO
 #endif
 }
 

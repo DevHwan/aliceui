@@ -65,9 +65,6 @@ private:
 
         RelationData() noexcept = default;
 
-        RelationData(RelationData&& org) noexcept = default;
-        RelationData& operator=(RelationData&&) noexcept = default;
-
         RelationData(const RelationData& other) {
             *this = other;
         }

@@ -19,7 +19,7 @@ bool intersectLinePlane(
     return false;
 }
 
-bool MAUISensorUtil::IsIntersectLine(const glm::vec3& vRayOrg, const glm::vec3& vRayDir, float fRayRad, const AUIShapeLine& line, OUT float& fHitDistance)
+bool MAUISensorUtil::IsIntersectLine(const glm::vec3& vRayOrg, const glm::vec3& vRayDir, float fRayRad, const AUIShapeLine& line, float& fHitDistance)
 {
     // https://en.wikipedia.org/wiki/Skew_lines#Distance_between_two_skew_lines
     auto dir = (glm::vec3)glm::normalize(line.pos[1] - line.pos[0]);
@@ -46,7 +46,7 @@ bool MAUISensorUtil::IsIntersectLine(const glm::vec3& vRayOrg, const glm::vec3& 
     return false;
 }
 
-bool MAUISensorUtil::IsIntersectCircle(const glm::vec3& vRayOrg, const glm::vec3& vRayDir, float fRayRad, const AUIShapeCircle& circle, OUT float& fHitDistance)
+bool MAUISensorUtil::IsIntersectCircle(const glm::vec3& vRayOrg, const glm::vec3& vRayDir, float fRayRad, const AUIShapeCircle& circle, float& fHitDistance)
 {
     glm::dvec3 dir;
     if (glm::distance(circle.norm, glm::dvec3(1.0f, 0.0f, 0.0f)) < glm::epsilon<double>())

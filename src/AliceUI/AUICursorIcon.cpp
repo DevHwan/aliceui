@@ -64,7 +64,7 @@ static void ChangeCursorIcon(AUICursorIcon::CursorIcon ct)
         break;
     }
 #else
-#   error Implement this function
+    // TODO : NOT IMPLEMENTED YET
 #endif
 }
 
