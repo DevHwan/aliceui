@@ -262,3 +262,6 @@ __pycache__/
 
 # CMake build directory
 build/
+
+# VS Code
+.vscode/
