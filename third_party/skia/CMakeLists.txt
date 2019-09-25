@@ -1,10 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
 
-# Skia path
-set(ALICEUI_SKIA_SOURCE_PATH "" CACHE PATH "Skia include path (e.g. .../skia)")
-set(ALICEUI_SKIA_LIBRARY_PATH "" CACHE PATH "Skia library path (e.g. .../skia/out/static")
-option(ALICEUI_SKIA_IS_COMPONENT_BUILD "Skia is built with option 'is_component_build=true'" ON)
-
 message(STATUS "Skia configurations...")
 message(STATUS "    - source path : " ${ALICEUI_SKIA_SOURCE_PATH})
 message(STATUS "    - library path : " ${ALICEUI_SKIA_LIBRARY_PATH})

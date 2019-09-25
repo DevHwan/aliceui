@@ -16,11 +16,27 @@ elseif(APPLE)
 endif()
 
 # Generate AliceUI static library
-add_library(AliceUI STATIC
-    ${ALICEUI_SOURCE_FILES}
-    ${ALICEUI_HEADER_FILES}
-    ${ALICEUI_PLATFORM_SOURCE_FILES}
-    ${ALICEUI_PLATFORM_HEADER_FILES})
+if(ALICEUI_BUILD_SHARED)
+    add_library(AliceUI SHARED
+        ${ALICEUI_SOURCE_FILES}
+        ${ALICEUI_HEADER_FILES}
+        ${ALICEUI_PLATFORM_SOURCE_FILES}
+        ${ALICEUI_PLATFORM_HEADER_FILES})
+    target_compile_definitions(AliceUI
+        PUBLIC
+            ALICEUI_SHARED=1
+        PRIVATE
+            ALICEUI_EXPORTS=1)
+else()
+    add_library(AliceUI STATIC
+        ${ALICEUI_SOURCE_FILES}
+        ${ALICEUI_HEADER_FILES}
+        ${ALICEUI_PLATFORM_SOURCE_FILES}
+        ${ALICEUI_PLATFORM_HEADER_FILES})
+    target_compile_definitions(AliceUI
+        PUBLIC
+            ALICEUI_STATIC=1)
+endif()
 target_link_libraries(AliceUI
     PUBLIC
         skia
