@@ -2,6 +2,10 @@
 #include <AUILinearLayoutWidget.h>
 #include <AUIColorDrawable.h>
 #include <AUIButtonWidget.h>
+#include <AUIEditWidget.h>
+#include <AUICheckboxWidget.h>
+#include <AUIToggleWidget.h>
+#include <AUISliderWidget.h>
 #include <AUIApplication.h>
 
 #include <core/SkSurface.h>
@@ -62,12 +66,78 @@ static void keyCallback(GLFWwindow* window, int key, int scancode, int action, i
     assert(window);
     assert(gWidgetManager);
     
+    const auto isShiftOn = !!(GLFW_MOD_SHIFT & mods);
+    const auto isCtrlOn = !!(GLFW_MOD_CONTROL & mods);
+    const auto isAltOn = !!(GLFW_MOD_ALT & mods);
+    
+    const auto isKeyDown = (GLFW_PRESS == action);
+    const auto isKeyUp = (GLFW_RELEASE == action);
+    
+    unsigned int maskCode = AUIKeyboardEvent::kNone_MaskCode;
+    maskCode |= (isShiftOn) ? AUIKeyboardEvent::kShiftOn_MaskCode : 0;
+    maskCode |= (isCtrlOn) ? AUIKeyboardEvent::kCtrlOn_MaskCode : 0;
+    maskCode |= (isAltOn) ? AUIKeyboardEvent::kAltOn_MaskCode : 0;
+    
+    AUIKeyboardEvent::EventType keyboardEventType = AUIKeyboardEvent::kUndefined_EventType;
+    if (isKeyDown) {
+        keyboardEventType = AUIKeyboardEvent::kKeyDown_EventType;
+    } else if (isKeyUp) {
+        keyboardEventType = AUIKeyboardEvent::kKeyUp_EventType;
+    }
+    
+    const AUIKeyboardEvent keyboardEvent(keyboardEventType, static_cast<unsigned int>(key), static_cast<AUIKeyboardEvent::MaskCode>(maskCode));
+    gWidgetManager->SendKeyboardEvent(keyboardEvent);
+}
+
+static void keyCharCallback(GLFWwindow* window, unsigned int codepoint) {
+    assert(window);
+    assert(gWidgetManager);
+    
+    const AUIKeyboardEvent::EventType keyboardEventType = AUIKeyboardEvent::kChar_EventType;
+    
+    const AUIKeyboardEvent keyboardEvent(keyboardEventType, codepoint, AUIKeyboardEvent::kNone_MaskCode);
+    gWidgetManager->SendKeyboardEvent(keyboardEvent);
 }
 
 static void cursorCallback(GLFWwindow* window, double xpos, double ypos) {
     assert(window);
     assert(gWidgetManager);
-    AUIMouseEvent mouseEvent(AUIMouseEvent::kMove_EventType, AUIMouseEvent::kNone_EventFlag, static_cast<int>(xpos), static_cast<int>(ypos));
+    const AUIMouseEvent mouseEvent(AUIMouseEvent::kMove_EventType, AUIMouseEvent::kNone_EventFlag, static_cast<int>(xpos), static_cast<int>(ypos));
+    gWidgetManager->SendMouseEvent(mouseEvent);
+}
+
+static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+    assert(window);
+    assert(gWidgetManager);
+
+    const auto isButtonDown = (GLFW_PRESS == action);
+    const auto isButtonUp = (GLFW_RELEASE == action);
+    
+    AUIMouseEvent::EventFlag mouseButtonEventFlag = AUIMouseEvent::kNone_EventFlag;
+    AUIMouseEvent::EventType mouseButtonEventType = AUIMouseEvent::kUndefined_EventType;
+    if (GLFW_MOUSE_BUTTON_LEFT == button) {
+        mouseButtonEventFlag = AUIMouseEvent::kLBtn_EventFlag;
+        if (isButtonDown)
+            mouseButtonEventType = AUIMouseEvent::kLBtnDown_EventType;
+        else if (isButtonUp)
+            mouseButtonEventType = AUIMouseEvent::kLBtnUp_EventType;
+    } else if (GLFW_MOUSE_BUTTON_RIGHT == button) {
+        mouseButtonEventFlag = AUIMouseEvent::kRBtn_EventFlag;
+        if (isButtonDown)
+            mouseButtonEventType = AUIMouseEvent::kRBtnDown_EventType;
+        else if (isButtonUp)
+            mouseButtonEventType = AUIMouseEvent::kRBtnUp_EventType;    } else if (GLFW_MOUSE_BUTTON_MIDDLE == button) {
+        mouseButtonEventFlag = AUIMouseEvent::kMBtn_EventFlag;
+        if (isButtonDown)
+            mouseButtonEventType = AUIMouseEvent::kMBtnDown_EventType;
+        else if (isButtonUp)
+            mouseButtonEventType = AUIMouseEvent::kMBtnUp_EventType;
+    };
+    
+    double xpos = 0.0;
+    double ypos = 0.0;
+    glfwGetCursorPos(window, &xpos, &ypos);
+    const AUIMouseEvent mouseEvent(mouseButtonEventType, mouseButtonEventFlag, static_cast<int>(xpos), static_cast<int>(ypos));
     gWidgetManager->SendMouseEvent(mouseEvent);
 }
 
@@ -98,8 +168,10 @@ int main() {
 
     // Setup callbacks
     glfwSetKeyCallback(window, keyCallback);
+    glfwSetCharCallback(window, keyCharCallback);
     glfwSetCursorPosCallback(window, cursorCallback);
-    
+    glfwSetMouseButtonCallback(window, mouseButtonCallback);
+
     // Init Alice UI Framework
 #if defined(WIN32)
     AUIWin32AppImpl::InitRootWindow(glfwGetWin32Window(window));
@@ -114,10 +186,24 @@ int main() {
 
     // Create root widget
     auto pRootLayout = std::make_shared<AUILinearLayoutWidget>();
+    auto pBaseLayout = std::make_shared<AUILinearLayoutWidget>();
     auto pButton = std::make_shared<AUIButtonWidget>(L"Hello, World!");
+    auto pEdit = std::make_shared<AUIEditWidget>(L"Edit here");
+    auto pCheckBox = std::make_shared<AUICheckboxWidget>();
+    auto pToggle = std::make_shared<AUIToggleWidget>();
+    auto pSlider = std::make_shared<AUISliderWidget>();
+
+    pEdit->SetDefaultSize(200.0f, 30.0f);
     pButton->SetDefaultSize(200.0f, 30.0f);
+    
+    pBaseLayout->AddSubWidget(pButton);
+    pBaseLayout->AddSubWidget(pEdit);
+    pBaseLayout->AddSubWidget(pCheckBox);
+    pBaseLayout->AddSubWidget(pToggle);
+    pBaseLayout->AddSubWidget(pSlider);
+    
     pRootLayout->SetSizePolicy(AUISizePolicy::kParent, AUISizePolicy::kParent);
-    pRootLayout->AddSubWidget(pButton);
+    pRootLayout->AddSubWidget(pBaseLayout);
     pRootLayout->UpdateChildPosition();
     pRootLayout->UpdateSize();
     gWidgetManager->CreateInstance(pRootLayout);
