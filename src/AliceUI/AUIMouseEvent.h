@@ -2,7 +2,7 @@
 
 #include "AUIAPIDef.h"
 
-struct ALICEUI_API MAUIMouseEvent
+struct ALICEUI_API AUIMouseEvent
 {
     enum EventFlag : unsigned int
     {
@@ -42,15 +42,15 @@ struct ALICEUI_API MAUIMouseEvent
     int fY = 0;
     int fParam = 0;
 
-    MAUIMouseEvent() noexcept = default;
-    explicit MAUIMouseEvent(EventType type, EventFlag flag, int x, int y, int param = 0) noexcept : fType(type), fFlag(flag), fX(x), fY(y), fParam(param) { }
+    AUIMouseEvent() noexcept = default;
+    explicit AUIMouseEvent(EventType type, EventFlag flag, int x, int y, int param = 0) noexcept : fType(type), fFlag(flag), fX(x), fY(y), fParam(param) { }
 #if defined(_WIN32)
-    explicit MAUIMouseEvent(EventType type, UINT nFlags, POINT point, short delta = 0) noexcept;
+    explicit AUIMouseEvent(EventType type, UINT nFlags, POINT point, short delta = 0) noexcept;
 #endif
 
-    MAUIMouseEvent(const MAUIMouseEvent&) noexcept = default;
-    MAUIMouseEvent(MAUIMouseEvent&&) noexcept = default;
-    MAUIMouseEvent& operator=(const MAUIMouseEvent&) noexcept = default;
-    MAUIMouseEvent& operator=(MAUIMouseEvent&&) noexcept = default;
+    AUIMouseEvent(const AUIMouseEvent&) noexcept = default;
+    AUIMouseEvent(AUIMouseEvent&&) noexcept = default;
+    AUIMouseEvent& operator=(const AUIMouseEvent&) noexcept = default;
+    AUIMouseEvent& operator=(AUIMouseEvent&&) noexcept = default;
 };
 

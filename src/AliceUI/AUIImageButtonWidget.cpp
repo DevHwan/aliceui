@@ -124,7 +124,7 @@ void AUIImageButtonWidget::OnMouseLeave()
 
 }
 
-bool AUIImageButtonWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
+bool AUIImageButtonWidget::OnMouseLBtnDown( AUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseLBtnDown( flag );
 
@@ -137,7 +137,7 @@ bool AUIImageButtonWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
 
 }
 
-bool AUIImageButtonWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
+bool AUIImageButtonWidget::OnMouseLBtnUp( AUIMouseEvent::EventFlag flag )
 {
 
     SuperWidget::OnMouseLBtnUp( flag );
@@ -149,7 +149,7 @@ bool AUIImageButtonWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
     return true;
 }
 
-bool AUIImageButtonWidget::OnMouseLBtnDblClk( MAUIMouseEvent::EventFlag flag )
+bool AUIImageButtonWidget::OnMouseLBtnDblClk( AUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseLBtnDblClk( flag );
 
@@ -159,7 +159,7 @@ bool AUIImageButtonWidget::OnMouseLBtnDblClk( MAUIMouseEvent::EventFlag flag )
     return true;
 }
 
-bool AUIImageButtonWidget::OnMouseMove( MAUIMouseEvent::EventFlag flag )
+bool AUIImageButtonWidget::OnMouseMove( AUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseMove( flag );
 

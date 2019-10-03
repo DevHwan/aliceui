@@ -107,7 +107,7 @@ private:
     //////////////////////////////////////////////////////////////////////////
     // Event sender
 public:
-    bool SendMouseEvent(const MAUIMouseEvent& evt);
+    bool SendMouseEvent(const AUIMouseEvent& evt);
     bool SendKeyboardEvent(const AUIKeyboardEvent& evt);
     void SendTickTimeEvent(const std::chrono::milliseconds& prevTick, const std::chrono::milliseconds& curTick);
     bool SendSetCursorEvent(AUICursorIcon& cursoricon);
@@ -117,8 +117,8 @@ public:
 	glm::dvec3 GetMouseDir() const { return m_MouseDir; }
 
 private:
-    bool SendMouseHoverEventToWidget(AUIInstance* const pInstance, const MAUIMouseEvent& evt);
-    bool SendMouseEventToWidget(AUIInstance* const pInstance, const MAUIMouseEvent& evt);
+    bool SendMouseHoverEventToWidget(AUIInstance* const pInstance, const AUIMouseEvent& evt);
+    bool SendMouseEventToWidget(AUIInstance* const pInstance, const AUIMouseEvent& evt);
     bool SendKeyboardEventToWidget(AUIInstance* const pInstance, const AUIKeyboardEvent& evt);
     void SendTickTimeToWidget(AUIInstance* const pInstance, const std::chrono::milliseconds& prevTick, const std::chrono::milliseconds& curTick);
     bool SendSetCursorEventToWidget(AUIInstance* const pInstance, AUICursorIcon& cursoricon);

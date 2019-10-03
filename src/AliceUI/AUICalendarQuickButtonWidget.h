@@ -13,7 +13,7 @@ public:
     void DownCriterion(const AUITableCriterion& criterion);
 
 protected:
-    virtual bool OnMouseLBtnUp(MAUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
 
     // variable
 public:

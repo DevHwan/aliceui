@@ -56,7 +56,7 @@ void AUIWidgetManager::ClearInstance()
     AUIApplication::Instance().ClearInstance( this );
 }
 
-bool AUIWidgetManager::SendMouseEvent( const MAUIMouseEvent& evt )
+bool AUIWidgetManager::SendMouseEvent( const AUIMouseEvent& evt )
 {
     bool handled = false;
     bool hovered = false;
@@ -65,7 +65,7 @@ bool AUIWidgetManager::SendMouseEvent( const MAUIMouseEvent& evt )
     m_MousePosY = evt.fY;
 
     // Update Hit Test Buffer
-    if (evt.fType == MAUIMouseEvent::kMove_EventType || evt.fType == MAUIMouseEvent::kWheel_EventType)
+    if (evt.fType == AUIMouseEvent::kMove_EventType || evt.fType == AUIMouseEvent::kWheel_EventType)
     {
         // NOTE : DO NOT UPDATE ON OTHER EVENTS (e.g. Popup focus will regenerate all hit test state)
         //mit::lib::MDebugProfiler _hitTestProfiler(L"Refresh Hit Test");
@@ -147,7 +147,7 @@ bool AUIWidgetManager::SendMouseEvent( const MAUIMouseEvent& evt )
                 handled = SendMouseEventToWidget( pInstance, evt );
                 if ( handled )
                 {
-                    if ( MAUIMouseEvent::kMove_EventType == evt.fType )
+                    if ( AUIMouseEvent::kMove_EventType == evt.fType )
                     {
                         AUIAssert( pInstance->GetWidget() );
                         m_wpTooltipTarget = pInstance->GetWidget()->weak_from_this();
@@ -168,9 +168,9 @@ bool AUIWidgetManager::SendMouseEvent( const MAUIMouseEvent& evt )
         // Release focus
         switch ( evt.fType )
         {
-        case MAUIMouseEvent::kLBtnDown_EventType:
-        case MAUIMouseEvent::kMBtnDown_EventType:
-        case MAUIMouseEvent::kRBtnDown_EventType:
+        case AUIMouseEvent::kLBtnDown_EventType:
+        case AUIMouseEvent::kMBtnDown_EventType:
+        case AUIMouseEvent::kRBtnDown_EventType:
             SetFocusTarget({});
             break;
         default:
@@ -178,7 +178,7 @@ bool AUIWidgetManager::SendMouseEvent( const MAUIMouseEvent& evt )
         }
     }
 
-    if (MAUIMouseEvent::kLeave_EventType == evt.fType && HasTooltipInstance())
+    if (AUIMouseEvent::kLeave_EventType == evt.fType && HasTooltipInstance())
     {
         this->OnHideTooltip();
     }
@@ -190,7 +190,7 @@ bool AUIWidgetManager::SendMouseEvent( const MAUIMouseEvent& evt )
     return handled || hovered;
 }
 
-bool AUIWidgetManager::SendMouseHoverEventToWidget( AUIInstance* const pInstance, const MAUIMouseEvent& evt ) // 받은 Mouse Hover Event를 Widget에 전달
+bool AUIWidgetManager::SendMouseHoverEventToWidget( AUIInstance* const pInstance, const AUIMouseEvent& evt ) // 받은 Mouse Hover Event를 Widget에 전달
 {
     if ( pInstance == nullptr )
     {
@@ -215,7 +215,7 @@ bool AUIWidgetManager::SendMouseHoverEventToWidget( AUIInstance* const pInstance
     // By hit
     if ( pInstance->IsHit() )
     {
-        if ( evt.fType == MAUIMouseEvent::kLeave_EventType )
+        if ( evt.fType == AUIMouseEvent::kLeave_EventType )
         {
             // Leave all
             if ( pWidget->IsMouseHover() )
@@ -248,7 +248,7 @@ bool AUIWidgetManager::SendMouseHoverEventToWidget( AUIInstance* const pInstance
     return hovered;
 }
 
-bool AUIWidgetManager::SendMouseEventToWidget( AUIInstance* const pInstance, const MAUIMouseEvent& evt )
+bool AUIWidgetManager::SendMouseEventToWidget( AUIInstance* const pInstance, const AUIMouseEvent& evt )
 {
     if ( pInstance == nullptr )
     {
@@ -279,9 +279,9 @@ bool AUIWidgetManager::SendMouseEventToWidget( AUIInstance* const pInstance, con
 
     switch ( evt.fType )
     {
-    case MAUIMouseEvent::kLBtnDown_EventType:
-    case MAUIMouseEvent::kMBtnDown_EventType:
-    case MAUIMouseEvent::kRBtnDown_EventType:
+    case AUIMouseEvent::kLBtnDown_EventType:
+    case AUIMouseEvent::kMBtnDown_EventType:
+    case AUIMouseEvent::kRBtnDown_EventType:
         if ( pWidget->IsFocusable() && handled )
         {
             // Change focus

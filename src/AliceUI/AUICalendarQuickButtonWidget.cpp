@@ -8,7 +8,7 @@ AUICalendarQuickButtonWidget::AUICalendarQuickButtonWidget(const AUITableCriteri
 	SetCaption(val);
 }
 
-bool AUICalendarQuickButtonWidget::OnMouseLBtnUp(MAUIMouseEvent::EventFlag flag)
+bool AUICalendarQuickButtonWidget::OnMouseLBtnUp(AUIMouseEvent::EventFlag flag)
 {
 	if (m_Criterion == AUITableCriterion::DAY)
 		m_Criterion = AUITableCriterion::MONTH;

@@ -15,7 +15,7 @@ protected:
     virtual void OnMouseEnter() override;
     virtual void OnMouseHover() override;
     virtual void OnMouseLeave() override;
-    virtual bool OnMouseLBtnUp(MAUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
 
     //////////////////////////////////////////////////////////////////////////
     // Item click signal

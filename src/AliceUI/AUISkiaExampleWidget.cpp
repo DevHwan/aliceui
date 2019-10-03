@@ -285,7 +285,7 @@ void AUISkiaExampleWidget::OnDraw( SkCanvas * const canvas )
 
 }
 
-bool AUISkiaExampleWidget::OnMouseMove( MAUIMouseEvent::EventFlag flag )
+bool AUISkiaExampleWidget::OnMouseMove( AUIMouseEvent::EventFlag flag )
 {
     if ( IsMouseMDown() )
     {
@@ -306,7 +306,7 @@ bool AUISkiaExampleWidget::OnMouseMove( MAUIMouseEvent::EventFlag flag )
     return true;
 }
 
-bool AUISkiaExampleWidget::OnMouseWheel( MAUIMouseEvent::EventFlag flag, float delta )
+bool AUISkiaExampleWidget::OnMouseWheel( AUIMouseEvent::EventFlag flag, float delta )
 {
     if ( delta > 0.0f )
     {
@@ -324,7 +324,7 @@ bool AUISkiaExampleWidget::OnMouseWheel( MAUIMouseEvent::EventFlag flag, float d
     return true;
 }
 
-bool AUISkiaExampleWidget::OnMouseMBtnDown( MAUIMouseEvent::EventFlag flag )
+bool AUISkiaExampleWidget::OnMouseMBtnDown( AUIMouseEvent::EventFlag flag )
 {
     m_fPrevMDownPosX = GetMouseLocPosX();
     m_fPrevMDownPosY = GetMouseLocPosY();
@@ -334,7 +334,7 @@ bool AUISkiaExampleWidget::OnMouseMBtnDown( MAUIMouseEvent::EventFlag flag )
     return true;
 }
 
-bool AUISkiaExampleWidget::OnMouseMBtnUp( MAUIMouseEvent::EventFlag flag )
+bool AUISkiaExampleWidget::OnMouseMBtnUp( AUIMouseEvent::EventFlag flag )
 {
     Invalidate();
 

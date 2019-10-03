@@ -91,7 +91,7 @@ bool AUISeparatorWidget::OnChangeCursorIcon( AUICursorIcon& cursoricon )
     return true;
 }
 
-bool AUISeparatorWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
+bool AUISeparatorWidget::OnMouseLBtnDown( AUIMouseEvent::EventFlag flag )
 {
 
     m_fAbsPrevX = GetMouseAbsPosX();
@@ -103,7 +103,7 @@ bool AUISeparatorWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
     return true;
 }
 
-bool AUISeparatorWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
+bool AUISeparatorWidget::OnMouseLBtnUp( AUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseLBtnUp( flag );
 

@@ -45,7 +45,7 @@ bool AUITitleBarTitleWidget::OnChangeCursorIcon(AUICursorIcon& cursoricon)
 	//return true;
 }
 
-bool AUITitleBarTitleWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
+bool AUITitleBarTitleWidget::OnMouseLBtnDown( AUIMouseEvent::EventFlag flag )
 {
     m_fAbsPrevX = GetMouseAbsPosX();
     m_fAbsPrevY = GetMouseAbsPosY();
@@ -55,7 +55,7 @@ bool AUITitleBarTitleWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
     return true;
 }
 
-bool AUITitleBarTitleWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
+bool AUITitleBarTitleWidget::OnMouseLBtnUp( AUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseLBtnUp( flag );
 
@@ -64,7 +64,7 @@ bool AUITitleBarTitleWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
 
 }
 
-bool AUITitleBarTitleWidget::OnMouseLBtnDblClk(MAUIMouseEvent::EventFlag flag)
+bool AUITitleBarTitleWidget::OnMouseLBtnDblClk(AUIMouseEvent::EventFlag flag)
 {
 	SuperWidget::OnMouseLBtnDblClk(flag);
 

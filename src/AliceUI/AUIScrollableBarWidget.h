@@ -16,17 +16,17 @@ protected:
     virtual void OnMouseEnter() override;
     virtual void OnMouseHover() override;
     virtual void OnMouseLeave() override;
-    virtual bool OnMouseLBtnDblClk(MAUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseRBtnDblClk(MAUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseMBtnDblClk(MAUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseLBtnDown(MAUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseRBtnDown(MAUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseMBtnDown(MAUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseLBtnUp(MAUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseRBtnUp(MAUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseMBtnUp(MAUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseMove(MAUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseWheel(MAUIMouseEvent::EventFlag flag, float delta) override;
+    virtual bool OnMouseLBtnDblClk(AUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseRBtnDblClk(AUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseMBtnDblClk(AUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseRBtnDown(AUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseMBtnDown(AUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseRBtnUp(AUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseMBtnUp(AUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseMove(AUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseWheel(AUIMouseEvent::EventFlag flag, float delta) override;
     virtual bool OnChangeCursorIcon(AUICursorIcon& cursoricon) override;
 
     //////////////////////////////////////////////////////////////////////////

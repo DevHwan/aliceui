@@ -18,8 +18,8 @@ public:
     //////////////////////////////////////////////////////////////////////////
     // Event
 protected:
-    virtual bool OnMouseLBtnDown(MAUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseLBtnUp(MAUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
     //virtual bool OnMouseLBtnDblClk(MAUIMouseEvent::EventFlag flag) override;
 
     //////////////////////////////////////////////////////////////////////////

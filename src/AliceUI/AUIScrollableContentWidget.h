@@ -13,7 +13,7 @@ public:
     //////////////////////////////////////////////////////////////////////////
     // Mouse event
 protected:
-    bool OnMouseWheel(MAUIMouseEvent::EventFlag flag, float delta) override;
+    bool OnMouseWheel(AUIMouseEvent::EventFlag flag, float delta) override;
 
 
     //////////////////////////////////////////////////////////////////////////

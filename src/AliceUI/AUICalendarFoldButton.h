@@ -15,7 +15,7 @@ public:
     void SetFocus(const int& iYear, const int& iMonth);
 
 protected:
-    virtual bool OnMouseLBtnUp(MAUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
 private:
     void OnUserEvent(AUICalendarFrameWidget*);
     void FoldCalendar();

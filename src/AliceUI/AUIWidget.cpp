@@ -897,7 +897,7 @@ void AUIWidget::ClearPreviewMouseEventCallback()
     m_PreviewMouseCallback = {};
 }
 
-void AUIWidget::SetupPreviewMouseEventCallback(std::function<bool(MAUIMouseEvent)>&& func)
+void AUIWidget::SetupPreviewMouseEventCallback(std::function<bool(AUIMouseEvent)>&& func)
 {
     AUIAssert(false == HasPreviewMouseEventCallback());
     m_PreviewMouseCallback = std::move(func);
@@ -908,7 +908,7 @@ bool AUIWidget::HasPreviewMouseEventCallback() const
     return static_cast<bool>(m_PreviewMouseCallback);
 }
 
-bool AUIWidget::OnPreviewMouseEvent(const MAUIMouseEvent& evt)
+bool AUIWidget::OnPreviewMouseEvent(const AUIMouseEvent& evt)
 {
 	if (IsFreezed())
 		return false;
@@ -923,7 +923,7 @@ bool AUIWidget::OnPreviewMouseEvent(const MAUIMouseEvent& evt)
 	return handled;
 }
 
-bool AUIWidget::OnMouseEvent(const MAUIMouseEvent& evt)
+bool AUIWidget::OnMouseEvent(const AUIMouseEvent& evt)
 {
 	if (IsFreezed())
 		return false;
@@ -936,37 +936,37 @@ bool AUIWidget::OnMouseEvent(const MAUIMouseEvent& evt)
 
 	switch (evt.fType)
 	{
-	case MAUIMouseEvent::kLBtnDown_EventType:
+	case AUIMouseEvent::kLBtnDown_EventType:
 		handled = MouseLBtnDown(flag);
 		break;
-	case MAUIMouseEvent::kLBtnUp_EventType:
+	case AUIMouseEvent::kLBtnUp_EventType:
 		handled = MouseLBtnUp(flag);
 		break;
-	case MAUIMouseEvent::kLBtnDblClk_EventType:
+	case AUIMouseEvent::kLBtnDblClk_EventType:
 		handled = MouseLBtnDblClk(flag);
 		break;
-	case MAUIMouseEvent::kMBtnDown_EventType:
+	case AUIMouseEvent::kMBtnDown_EventType:
 		handled = MouseMBtnDown(flag);
 		break;
-	case MAUIMouseEvent::kMBtnUp_EventType:
+	case AUIMouseEvent::kMBtnUp_EventType:
 		handled = MouseMBtnUp(flag);
 		break;
-	case MAUIMouseEvent::kMBtnDblClk_EventType:
+	case AUIMouseEvent::kMBtnDblClk_EventType:
 		handled = MouseMBtnDblClk(flag);
 		break;
-	case MAUIMouseEvent::kRBtnDown_EventType:
+	case AUIMouseEvent::kRBtnDown_EventType:
 		handled = MouseRBtnDown(flag);
 		break;
-	case MAUIMouseEvent::kRBtnUp_EventType:
+	case AUIMouseEvent::kRBtnUp_EventType:
 		handled = MouseRBtnUp(flag);
 		break;
-	case MAUIMouseEvent::kRBtnDblClk_EventType:
+	case AUIMouseEvent::kRBtnDblClk_EventType:
 		handled = MouseRBtnDblClk(flag);
 		break;
-	case MAUIMouseEvent::kMove_EventType:
+	case AUIMouseEvent::kMove_EventType:
 		handled = MouseMove(flag);
 		break;
-	case MAUIMouseEvent::kWheel_EventType:
+	case AUIMouseEvent::kWheel_EventType:
 		handled = MouseWheel(flag, delta);
 		break;
 	default:
@@ -1072,7 +1072,7 @@ void AUIWidget::MouseHover()
 	OnMouseHover();
 }
 
-bool AUIWidget::MouseLBtnDblClk(MAUIMouseEvent::EventFlag flag)
+bool AUIWidget::MouseLBtnDblClk(AUIMouseEvent::EventFlag flag)
 {
 	bool handled = false;
 	handled = OnMouseLBtnDblClk(flag);
@@ -1090,7 +1090,7 @@ bool AUIWidget::MouseLBtnDblClk(MAUIMouseEvent::EventFlag flag)
 	return handled;
 }
 
-bool AUIWidget::MouseLBtnDown(MAUIMouseEvent::EventFlag flag)
+bool AUIWidget::MouseLBtnDown(AUIMouseEvent::EventFlag flag)
 {
 	SetMouseLDown(true);
 	SetPressed(true);
@@ -1123,7 +1123,7 @@ bool AUIWidget::MouseLBtnDown(MAUIMouseEvent::EventFlag flag)
 
 }
 
-bool AUIWidget::MouseLBtnUp(MAUIMouseEvent::EventFlag flag)
+bool AUIWidget::MouseLBtnUp(AUIMouseEvent::EventFlag flag)
 {
 	bool handled = false;
 	handled = OnMouseLBtnUp(flag);
@@ -1152,7 +1152,7 @@ bool AUIWidget::MouseLBtnUp(MAUIMouseEvent::EventFlag flag)
 
 }
 
-bool AUIWidget::MouseRBtnDblClk(MAUIMouseEvent::EventFlag flag)
+bool AUIWidget::MouseRBtnDblClk(AUIMouseEvent::EventFlag flag)
 {
 	bool handled = false;
 	handled = OnMouseRBtnDblClk(flag);
@@ -1161,7 +1161,7 @@ bool AUIWidget::MouseRBtnDblClk(MAUIMouseEvent::EventFlag flag)
 
 }
 
-bool AUIWidget::MouseRBtnDown(MAUIMouseEvent::EventFlag flag)
+bool AUIWidget::MouseRBtnDown(AUIMouseEvent::EventFlag flag)
 {
 	bool handled = false;
 	SetMouseRDown(true);
@@ -1171,7 +1171,7 @@ bool AUIWidget::MouseRBtnDown(MAUIMouseEvent::EventFlag flag)
 
 }
 
-bool AUIWidget::MouseRBtnUp(MAUIMouseEvent::EventFlag flag)
+bool AUIWidget::MouseRBtnUp(AUIMouseEvent::EventFlag flag)
 {
 	bool handled = false;
 	handled = OnMouseRBtnUp(flag);
@@ -1190,7 +1190,7 @@ bool AUIWidget::MouseRBtnUp(MAUIMouseEvent::EventFlag flag)
 
 }
 
-bool AUIWidget::MouseMBtnDblClk(MAUIMouseEvent::EventFlag flag)
+bool AUIWidget::MouseMBtnDblClk(AUIMouseEvent::EventFlag flag)
 {
 	bool handled = false;
 	handled = OnMouseMBtnDblClk(flag);
@@ -1199,7 +1199,7 @@ bool AUIWidget::MouseMBtnDblClk(MAUIMouseEvent::EventFlag flag)
 
 }
 
-bool AUIWidget::MouseMBtnDown(MAUIMouseEvent::EventFlag flag)
+bool AUIWidget::MouseMBtnDown(AUIMouseEvent::EventFlag flag)
 {
 	bool handled = false;
 	SetMouseMDown(true);
@@ -1209,7 +1209,7 @@ bool AUIWidget::MouseMBtnDown(MAUIMouseEvent::EventFlag flag)
 
 }
 
-bool AUIWidget::MouseMBtnUp(MAUIMouseEvent::EventFlag flag)
+bool AUIWidget::MouseMBtnUp(AUIMouseEvent::EventFlag flag)
 {
 	bool handled = false;
 	handled = OnMouseMBtnUp(flag);
@@ -1219,7 +1219,7 @@ bool AUIWidget::MouseMBtnUp(MAUIMouseEvent::EventFlag flag)
 
 }
 
-bool AUIWidget::MouseMove(MAUIMouseEvent::EventFlag flag)
+bool AUIWidget::MouseMove(AUIMouseEvent::EventFlag flag)
 {
 	bool handled = false;
 	handled = OnMouseMove(flag);
@@ -1255,7 +1255,7 @@ bool AUIWidget::MouseMove(MAUIMouseEvent::EventFlag flag)
 
 }
 
-bool AUIWidget::MouseWheel(MAUIMouseEvent::EventFlag flag, float delta)
+bool AUIWidget::MouseWheel(AUIMouseEvent::EventFlag flag, float delta)
 {
 	bool handled = false;
 	handled = OnMouseWheel(flag, delta);

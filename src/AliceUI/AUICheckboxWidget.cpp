@@ -135,7 +135,7 @@ void AUICheckboxWidget::OnMouseLeave()
     Invalidate();
 }
 
-bool AUICheckboxWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
+bool AUICheckboxWidget::OnMouseLBtnDown( AUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseLBtnDown( flag );
 
@@ -143,7 +143,7 @@ bool AUICheckboxWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
     return true;
 }
 
-bool AUICheckboxWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
+bool AUICheckboxWidget::OnMouseLBtnUp( AUIMouseEvent::EventFlag flag )
 {
     if ( IsCheckable() == false )
         return true;

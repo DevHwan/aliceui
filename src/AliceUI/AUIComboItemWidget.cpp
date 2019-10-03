@@ -70,7 +70,7 @@ void AUIComboItemWidget::OnMouseLeave()
     Invalidate();
 }
 
-bool AUIComboItemWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
+bool AUIComboItemWidget::OnMouseLBtnUp(AUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseLBtnUp( flag );
 

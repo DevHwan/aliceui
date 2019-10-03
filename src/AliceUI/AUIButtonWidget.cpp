@@ -131,7 +131,7 @@ void AUIButtonWidget::OnMouseLeave()
     Invalidate();
 }
 
-bool AUIButtonWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
+bool AUIButtonWidget::OnMouseLBtnDown( AUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseLBtnDown( flag );
     Invalidate();
@@ -139,7 +139,7 @@ bool AUIButtonWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
 
 }
 
-bool AUIButtonWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
+bool AUIButtonWidget::OnMouseLBtnUp( AUIMouseEvent::EventFlag flag )
 {
     auto ret = SuperWidget::OnMouseLBtnUp( flag );
 
@@ -151,7 +151,7 @@ bool AUIButtonWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
     return true;
 }
 
-bool AUIButtonWidget::OnMouseLBtnDblClk( MAUIMouseEvent::EventFlag flag )
+bool AUIButtonWidget::OnMouseLBtnDblClk( AUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseLBtnDblClk( flag );
 
@@ -161,7 +161,7 @@ bool AUIButtonWidget::OnMouseLBtnDblClk( MAUIMouseEvent::EventFlag flag )
     return true;
 }
 
-bool AUIButtonWidget::OnMouseMove( MAUIMouseEvent::EventFlag flag )
+bool AUIButtonWidget::OnMouseMove( AUIMouseEvent::EventFlag flag )
 {
     auto ret = SuperWidget::OnMouseMove( flag );
 

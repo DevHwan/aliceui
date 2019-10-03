@@ -176,7 +176,7 @@ AUIWindowTitleBarWidget::~AUIWindowTitleBarWidget()
 
 }
 
-bool AUIWindowTitleBarWidget::OnMouseLBtnDown(MAUIMouseEvent::EventFlag flag)
+bool AUIWindowTitleBarWidget::OnMouseLBtnDown(AUIMouseEvent::EventFlag flag)
 {
     SuperWidget::OnMouseLBtnDown(flag);
 
@@ -188,7 +188,7 @@ bool AUIWindowTitleBarWidget::OnMouseLBtnDown(MAUIMouseEvent::EventFlag flag)
     return true;
 }
 
-bool AUIWindowTitleBarWidget::OnMouseLBtnUp(MAUIMouseEvent::EventFlag flag)
+bool AUIWindowTitleBarWidget::OnMouseLBtnUp(AUIMouseEvent::EventFlag flag)
 {
     SuperWidget::OnMouseLBtnUp(flag);
 

@@ -23,7 +23,7 @@ public:
     void SetYearData(const AUITableCriterion& criterion, const int& tempYear, const int& tempMonth);
     void SetDecadeData(const AUITableCriterion& criterion, const int& tempYear);
 protected:
-    virtual bool OnMouseLBtnUp(MAUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
 private:
     // variable
 public:

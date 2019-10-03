@@ -583,7 +583,7 @@ void AUIEditWidget::OnMouseLeave()
     Invalidate();
 }
 
-bool AUIEditWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
+bool AUIEditWidget::OnMouseLBtnDown( AUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseLBtnDown( flag );
 	if (false == IsClickable())
@@ -598,7 +598,7 @@ bool AUIEditWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
 
 }
 
-bool AUIEditWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
+bool AUIEditWidget::OnMouseLBtnUp( AUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseLBtnUp( flag );
 	if (false == IsClickable())
@@ -609,7 +609,7 @@ bool AUIEditWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
     return true;
 }
 
-bool AUIEditWidget::OnMouseLBtnDblClk( MAUIMouseEvent::EventFlag flag )
+bool AUIEditWidget::OnMouseLBtnDblClk( AUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseLBtnDblClk( flag );
 	if (false == IsClickable())
@@ -635,7 +635,7 @@ bool AUIEditWidget::OnMouseLBtnDblClk( MAUIMouseEvent::EventFlag flag )
 
 }
 
-bool AUIEditWidget::OnMouseMove( MAUIMouseEvent::EventFlag flag )
+bool AUIEditWidget::OnMouseMove( AUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseMove( flag );
 

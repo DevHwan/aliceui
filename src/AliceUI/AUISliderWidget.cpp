@@ -109,7 +109,7 @@ void AUISliderWidget::OnDraw( SkCanvas* const canvas )
     canvas->drawCircle( rect.centerX(), rect.centerY(), 5.0f, paintCircle );
 }
 
-bool AUISliderWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
+bool AUISliderWidget::OnMouseLBtnDown( AUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseLBtnDown( flag );
 
@@ -132,7 +132,7 @@ bool AUISliderWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
 
 }
 
-bool AUISliderWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
+bool AUISliderWidget::OnMouseLBtnUp( AUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseLBtnUp( flag );
 
@@ -154,7 +154,7 @@ bool AUISliderWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
 
 }
 
-bool AUISliderWidget::OnMouseMove( MAUIMouseEvent::EventFlag flag )
+bool AUISliderWidget::OnMouseMove( AUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseMove( flag );
 

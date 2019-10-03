@@ -20,10 +20,10 @@ protected:
     //////////////////////////////////////////////////////////////////////////
     // Mouse event
 protected:
-    virtual bool OnMouseMove(MAUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseWheel(MAUIMouseEvent::EventFlag flag, float delta) override;
-    virtual bool OnMouseMBtnDown(MAUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseMBtnUp(MAUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseMove(AUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseWheel(AUIMouseEvent::EventFlag flag, float delta) override;
+    virtual bool OnMouseMBtnDown(AUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseMBtnUp(AUIMouseEvent::EventFlag flag) override;
 private:
     float m_fPrevMDownPosX;
     float m_fPrevMDownPosY;

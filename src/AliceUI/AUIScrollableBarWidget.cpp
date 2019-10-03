@@ -91,22 +91,22 @@ void AUIScrollableBarWidget::OnMouseLeave()
     Invalidate();
 }
 
-bool AUIScrollableBarWidget::OnMouseLBtnDblClk( MAUIMouseEvent::EventFlag flag )
+bool AUIScrollableBarWidget::OnMouseLBtnDblClk( AUIMouseEvent::EventFlag flag )
 {
     return false;
 }
 
-bool AUIScrollableBarWidget::OnMouseRBtnDblClk( MAUIMouseEvent::EventFlag flag )
+bool AUIScrollableBarWidget::OnMouseRBtnDblClk( AUIMouseEvent::EventFlag flag )
 {
     return false;
 }
 
-bool AUIScrollableBarWidget::OnMouseMBtnDblClk( MAUIMouseEvent::EventFlag flag )
+bool AUIScrollableBarWidget::OnMouseMBtnDblClk( AUIMouseEvent::EventFlag flag )
 {
     return false;
 }
 
-bool AUIScrollableBarWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
+bool AUIScrollableBarWidget::OnMouseLBtnDown( AUIMouseEvent::EventFlag flag )
 {
     if ( false == IsScrollable() )
         return false;
@@ -133,17 +133,17 @@ bool AUIScrollableBarWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
     return retval;
 }
 
-bool AUIScrollableBarWidget::OnMouseRBtnDown( MAUIMouseEvent::EventFlag flag )
+bool AUIScrollableBarWidget::OnMouseRBtnDown( AUIMouseEvent::EventFlag flag )
 {
     return false;
 }
 
-bool AUIScrollableBarWidget::OnMouseMBtnDown( MAUIMouseEvent::EventFlag flag )
+bool AUIScrollableBarWidget::OnMouseMBtnDown( AUIMouseEvent::EventFlag flag )
 {
     return false;
 }
 
-bool AUIScrollableBarWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
+bool AUIScrollableBarWidget::OnMouseLBtnUp( AUIMouseEvent::EventFlag flag )
 {
     if ( false == IsScrollable() )
         return false;
@@ -160,17 +160,17 @@ bool AUIScrollableBarWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
     return retval;
 }
 
-bool AUIScrollableBarWidget::OnMouseRBtnUp( MAUIMouseEvent::EventFlag flag )
+bool AUIScrollableBarWidget::OnMouseRBtnUp( AUIMouseEvent::EventFlag flag )
 {
     return false;
 }
 
-bool AUIScrollableBarWidget::OnMouseMBtnUp( MAUIMouseEvent::EventFlag flag )
+bool AUIScrollableBarWidget::OnMouseMBtnUp( AUIMouseEvent::EventFlag flag )
 {
     return false;
 }
 
-bool AUIScrollableBarWidget::OnMouseMove( MAUIMouseEvent::EventFlag flag )
+bool AUIScrollableBarWidget::OnMouseMove( AUIMouseEvent::EventFlag flag )
 {
     if ( false == IsScrollable() )
         return false;
@@ -197,7 +197,7 @@ bool AUIScrollableBarWidget::OnMouseMove( MAUIMouseEvent::EventFlag flag )
     return retval;
 }
 
-bool AUIScrollableBarWidget::OnMouseWheel( MAUIMouseEvent::EventFlag flag, float delta )
+bool AUIScrollableBarWidget::OnMouseWheel( AUIMouseEvent::EventFlag flag, float delta )
 {
     return false;
 }

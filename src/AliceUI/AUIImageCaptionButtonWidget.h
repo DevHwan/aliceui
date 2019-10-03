@@ -21,10 +21,10 @@ protected:
     virtual void OnMouseEnter() override;
     virtual void OnMouseHover() override;
     virtual void OnMouseLeave() override;
-    virtual bool OnMouseLBtnDown(MAUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseLBtnUp(MAUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseLBtnDblClk(MAUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseMove(MAUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseLBtnDblClk(AUIMouseEvent::EventFlag flag) override;
+    virtual bool OnMouseMove(AUIMouseEvent::EventFlag flag) override;
 
 
 

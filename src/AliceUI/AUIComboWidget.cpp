@@ -168,7 +168,7 @@ void AUIComboWidget::OnMouseLeave()
     Invalidate();
 }
 
-bool AUIComboWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
+bool AUIComboWidget::OnMouseLBtnUp( AUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseLBtnUp( flag );
 

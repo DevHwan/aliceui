@@ -15,7 +15,7 @@ AUICalendarFoldButton::AUICalendarFoldButton() noexcept
 	Connect(m_pCalendar->UserEventSignal, this, &AUICalendarFoldButton::OnUserEvent);
 }
 
-bool AUICalendarFoldButton::OnMouseLBtnUp(MAUIMouseEvent::EventFlag flag)
+bool AUICalendarFoldButton::OnMouseLBtnUp(AUIMouseEvent::EventFlag flag)
 {
 	FoldCalendar();
 	return true;

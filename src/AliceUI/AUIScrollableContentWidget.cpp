@@ -22,12 +22,12 @@ void AUIScrollableContentWidget::OnScrolling(float delta)
     ScrollSignal.Send( this, delta );
 }
 
-bool AUIScrollableContentWidget::OnMouseWheel( MAUIMouseEvent::EventFlag flag, float delta )
+bool AUIScrollableContentWidget::OnMouseWheel( AUIMouseEvent::EventFlag flag, float delta )
 {
 
     if ( IsMouseHover() )
     {
-        if ( !!( flag & MAUIMouseEvent::kShift_EventFlag ) )
+        if ( !!( flag & AUIMouseEvent::kShift_EventFlag ) )
         {
             OnScrolling( 10.0f * delta );
         }

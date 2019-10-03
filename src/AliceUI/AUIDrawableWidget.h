@@ -69,17 +69,17 @@ public:
 protected:
     virtual void OnMouseHover() override;
     virtual void OnMouseLeave() override;
-    virtual bool OnMouseLBtnDblClk(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return !m_bEventPassthrough; }
-    virtual bool OnMouseRBtnDblClk(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return !m_bEventPassthrough; }
-    virtual bool OnMouseMBtnDblClk(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return !m_bEventPassthrough; }
-    virtual bool OnMouseLBtnDown(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return !m_bEventPassthrough; }
-    virtual bool OnMouseRBtnDown(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return !m_bEventPassthrough; }
-    virtual bool OnMouseMBtnDown(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return !m_bEventPassthrough; }
-    virtual bool OnMouseLBtnUp(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return !m_bEventPassthrough; }
-    virtual bool OnMouseRBtnUp(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return !m_bEventPassthrough; }
-    virtual bool OnMouseMBtnUp(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return !m_bEventPassthrough; }
-    virtual bool OnMouseMove(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return !m_bEventPassthrough; }
-    virtual bool OnMouseWheel(MAUIMouseEvent::EventFlag flag, float delta) { /* Implement in subclass */ return false; }
+    virtual bool OnMouseLBtnDblClk(AUIMouseEvent::EventFlag flag) override { /* Implement in subclass */ return !m_bEventPassthrough; }
+    virtual bool OnMouseRBtnDblClk(AUIMouseEvent::EventFlag flag) override { /* Implement in subclass */ return !m_bEventPassthrough; }
+    virtual bool OnMouseMBtnDblClk(AUIMouseEvent::EventFlag flag) override { /* Implement in subclass */ return !m_bEventPassthrough; }
+    virtual bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override { /* Implement in subclass */ return !m_bEventPassthrough; }
+    virtual bool OnMouseRBtnDown(AUIMouseEvent::EventFlag flag) override { /* Implement in subclass */ return !m_bEventPassthrough; }
+    virtual bool OnMouseMBtnDown(AUIMouseEvent::EventFlag flag) override { /* Implement in subclass */ return !m_bEventPassthrough; }
+    virtual bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override { /* Implement in subclass */ return !m_bEventPassthrough; }
+    virtual bool OnMouseRBtnUp(AUIMouseEvent::EventFlag flag) override { /* Implement in subclass */ return !m_bEventPassthrough; }
+    virtual bool OnMouseMBtnUp(AUIMouseEvent::EventFlag flag) override { /* Implement in subclass */ return !m_bEventPassthrough; }
+    virtual bool OnMouseMove(AUIMouseEvent::EventFlag flag) override { /* Implement in subclass */ return !m_bEventPassthrough; }
+    virtual bool OnMouseWheel(AUIMouseEvent::EventFlag flag, float delta) override { /* Implement in subclass */ return false; }
 private:
     bool m_bEventPassthrough;
 

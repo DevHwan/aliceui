@@ -62,7 +62,7 @@ AUICalendarElementWidget::AUICalendarElementWidget(const std::wstring& dayofWeek
 	SetBackgroundDrawable(nullptr);
 }
 
-bool AUICalendarElementWidget::OnMouseLBtnUp(MAUIMouseEvent::EventFlag flag)
+bool AUICalendarElementWidget::OnMouseLBtnUp(AUIMouseEvent::EventFlag flag)
 {
 	if (!IsClickable())
 		return false;

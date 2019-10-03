@@ -961,15 +961,15 @@ protected:
     void GrabMouseEvent();
     void ReleaseMouseEvent();
     void ClearPreviewMouseEventCallback();
-    void SetupPreviewMouseEventCallback(std::function<bool(MAUIMouseEvent)>&& func);
+    void SetupPreviewMouseEventCallback(std::function<bool(AUIMouseEvent)>&& func);
     bool HasPreviewMouseEventCallback() const;
 private:
-    bool OnPreviewMouseEvent(const MAUIMouseEvent& evt);
-    bool OnMouseEvent(const MAUIMouseEvent& evt);
+    bool OnPreviewMouseEvent(const AUIMouseEvent& evt);
+    bool OnMouseEvent(const AUIMouseEvent& evt);
     bool OnKeyboardEvent(const AUIKeyboardEvent& evt);
     void OnTickTimeEvent(const std::chrono::milliseconds& prevTickTime, const std::chrono::milliseconds& curTickTime);
     bool OnSetCursorEvent(AUICursorIcon& cursoricon);
-    std::function<bool(MAUIMouseEvent)> m_PreviewMouseCallback;
+    std::function<bool(AUIMouseEvent)> m_PreviewMouseCallback;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -988,32 +988,32 @@ private:
     void MouseEnter();
     void MouseLeave();
     void MouseHover();
-    bool MouseLBtnDblClk(MAUIMouseEvent::EventFlag flag);
-    bool MouseLBtnDown(MAUIMouseEvent::EventFlag flag);
-    bool MouseLBtnUp(MAUIMouseEvent::EventFlag flag);
-    bool MouseRBtnDblClk(MAUIMouseEvent::EventFlag flag);
-    bool MouseRBtnDown(MAUIMouseEvent::EventFlag flag);
-    bool MouseRBtnUp(MAUIMouseEvent::EventFlag flag);
-    bool MouseMBtnDblClk(MAUIMouseEvent::EventFlag flag);
-    bool MouseMBtnDown(MAUIMouseEvent::EventFlag flag);
-    bool MouseMBtnUp(MAUIMouseEvent::EventFlag flag);
-    bool MouseMove(MAUIMouseEvent::EventFlag flag);
-    bool MouseWheel(MAUIMouseEvent::EventFlag flag, float delta);
+    bool MouseLBtnDblClk(AUIMouseEvent::EventFlag flag);
+    bool MouseLBtnDown(AUIMouseEvent::EventFlag flag);
+    bool MouseLBtnUp(AUIMouseEvent::EventFlag flag);
+    bool MouseRBtnDblClk(AUIMouseEvent::EventFlag flag);
+    bool MouseRBtnDown(AUIMouseEvent::EventFlag flag);
+    bool MouseRBtnUp(AUIMouseEvent::EventFlag flag);
+    bool MouseMBtnDblClk(AUIMouseEvent::EventFlag flag);
+    bool MouseMBtnDown(AUIMouseEvent::EventFlag flag);
+    bool MouseMBtnUp(AUIMouseEvent::EventFlag flag);
+    bool MouseMove(AUIMouseEvent::EventFlag flag);
+    bool MouseWheel(AUIMouseEvent::EventFlag flag, float delta);
 protected:
     virtual void OnMouseEnter() { /* Implement in subclass */ }
     virtual void OnMouseLeave() { /* Implement in subclass */ }
     virtual void OnMouseHover() { /* Implement in subclass */ }
-    virtual bool OnMouseLBtnDblClk(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
-    virtual bool OnMouseRBtnDblClk(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
-    virtual bool OnMouseMBtnDblClk(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
-    virtual bool OnMouseLBtnDown(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
-    virtual bool OnMouseRBtnDown(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
-    virtual bool OnMouseMBtnDown(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
-    virtual bool OnMouseLBtnUp(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
-    virtual bool OnMouseRBtnUp(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
-    virtual bool OnMouseMBtnUp(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
-    virtual bool OnMouseMove(MAUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
-    virtual bool OnMouseWheel(MAUIMouseEvent::EventFlag flag, float delta) { /* Implement in subclass */ return false; }
+    virtual bool OnMouseLBtnDblClk(AUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
+    virtual bool OnMouseRBtnDblClk(AUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
+    virtual bool OnMouseMBtnDblClk(AUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
+    virtual bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
+    virtual bool OnMouseRBtnDown(AUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
+    virtual bool OnMouseMBtnDown(AUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
+    virtual bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
+    virtual bool OnMouseRBtnUp(AUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
+    virtual bool OnMouseMBtnUp(AUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
+    virtual bool OnMouseMove(AUIMouseEvent::EventFlag flag) { /* Implement in subclass */ return true; }
+    virtual bool OnMouseWheel(AUIMouseEvent::EventFlag flag, float delta) { /* Implement in subclass */ return false; }
 
 
     //////////////////////////////////////////////////////////////////////////
