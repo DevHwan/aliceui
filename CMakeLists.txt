@@ -5,7 +5,7 @@ project(AliceUI
     LANGUAGES CXX)
 
 # Build examples
-option(ALICEUI_BUILD_EXAMPLE_GLFW "Build glfw example" OFF)
+option(ALICEUI_BUILD_EXAMPLES "Build glfw examples" OFF)
 
 # Skia path
 set(ALICEUI_SKIA_SOURCE_PATH "" CACHE PATH "Skia include path (e.g. .../skia)")

@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.10)
 
+file(GLOB ALICEUI_GLFW_SAMPLE_HEADER_FILES ${CMAKE_CURRENT_LIST_DIR}/*.h)
+file(GLOB ALICEUI_GLFW_SAMPLE_SOURCE_FILES ${CMAKE_CURRENT_LIST_DIR}/*.cpp)
+
 add_executable(glfw_sample_app
-    ${CMAKE_CURRENT_LIST_DIR}/main.cpp)
+    ${ALICEUI_GLFW_SAMPLE_HEADER_FILES}
+    ${ALICEUI_GLFW_SAMPLE_SOURCE_FILES})
 target_link_libraries(glfw_sample_app
     PRIVATE
         AliceUI

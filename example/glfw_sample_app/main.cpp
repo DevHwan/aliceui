@@ -1,7 +1,7 @@
 #include <AUIRasterWidgetManager.h>
 #include <AUILinearLayoutWidget.h>
 #include <AUIColorDrawable.h>
-#include <AUITextWidget.h>
+#include <AUIButtonWidget.h>
 #include <AUIApplication.h>
 
 #include <core/SkSurface.h>
@@ -14,13 +14,14 @@
 #   include <AUIDarwinAppImpl.h>
 #endif
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <GLFW/glfw3native.h>
-
 #include <iostream>
-#include <array>
 #include <memory>
+
+#include "Shader.h"
+#include "ShaderProgram.h"
+#include "Texture2D.h"
+#include "QuadModel.h"
+#include "SampleState.h"
 
 constexpr auto kDefaultVertexShaderCode = R"(
 #version 330 core
@@ -37,6 +38,7 @@ void main() {
     gl_Position.w = 1.0;
 }
 )";
+
 constexpr auto kTextureFragmentShaderCode = R"(
 #version 330 core
 
@@ -51,305 +53,23 @@ void main() {
 }
 )";
 
-class Shader final {
-public:
-    Shader() = default;
-    ~Shader() {
-        this->Destroy();
-    }
-
-    Shader(const Shader&) = delete;
-    Shader& operator=(const Shader&) = delete;
-
-    Shader(Shader&& other) noexcept : m_Id{ other.m_Id } {
-        other.m_Id = 0;
-    }
-    Shader& operator=(Shader&& other) noexcept {
-        this->m_Id = other.m_Id;
-        other.m_Id = 0;
-        return *this;
-    }
-
-    bool IsValid() const {
-        return (GL_FALSE != glIsShader(m_Id));
-    }
-    bool CreateVertexShader(const char* shaderCode) {
-        m_Id = glCreateShader(GL_VERTEX_SHADER);
-        if (!this->IsValid())
-            return false;
-        glShaderSource(m_Id, 1, &shaderCode, nullptr);
-        glCompileShader(m_Id);
-        int result = GL_FALSE;
-        glGetShaderiv(m_Id, GL_COMPILE_STATUS, &result);
-        if (GL_FALSE == result) {
-            this->Destroy();
-            return false;
-        }
-        return true;
-    }
-    bool CreateFragmentShader(const char* shaderCode) {
-        m_Id = glCreateShader(GL_FRAGMENT_SHADER);
-        if (!this->IsValid())
-            return false;
-        glShaderSource(m_Id, 1, &shaderCode, nullptr);
-        glCompileShader(m_Id);
-        int result = GL_FALSE;
-        glGetShaderiv(m_Id, GL_COMPILE_STATUS, &result);
-        if (GL_FALSE == result) {
-            this->Destroy();
-            return false;
-        }
-        return true;
-    }
-    bool Destroy() {
-        if (this->IsValid()) {
-            glDeleteShader(m_Id);
-            m_Id = 0;
-            return true;
-        }
-        return false;
-    }
-
-    GLuint Id() const noexcept {
-        return m_Id;
-    }
-private:
-    GLuint m_Id = 0;
-};
-
-class ShaderProgram final {
-public:
-    ShaderProgram() = default;
-    ~ShaderProgram() {
-        this->Destroy();
-    }
-
-    bool IsValid() const {
-        return (GL_FALSE != glIsProgram(m_Id));
-    }
-    bool Create(const Shader& vtxShader, const Shader& fragmentShader) {
-        if (false == vtxShader.IsValid())
-            return false;
-        if (false == fragmentShader.IsValid())
-            return false;
-
-        m_Id = glCreateProgram();
-        if (false == IsValid())
-            return false;
-
-        glAttachShader(m_Id, vtxShader.Id());
-        glAttachShader(m_Id, fragmentShader.Id());
-        glLinkProgram(m_Id);
-
-        int result = GL_FALSE;
-        glGetProgramiv(m_Id, GL_LINK_STATUS, &result);
-        if (GL_FALSE == result) {
-            this->Destroy();
-            return false;
-        }
-
-        glDetachShader(m_Id, vtxShader.Id());
-        glDetachShader(m_Id, fragmentShader.Id());
-
-        return true;
-    }
-    bool Destroy() {
-        if (IsValid()) {
-            glDeleteProgram(m_Id);
-            m_Id = 0;
-            return true;
-        }
-        return false;
-    }
-
-    GLuint GetUniformId(const char* name) {
-        if (false == this->IsValid())
-            return 0;
-        return glGetUniformLocation(m_Id, name);
-    }
-
-    void UseProgram() {
-        if (IsValid()) {
-            glUseProgram(m_Id);
-        }
-    }
-    void UnuseProgram() {
-        glUseProgram(0);
-    }
-
-    GLuint Id() const {
-        return m_Id;
-    }
-private:
-    GLuint m_Id = 0;
-};
-
-class Texture2D final
-{
-public:
-    Texture2D() = default;
-    ~Texture2D() {
-        this->Destroy();
-    }
-
-    bool IsValid() const {
-        return (GL_FALSE != glIsTexture(m_Id));
-    }
-    bool Create() {
-        glGenTextures(1, &m_Id);
-        glBindTexture(GL_TEXTURE_2D, m_Id);
-        char tmp[4] = { 0, };
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_BGRA, GL_UNSIGNED_BYTE, tmp);
-        if (false == IsValid())
-            return false;
-        return true;
-    }
-
-    bool UpdateImage(const SkPixmap& pixmap) {
-        if (false == IsValid())
-            return false;
-        glBindTexture(GL_TEXTURE_2D, m_Id);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, pixmap.width(), pixmap.height(), 0, GL_BGRA, GL_UNSIGNED_BYTE, pixmap.addr());
-        return true;
-    }
-
-    bool Destroy() {
-        if (this->IsValid()) {
-            glDeleteTextures(1, &m_Id);
-            m_Id = 0;
-            return true;
-        }
-        return false;
-    }
-    bool Bind() {
-        if (false == this->IsValid())
-            return false;
-        glBindTexture(GL_TEXTURE_2D, m_Id);
-        return true;
-    }
-private:
-    GLuint m_Id = 0;
-};
-
-class SampleState final
-{
-public:
-    SampleState() = default;
-    ~SampleState() {
-        this->Destroy();
-    }
-
-    bool IsValid() const {
-        return (GL_FALSE != glIsSampler(m_Id));
-    }
-    bool Create() {
-        glGenSamplers(1, &m_Id);
-        if (false == IsValid())
-            return false;
-        glSamplerParameteri(m_Id, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glSamplerParameteri(m_Id, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glSamplerParameteri(m_Id, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glSamplerParameteri(m_Id, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        return true;
-    }
-    bool Destroy() {
-        if (this->IsValid()) {
-            glDeleteSamplers(1, &m_Id);
-            m_Id = 0;
-            return true;
-        }
-        return false;
-    }
-
-    GLuint Id() const {
-        return m_Id;
-    }
-private:
-    GLuint m_Id = 0;
-};
-
-class QuadModel final
-{
-public:
-    QuadModel() = default;
-    ~QuadModel() {
-        this->Destroy();
-    }
-
-    bool IsValid() const {
-        return (GL_FALSE != glIsVertexArray(m_Id));
-    }
-    bool Create() {
-        glGenVertexArrays(1, &m_Id);
-        glBindVertexArray(m_Id);
-
-        glGenBuffers(1, &m_IdVtx);
-        static const std::array<float, 18> sVtxData = {
-            -1.0f, -1.0f,  0.0f,
-             1.0f, -1.0f,  0.0f,
-             1.0f,  1.0f,  0.0f,
-            -1.0f, -1.0f,  0.0f,
-             1.0f,  1.0f,  0.0f,
-            -1.0f,  1.0f,  0.0f
-        };
-
-        glBindBuffer(GL_ARRAY_BUFFER, m_IdVtx);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * sVtxData.size(), sVtxData.data(), GL_STATIC_DRAW);
-
-        static const std::array<float, 12> sTexCoordData = {
-            0.0f, 1.0f,
-            1.0f, 1.0f,
-            1.0f, 0.0f,
-            0.0f, 1.0f,
-            1.0f, 0.0f,
-            0.0f, 0.0f
-        };
-        glGenBuffers(1, &m_IdTex);
-        glBindBuffer(GL_ARRAY_BUFFER, m_IdTex);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * sTexCoordData.size(), sTexCoordData.data(), GL_STATIC_DRAW);
-
-        if (false == IsValid())
-            return false;
-
-        return true;
-    }
-    bool Destroy() {
-        if (this->IsValid()) {
-            glDeleteBuffers(1, &m_IdTex);
-            glDeleteBuffers(1, &m_IdVtx);
-            glDeleteVertexArrays(1, &m_Id);
-            m_Id = 0;
-            m_IdVtx = 0;
-            m_IdTex = 0;
-            return true;
-        }
-        return false;
-    }
-    void Draw() {
-        if (false == IsValid())
-            return;
-        glBindVertexArray(m_Id);
-
-        glEnableVertexAttribArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER, m_IdVtx);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void*>(0));
-
-        glEnableVertexAttribArray(1);
-        glBindBuffer(GL_ARRAY_BUFFER, m_IdTex);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void*>(0));
-
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-
-        glDisableVertexAttribArray(0);
-    }
-private:
-    GLuint m_Id = 0;
-    GLuint m_IdVtx = 0;
-    GLuint m_IdTex = 0;
-};
-
 constexpr int kWindowWidth = 1280;
 constexpr int kWindowHeight = 720;
+
+std::unique_ptr<AUIRasterWidgetManager> gWidgetManager;
+
+static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    assert(window);
+    assert(gWidgetManager);
+    
+}
+
+static void cursorCallback(GLFWwindow* window, double xpos, double ypos) {
+    assert(window);
+    assert(gWidgetManager);
+    AUIMouseEvent mouseEvent(AUIMouseEvent::kMove_EventType, AUIMouseEvent::kNone_EventFlag, static_cast<int>(xpos), static_cast<int>(ypos));
+    gWidgetManager->SendMouseEvent(mouseEvent);
+}
 
 int main() {
     // Initialize GLFW3
@@ -376,6 +96,10 @@ int main() {
         return EXIT_FAILURE;
     }
 
+    // Setup callbacks
+    glfwSetKeyCallback(window, keyCallback);
+    glfwSetCursorPosCallback(window, cursorCallback);
+    
     // Init Alice UI Framework
 #if defined(WIN32)
     AUIWin32AppImpl::InitRootWindow(glfwGetWin32Window(window));
@@ -386,18 +110,17 @@ int main() {
 #endif
 
     // Create raster widget manager
-    std::unique_ptr<AUIRasterWidgetManager> pWidgetManager(new AUIRasterWidgetManager());
+    gWidgetManager.reset(new AUIRasterWidgetManager());
 
     // Create root widget
     auto pRootLayout = std::make_shared<AUILinearLayoutWidget>();
-    auto pText = std::make_shared<AUITextWidget>(L"Hello, World!");
-    pText->SetDefaultSize(200.0f, 30.0f);
-    pText->SetBackgroundDrawable(std::make_shared<AUIColorDrawable>(SkColorSetARGB(255, 255, 0, 0)));
+    auto pButton = std::make_shared<AUIButtonWidget>(L"Hello, World!");
+    pButton->SetDefaultSize(200.0f, 30.0f);
     pRootLayout->SetSizePolicy(AUISizePolicy::kParent, AUISizePolicy::kParent);
-    pRootLayout->AddSubWidget(pText);
+    pRootLayout->AddSubWidget(pButton);
     pRootLayout->UpdateChildPosition();
     pRootLayout->UpdateSize();
-    pWidgetManager->CreateInstance(pRootLayout);
+    gWidgetManager->CreateInstance(pRootLayout);
     pRootLayout->SetDefaultSize(SkIntToScalar(kWindowWidth), SkIntToScalar(kWindowHeight));
 
     // Create skia surface
@@ -420,47 +143,43 @@ int main() {
         std::cerr << "Failed to create vertex shader\n";
         return EXIT_FAILURE;
     }
-    assert(GL_NO_ERROR == glGetError());
 
     Shader texFragmentShader;
     if (false == texFragmentShader.CreateFragmentShader(kTextureFragmentShaderCode)) {
         std::cerr << "Failed to create fragment shader\n";
         return EXIT_FAILURE;
     }
-    assert(GL_NO_ERROR == glGetError());
 
     ShaderProgram texProgram;
     if (false == texProgram.Create(vertexShader, texFragmentShader)) {
         std::cerr << "Failed to create shader program\n";
         return EXIT_FAILURE;
     }
-    assert(GL_NO_ERROR == glGetError());
 
     QuadModel quadModel;
     if (false == quadModel.Create()) {
         std::cerr << "Failed to create model\n";
         return EXIT_FAILURE;
     }
-    assert(GL_NO_ERROR == glGetError());
 
     Texture2D texture;
     if (false == texture.Create()) {
         std::cerr << "Failed to create texture\n";
         return EXIT_FAILURE;
     }
-    assert(GL_NO_ERROR == glGetError());
 
     SampleState samplerState;
     if (false == samplerState.Create()) {
         std::cerr << "Failed to create sampler state\n";
         return EXIT_FAILURE;
     }
-    assert(GL_NO_ERROR == glGetError());
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    assert(GL_NO_ERROR == glGetError());
 
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        assert(GL_NO_ERROR == glGetError());
 
         do
         {
@@ -470,15 +189,15 @@ int main() {
 
             // Update time
             const auto currentTickTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-            pWidgetManager->SendTickTimeEvent(prevTickTime, currentTickTime);
+            gWidgetManager->SendTickTimeEvent(prevTickTime, currentTickTime);
             prevTickTime = currentTickTime;
 
             // Update instances
-            pWidgetManager->UpdateAllInstance();
+            gWidgetManager->UpdateAllInstance();
 
             // Render
             pSurface->getCanvas()->clear(SkColorSetARGB(255, 255, 255, 255));
-            pWidgetManager->Render(pSurface->getCanvas());
+            gWidgetManager->Render(pSurface->getCanvas());
             const auto pImage = pSurface->makeImageSnapshot();
             if (nullptr == pImage)
                 break;
@@ -496,12 +215,7 @@ int main() {
 
         texProgram.UseProgram();
         {
-            const auto textureUniformId = texProgram.GetUniformId("uTexture");
-            glUniform1i(textureUniformId, 0);
-            glActiveTexture(GL_TEXTURE0 + 0);
-            texture.Bind();
-            glBindSampler(0, samplerState.Id());
-
+            texProgram.BindTexture(texture, samplerState, "uTexture", 0);
             quadModel.Draw();
         }
         texProgram.UnuseProgram();
