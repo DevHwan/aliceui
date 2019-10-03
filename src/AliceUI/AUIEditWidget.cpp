@@ -756,6 +756,11 @@ bool AUIEditWidget::OnKeyDown( AUIKeyboardEvent::MaskCode mask, unsigned int key
     {
        OpDelete();
     }
+#   if defined(__APPLE__)
+    else if (keycode == MAUIKeycode::kBackspace) {
+        OpBackspace();
+    }
+#   endif
     else if ( charcode == MAUIKeycode::kEscape )
     {
         // ESC
@@ -824,12 +829,16 @@ bool AUIEditWidget::OnChar( AUIKeyboardEvent::MaskCode mask, unsigned int charco
     {
         if ( charcode != 0 )
         {
+            // TODO : Fix platform specific char code
+#           if defined(WIN32)
             if ( charcode == 0x08 )
             {
                 // Backspace
                 OpBackspace();
             }
-            else if ( charcode == '\t' && IsTabToChar() == false )
+            else
+#           endif
+            if ( charcode == '\t' && IsTabToChar() == false )
             {
                 if ( IsUseBuffer() )
                     FlushBuffer();
