@@ -11,6 +11,6 @@ AUIAccelDecelInterpolator::AUIAccelDecelInterpolator( float factor /*= 1.0f */ )
 
 float AUIAccelDecelInterpolator::GetValue( float input ) const 
 {
-    float x = GetClamp( input );
+    float x = GetClamp( this->m_fFactor * input );
     return std::cos( ( x + 1.0f ) * PI_Value ) * 0.5f + 0.5f;
 }

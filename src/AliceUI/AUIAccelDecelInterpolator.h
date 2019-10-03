@@ -9,5 +9,5 @@ public:
     ~AUIAccelDecelInterpolator() noexcept override = default;
     float GetValue(float input) const override;
 private:
-    float m_fFactor;
+    float m_fFactor = 1.0f;
 };
