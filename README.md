@@ -22,6 +22,12 @@ Simple `Hello World` project is included with solution.
 
 You can also see advanced project configurations in `example` directory.
 
+# Sample Preview
+
+## GLFW sample application
+
+![glfw_sample_app_preview](./media/glfw_sample_app_running.gif)
+
 # License
 
 This project is licensed under the MIT license.
