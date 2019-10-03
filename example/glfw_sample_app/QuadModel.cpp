@@ -15,7 +15,11 @@ QuadModel::QuadModel(QuadModel&& other) {
 QuadModel& QuadModel::operator=(QuadModel&& other) {
     this->Destroy();
     this->m_Id = other.m_Id;
+    this->m_IdVtx = other.m_IdVtx;
+    this->m_IdTex = other.m_IdTex;
     other.m_Id = 0;
+    other.m_IdVtx = 0;
+    other.m_IdTex = 0;
     return *this;
 }
 

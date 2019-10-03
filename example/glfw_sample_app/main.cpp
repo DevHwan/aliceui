@@ -23,8 +23,9 @@
 
 #include "Shader.h"
 #include "ShaderProgram.h"
-#include "Texture2D.h"
 #include "QuadModel.h"
+#include "CubeModel.h"
+#include "Texture2D.h"
 #include "SampleState.h"
 
 constexpr auto kDefaultVertexShaderCode = R"(
@@ -85,7 +86,7 @@ static void keyCallback(GLFWwindow* window, int key, int scancode, int action, i
         keyboardEventType = AUIKeyboardEvent::kKeyUp_EventType;
     }
     
-    const AUIKeyboardEvent keyboardEvent(keyboardEventType, static_cast<unsigned int>(key), static_cast<AUIKeyboardEvent::MaskCode>(maskCode));
+    const AUIKeyboardEvent keyboardEvent(keyboardEventType, static_cast<unsigned int>(scancode), static_cast<AUIKeyboardEvent::MaskCode>(maskCode));
     gWidgetManager->SendKeyboardEvent(keyboardEvent);
 }
 
@@ -244,7 +245,13 @@ int main() {
 
     QuadModel quadModel;
     if (false == quadModel.Create()) {
-        std::cerr << "Failed to create model\n";
+        std::cerr << "Failed to create quad model\n";
+        return EXIT_FAILURE;
+    }
+    
+    CubeModel cubeModel;
+    if (false == cubeModel.Create()) {
+        std::cerr << "Failed to create cube model\n";
         return EXIT_FAILURE;
     }
 
@@ -253,7 +260,33 @@ int main() {
         std::cerr << "Failed to create texture\n";
         return EXIT_FAILURE;
     }
-
+    
+//    Texture2D cubeTexture;
+//    if (false == cubeTexture.Create()) {
+//        std::cerr << "Failed to create cube texture\n";
+//        return EXIT_FAILURE;
+//    }
+//    {
+//        auto pTextureSurface = SkSurface::MakeRaster(SkImageInfo::Make(256, 256, SkColorType::kRGBA_8888_SkColorType, SkAlphaType::kOpaque_SkAlphaType));
+//        auto pTextureCanvas = pTextureSurface->getCanvas();
+//        pTextureCanvas->clear(SkColorSetARGB(128, 255, 255, 255));
+//        SkPaint paint;
+//        paint.setColor(SK_ColorRED);
+//        pTextureCanvas->drawCircle(50, 50, 50, paint);
+//        pTextureCanvas->saveLayerAlpha(nullptr, 128);
+//        paint.setColor(SK_ColorBLUE);
+//        pTextureCanvas->drawCircle(100, 50, 50, paint);
+//        paint.setColor(SK_ColorGREEN);
+//        paint.setAlpha(128);
+//        pTextureCanvas->drawCircle(75, 90, 50, paint);
+//        pTextureCanvas->restore();
+//
+//        SkPixmap pixmap;
+//        if (pTextureSurface->peekPixels(&pixmap)) {
+//            cubeTexture.UpdateImage(pixmap);
+//        }
+//    }
+                          
     SampleState samplerState;
     if (false == samplerState.Create()) {
         std::cerr << "Failed to create sampler state\n";
@@ -303,6 +336,10 @@ int main() {
         {
             texProgram.BindTexture(texture, samplerState, "uTexture", 0);
             quadModel.Draw();
+            
+            //texProgram.BindTexture(cubeTexture, samplerState, "uTexture", 0);
+            //cubeModel.Draw();
+            
         }
         texProgram.UnuseProgram();
 
