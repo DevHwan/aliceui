@@ -1099,7 +1099,7 @@ void AUIEditWidget::OpAddCharCode( wchar_t charcode )
 
     m_CaptionComp.clear();
 
-    SignalCharChanged.Send( this, GetCaption(), charcode );
+    SignalCharChanged.Send( this, GetTargetCaption(), charcode );
 
 }
 

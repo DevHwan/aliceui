@@ -185,6 +185,8 @@ int main() {
     // Create raster widget manager
     gWidgetManager.reset(new AUIRasterWidgetManager());
 
+    AUISlotPool signalPool;
+    
     // Create root widget
     auto pRootLayout = std::make_shared<AUILinearLayoutWidget>();
     auto pBaseLayout = std::make_shared<AUILinearLayoutWidget>();
@@ -196,6 +198,11 @@ int main() {
 
     pEdit->SetDefaultSize(200.0f, 30.0f);
     pButton->SetDefaultSize(200.0f, 30.0f);
+
+    // Connect edit callback event signal
+    signalPool.Connect(pEdit->SignalCharChanged, [](AUIWidget *, const std::wstring& str, wchar_t) {
+        std::wcout << L"Edit changed string : " << str << L'\n';
+    });
     
     pBaseLayout->AddSubWidget(pButton);
     pBaseLayout->AddSubWidget(pEdit);
