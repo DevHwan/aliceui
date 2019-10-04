@@ -369,6 +369,8 @@ int main() {
         }
     }
 
+    gWidgetManager.reset();
+    
     // Terminate
     glfwTerminate();
     
