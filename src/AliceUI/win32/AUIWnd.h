@@ -2,6 +2,7 @@
 
 #include "AUIRasterBase.h"
 #include "AUISlotPool.h"
+#include "AUIMFCCommon.h"
 
 class ALICEUI_API AUIWnd : public CWnd, public AUIRasterBase
 {

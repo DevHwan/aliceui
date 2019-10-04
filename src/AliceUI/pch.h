@@ -1,15 +1,10 @@
 #pragma once
 
-#define NOMINMAX
-
 #if defined(_WIN32)
-
+#   define NOMINMAX
 #   define VC_EXTRALEAN
-#   define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS
-
-#   include "targetver.h"
-#   include <afxwin.h>
-
+#   define WIN32_LEAN_AND_MEAN
+#   include "AUIMFCCommon.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////

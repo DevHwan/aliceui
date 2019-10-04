@@ -238,7 +238,7 @@ void AUIWnd::OnKillFocus( CWnd* pNewWnd )
 
     CPoint mousePos;
     GetCursorPos( &mousePos );
-    GetWidgetManager()->SendMouseEvent( MAUIMouseEvent( MAUIMouseEvent::kLeave_EventType, NULL, mousePos ) );
+    GetWidgetManager()->SendMouseEvent( AUIMouseEvent( AUIMouseEvent::kLeave_EventType, NULL, mousePos ) );
     // Clear focus
     GetWidgetManager()->SetFocusTarget();
 
@@ -249,7 +249,7 @@ void AUIWnd::OnKillFocus( CWnd* pNewWnd )
 void AUIWnd::OnLButtonDown( UINT nFlags, CPoint point )
 {
     SetFocus();
-    bool uiret = GetWidgetManager()->SendMouseEvent( MAUIMouseEvent( MAUIMouseEvent::kLBtnDown_EventType, nFlags, point ) );
+    bool uiret = GetWidgetManager()->SendMouseEvent( AUIMouseEvent( AUIMouseEvent::kLBtnDown_EventType, nFlags, point ) );
     if ( false == uiret )
         CWnd::OnLButtonDown( nFlags, point );
 }
@@ -257,7 +257,7 @@ void AUIWnd::OnLButtonDown( UINT nFlags, CPoint point )
 void AUIWnd::OnMButtonDown( UINT nFlags, CPoint point )
 {
     SetFocus();
-    bool uiret = GetWidgetManager()->SendMouseEvent( MAUIMouseEvent( MAUIMouseEvent::kMBtnDown_EventType, nFlags, point ) );
+    bool uiret = GetWidgetManager()->SendMouseEvent( AUIMouseEvent( AUIMouseEvent::kMBtnDown_EventType, nFlags, point ) );
     if ( false == uiret )
         CWnd::OnMButtonDown( nFlags, point );
 
@@ -266,7 +266,7 @@ void AUIWnd::OnMButtonDown( UINT nFlags, CPoint point )
 void AUIWnd::OnRButtonDown( UINT nFlags, CPoint point )
 {
     SetFocus();
-    bool uiret = GetWidgetManager()->SendMouseEvent( MAUIMouseEvent( MAUIMouseEvent::kRBtnDown_EventType, nFlags, point ) );
+    bool uiret = GetWidgetManager()->SendMouseEvent( AUIMouseEvent( AUIMouseEvent::kRBtnDown_EventType, nFlags, point ) );
     if ( false == uiret )
         CWnd::OnRButtonDown( nFlags, point );
 
@@ -275,14 +275,14 @@ void AUIWnd::OnRButtonDown( UINT nFlags, CPoint point )
 void AUIWnd::OnLButtonUp( UINT nFlags, CPoint point )
 {
 
-    bool uiret = GetWidgetManager()->SendMouseEvent( MAUIMouseEvent( MAUIMouseEvent::kLBtnUp_EventType, nFlags, point ) );
+    bool uiret = GetWidgetManager()->SendMouseEvent( AUIMouseEvent( AUIMouseEvent::kLBtnUp_EventType, nFlags, point ) );
     if ( false == uiret )
         CWnd::OnMButtonUp( nFlags, point );
 }
 
 void AUIWnd::OnMButtonUp( UINT nFlags, CPoint point )
 {
-    bool uiret = GetWidgetManager()->SendMouseEvent( MAUIMouseEvent( MAUIMouseEvent::kMBtnUp_EventType, nFlags, point ) );
+    bool uiret = GetWidgetManager()->SendMouseEvent( AUIMouseEvent( AUIMouseEvent::kMBtnUp_EventType, nFlags, point ) );
     if ( false == uiret )
         CWnd::OnMButtonUp( nFlags, point );
 
@@ -291,14 +291,14 @@ void AUIWnd::OnMButtonUp( UINT nFlags, CPoint point )
 void AUIWnd::OnRButtonUp( UINT nFlags, CPoint point )
 {
 
-    bool uiret = GetWidgetManager()->SendMouseEvent( MAUIMouseEvent( MAUIMouseEvent::kRBtnUp_EventType, nFlags, point ) );
+    bool uiret = GetWidgetManager()->SendMouseEvent( AUIMouseEvent( AUIMouseEvent::kRBtnUp_EventType, nFlags, point ) );
     if ( false == uiret )
         CWnd::OnRButtonUp( nFlags, point );
 }
 
 void AUIWnd::OnLButtonDblClk( UINT nFlags, CPoint point )
 {
-    bool uiret = GetWidgetManager()->SendMouseEvent( MAUIMouseEvent( MAUIMouseEvent::kLBtnDblClk_EventType, nFlags, point ) );
+    bool uiret = GetWidgetManager()->SendMouseEvent( AUIMouseEvent( AUIMouseEvent::kLBtnDblClk_EventType, nFlags, point ) );
     if ( false == uiret )
         CWnd::OnLButtonDblClk( nFlags, point );
 
@@ -306,7 +306,7 @@ void AUIWnd::OnLButtonDblClk( UINT nFlags, CPoint point )
 
 void AUIWnd::OnMButtonDblClk( UINT nFlags, CPoint point )
 {
-    bool uiret = GetWidgetManager()->SendMouseEvent( MAUIMouseEvent( MAUIMouseEvent::kMBtnDblClk_EventType, nFlags, point ) );
+    bool uiret = GetWidgetManager()->SendMouseEvent( AUIMouseEvent( AUIMouseEvent::kMBtnDblClk_EventType, nFlags, point ) );
     if ( false == uiret )
         CWnd::OnMButtonDblClk( nFlags, point );
 
@@ -315,7 +315,7 @@ void AUIWnd::OnMButtonDblClk( UINT nFlags, CPoint point )
 void AUIWnd::OnRButtonDblClk( UINT nFlags, CPoint point )
 {
 
-    bool uiret = GetWidgetManager()->SendMouseEvent( MAUIMouseEvent( MAUIMouseEvent::kRBtnDblClk_EventType, nFlags, point ) );
+    bool uiret = GetWidgetManager()->SendMouseEvent( AUIMouseEvent( AUIMouseEvent::kRBtnDblClk_EventType, nFlags, point ) );
     if ( false == uiret )
         CWnd::OnRButtonDblClk( nFlags, point );
 }
@@ -332,7 +332,7 @@ void AUIWnd::OnMouseMove( UINT nFlags, CPoint point )
         m_bTrackMouse = _TrackMouseEvent( &tme );
     }
 
-    auto uiret = GetWidgetManager()->SendMouseEvent( MAUIMouseEvent( MAUIMouseEvent::kMove_EventType, nFlags, point ) );
+    auto uiret = GetWidgetManager()->SendMouseEvent( AUIMouseEvent( AUIMouseEvent::kMove_EventType, nFlags, point ) );
     if ( false == uiret )
         CWnd::OnMouseMove( nFlags, point );
 
@@ -352,7 +352,7 @@ BOOL AUIWnd::OnMouseWheel( UINT nFlags, short zDelta, CPoint pt )
     CRect rect;
     GetWindowRect( rect );
     CPoint relPoint = CPoint( pt.x - rect.left, pt.y - rect.top );
-    const auto uiret = GetWidgetManager()->SendMouseEvent( MAUIMouseEvent( MAUIMouseEvent::kWheel_EventType, nFlags, relPoint, zDelta ) );
+    const auto uiret = GetWidgetManager()->SendMouseEvent( AUIMouseEvent( AUIMouseEvent::kWheel_EventType, nFlags, relPoint, zDelta ) );
     if (uiret)
     {
         const float DefaultWheelDelta = 120.0f;
@@ -366,7 +366,7 @@ BOOL AUIWnd::OnMouseWheel( UINT nFlags, short zDelta, CPoint pt )
 
 void AUIWnd::OnMouseLeave()
 {
-    bool uiret = GetWidgetManager()->SendMouseEvent( MAUIMouseEvent( MAUIMouseEvent::kLeave_EventType, NULL, CPoint() ) );
+    bool uiret = GetWidgetManager()->SendMouseEvent( AUIMouseEvent( AUIMouseEvent::kLeave_EventType, NULL, CPoint() ) );
 
     CWnd::OnMouseLeave();
 

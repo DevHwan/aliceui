@@ -48,7 +48,7 @@ static void ChangeCursorIcon(AUICursorIcon::CursorIcon ct)
     case AUICursorIcon::kUpArrow_CursorIcon:
         ::SetCursor(::LoadCursor(nullptr, IDC_UPARROW));
         break;
-#   if defined(_MSC_VER)
+#   if defined(_MSC_VER) && defined(_AFX)
     case AUICursorIcon::kMagnify_CursorIcon:
         ::SetCursor(::AfxGetApp()->LoadCursor(AFX_IDC_MAGNIFY));
         break;

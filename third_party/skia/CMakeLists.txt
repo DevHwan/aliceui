@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.15)
 
 message(STATUS "Skia configurations...")
 message(STATUS "    - source path : " ${ALICEUI_SKIA_SOURCE_PATH})
@@ -18,21 +18,19 @@ target_include_directories(skia
 
 if(ALICEUI_SKIA_IS_COMPONENT_BUILD)
     if(WIN32)
-        set_property(TARGET skia PROPERTY
+        set_target_properties(skia PROPERTIES
             IMPORTED_LOCATION ${ALICEUI_SKIA_LIBRARY_PATH}/skia.dll
-            IMPORTED_IMPLIB   ${ALICEUI_SKIA_LIBRARY_PATH}/skia.lib)
+            IMPORTED_IMPLIB   ${ALICEUI_SKIA_LIBRARY_PATH}/skia.dll.lib)
     elseif(UNIX)
-        set_property(TARGET skia PROPERTY
+        set_target_properties(skia PROPERTIES
             IMPORTED_LOCATION ${ALICEUI_SKIA_LIBRARY_PATH}/libskia.so)
     endif()
 else()
     if(WIN32)
-        set_property(TARGET skia PROPERTY
+        set_target_properties(skia PROPERTIES
             IMPORTED_IMPLIB   ${ALICEUI_SKIA_LIBRARY_PATH}/skia.lib)
     elseif(UNIX)
-        set_property(TARGET skia PROPERTY
-            IMPORTED_IMPLIB ${ALICEUI_SKIA_LIBRARY_PATH}/libskia.a)
+        set_target_properties(skia PROPERTIES
+            IMPORTED_IMPLIB   ${ALICEUI_SKIA_LIBRARY_PATH}/libskia.a)
     endif()
 endif()
-
-

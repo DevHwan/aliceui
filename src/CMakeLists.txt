@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.15)
 
 # Get all source files
 file(GLOB ALICEUI_SOURCE_FILES "${CMAKE_CURRENT_LIST_DIR}/AliceUI/*.cpp")
@@ -27,6 +27,13 @@ if(ALICEUI_BUILD_SHARED)
             ALICEUI_SHARED=1
         PRIVATE
             ALICEUI_EXPORTS=1)
+    if(MSVC)
+        set_target_properties(AliceUI PROPERTIES
+            MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")    
+        target_compile_definitions(AliceUI
+            PUBLIC
+                _AFXDLL)
+    endif()
 else()
     add_library(AliceUI STATIC
         ${ALICEUI_SOURCE_FILES}
@@ -36,6 +43,10 @@ else()
     target_compile_definitions(AliceUI
         PUBLIC
             ALICEUI_STATIC=1)
+            if(MSVC)
+    set_target_properties(AliceUI PROPERTIES
+        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+    endif()
 endif()
 target_link_libraries(AliceUI
     PUBLIC
@@ -53,3 +64,21 @@ target_include_directories(AliceUI
         ${CMAKE_CURRENT_LIST_DIR}/../include
         ${ALICEUI_PLATFORM_INCLUDE_DIR})
 
+if (MSVC)
+    target_compile_options(AliceUI
+        PRIVATE
+            /MP
+            /permissive-
+            /sdl
+            /wd4251
+            /wd4819
+            /wd4996     # TODO : Remove after replacing rapidjson 
+            /FC)
+    target_compile_definitions(AliceUI
+        PUBLIC
+            _UNICODE
+            UNICODE)
+    target_link_libraries(AliceUI
+        PRIVATE
+            Opengl32)
+endif()

@@ -756,11 +756,9 @@ bool AUIEditWidget::OnKeyDown( AUIKeyboardEvent::MaskCode mask, unsigned int key
     {
        OpDelete();
     }
-#   if defined(__APPLE__)
     else if (keycode == MAUIKeycode::kBackspace) {
         OpBackspace();
     }
-#   endif
     else if ( charcode == MAUIKeycode::kEscape )
     {
         // ESC

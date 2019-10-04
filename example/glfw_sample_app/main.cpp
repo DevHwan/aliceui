@@ -1,3 +1,15 @@
+#if defined(WIN32)
+#   include <WinSDKVer.h>
+#   define NOMINMAX
+#   define WIN32_LEAN_AND_MEAN
+#   include <Windows.h>
+#   define GLFW_EXPOSE_NATIVE_WIN32
+#   include <AUIWin32AppImpl.h>
+#elif defined(__APPLE__)
+#   define GLFW_EXPOSE_NATIVE_COCOA
+#   include <AUIDarwinAppImpl.h>
+#endif
+
 #include <AUIRasterWidgetManager.h>
 #include <AUILinearLayoutWidget.h>
 #include <AUIColorDrawable.h>
@@ -9,14 +21,6 @@
 #include <AUIApplication.h>
 
 #include <core/SkSurface.h>
-
-#if defined(WIN32)
-#   define GLFW_EXPOSE_NATIVE_WIN32
-#   include <AUIWin32AppImpl.h>
-#elif defined(__APPLE__)
-#   define GLFW_EXPOSE_NATIVE_COCOA
-#   include <AUIDarwinAppImpl.h>
-#endif
 
 #include <iostream>
 #include <memory>
@@ -78,7 +82,13 @@ static void keyCallback(GLFWwindow* window, int key, int scancode, int action, i
     maskCode |= (isShiftOn) ? AUIKeyboardEvent::kShiftOn_MaskCode : 0;
     maskCode |= (isCtrlOn) ? AUIKeyboardEvent::kCtrlOn_MaskCode : 0;
     maskCode |= (isAltOn) ? AUIKeyboardEvent::kAltOn_MaskCode : 0;
-    
+
+#if defined(_WIN32)
+    const auto mappedVK = MapVirtualKeyW(scancode, MAPVK_VSC_TO_VK);
+    if (0 != mappedVK)
+        scancode = mappedVK;
+#endif
+
     AUIKeyboardEvent::EventType keyboardEventType = AUIKeyboardEvent::kUndefined_EventType;
     if (isKeyDown) {
         keyboardEventType = AUIKeyboardEvent::kKeyDown_EventType;

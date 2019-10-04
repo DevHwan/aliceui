@@ -1,35 +1,38 @@
 #include "pch.h"
+
+#if defined(ALICEUI_SHARED)
+
 #include <clocale>
 
 extern "C" {
-    static AFX_EXTENSION_MODULE sMIT_aliceDLL = { 0, };
+    static AFX_EXTENSION_MODULE sAliceUIDLL = { 0, };
 
     int APIENTRY DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
     {
         UNREFERENCED_PARAMETER(lpReserved);
 
-        auto loc = std::setlocale(LC_ALL, "ko_KR");
-
         if (dwReason == DLL_PROCESS_ATTACH)
         {
-            TRACE("[MIT_alice] Prepare initialization.\n");
+            TRACE("[AliceUI] Prepare initialization.\n");
 
             // Init MFC Extension
-            if (!AfxInitExtensionModule(sMIT_aliceDLL, hInstance))
+            if (!AfxInitExtensionModule(sAliceUIDLL, hInstance))
                 return 0;
 
             // Register Extension DLL
-            new CDynLinkLibrary(sMIT_aliceDLL);
+            new CDynLinkLibrary(sAliceUIDLL);
 
-            TRACE("[MIT_alice] Initialized.\n");
+            TRACE("[AliceUI] Initialized.\n");
         }
         else if (dwReason == DLL_PROCESS_DETACH)
         {
-            TRACE("[MIT_alice] Finalizing.\n");
+            TRACE("[AliceUI] Finalizing.\n");
 
             // Terminate MFC Extension
-            AfxTermExtensionModule(sMIT_aliceDLL);
+            AfxTermExtensionModule(sAliceUIDLL);
         }
         return 1;
     }
 }
+
+#endif

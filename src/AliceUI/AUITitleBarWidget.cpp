@@ -42,7 +42,7 @@ public:
 private:
 	void UpdateMaximizeState()
 	{
-#if defined(WIN32)
+#if defined(_AFX)
 		auto pMainWnd = ::AfxGetApp()->GetMainWnd();
 		if (pMainWnd && pMainWnd->GetSafeHwnd())
 			m_bZoomed = ::AfxGetApp()->GetMainWnd()->IsZoomed();

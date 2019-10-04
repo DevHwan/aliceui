@@ -103,4 +103,5 @@ bool ShaderProgram::BindTexture(const Texture2D& texture, const SampleState& sam
     texture.Bind();
     glBindSampler(uniformIndex, sampleState.Id());
     assert(GL_NO_ERROR == glGetError());
+    return true;
 }
