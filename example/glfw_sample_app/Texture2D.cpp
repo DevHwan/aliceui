@@ -46,7 +46,11 @@ bool Texture2D::UpdateImage(const SkPixmap& pixmap) {
         return false;
     glBindTexture(GL_TEXTURE_2D, this->m_Id);
     assert(GL_NO_ERROR == glGetError());
+#if defined(__APPLE__)
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, pixmap.width(), pixmap.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, pixmap.addr());
+#else
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, pixmap.width(), pixmap.height(), 0, GL_BGRA, GL_UNSIGNED_BYTE, pixmap.addr());
+#endif
     assert(GL_NO_ERROR == glGetError());
     return true;
 }
