@@ -9,22 +9,18 @@ class ALICEUI_API AUINinePatchDrawable : public AUIDrawable
 public:
     AUINinePatchDrawable();
     AUINinePatchDrawable(const AUINinePatch& ninepatch);
-    virtual ~AUINinePatchDrawable();
+    ~AUINinePatchDrawable() override;
 
     //////////////////////////////////////////////////////////////////////////
     // Helper
 public:
-    static std::shared_ptr< AUINinePatchDrawable > CreateFromResourcePath(const std::wstring& path);
+    static std::shared_ptr<AUINinePatchDrawable> CreateFromResourcePath(const std::wstring& path);
 
     //////////////////////////////////////////////////////////////////////////
     // Draw
 protected:
-    virtual void OnDraw(SkCanvas* const canvas) override;
+    void OnDraw(SkCanvas* const canvas) override;
 
-
-    //////////////////////////////////////////////////////////////////////////
-    // NinePatch
-public:
 private:
     AUINinePatch m_NinePatch;
 };

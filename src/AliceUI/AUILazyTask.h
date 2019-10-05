@@ -20,6 +20,7 @@ public:
     }
 protected:
     virtual void OnExecute() = 0;
+    
 private:
     bool m_bExecuted = false;
 };

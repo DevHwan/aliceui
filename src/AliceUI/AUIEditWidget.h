@@ -14,13 +14,6 @@ public:
 
 
     //////////////////////////////////////////////////////////////////////////
-    // Signal
-public:
-    AUISignal<void(AUIWidget*, const std::wstring&, wchar_t)> SignalCharChanged;
-    AUISignal<void(AUIWidget*, const std::wstring&)> SignalAfterTextChanged;
-    AUISignal<void(AUIWidget*)> SignalReturn;
-    AUISignal<void(AUIWidget*)> SignalTab;
-
 	//////////////////////////////////////////////////////////////////////////
 	// Create & Destroy
 public:
@@ -42,9 +35,6 @@ public:
     std::wstring GetCaptionBuffer() const { return m_CaptionBuffer; }
     std::wstring GetTargetCaption() const;
     void SetTargetCaption(const std::wstring& text);
-private:
-    std::wstring m_CaptionBuffer;
-
 
     //////////////////////////////////////////////////////////////////////////
     // Caption
@@ -63,11 +53,6 @@ public:
     void SetUseBuffer(bool state) { m_bUseBuffer = state; }
     bool IsPassword() const { return m_bPassword; }
     void SetPassword(bool state) { m_bPassword = state; }
-private:
-    bool m_bTabToChar;
-    bool m_bReturnToChar;
-    bool m_bUseBuffer;
-    bool m_bPassword;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -76,8 +61,6 @@ public:
     void SetStringFilter(AUIStringFilter* pFilter);
     void SetStringFilter(std::unique_ptr< AUIStringFilter >& pFilter);
     AUIStringFilter* const GetStringFilter() const { return m_pFilter.get(); }
-private:
-    std::unique_ptr< AUIStringFilter > m_pFilter;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -86,7 +69,6 @@ public:
     void SetCaptionHint(const std::wstring& caption) { m_CaptionHint = caption; }
     std::wstring GetCaptionHint() const { return m_CaptionHint; }
 private:
-    std::wstring m_CaptionHint;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -106,15 +88,6 @@ public:
     std::wstring::size_type GetSelectionStart() const { return m_SelStart; }
     std::wstring::size_type GetSelectionEnd() const { return m_SelEnd; }
     std::wstring::size_type GetSelectionCursor() const { return m_SelCursor; }
-    static const std::wstring::size_type SelAllStart;
-    static const std::wstring::size_type SelAllEnd;
-    static const std::wstring::size_type SelClearStart;
-    static const std::wstring::size_type SelClearEnd;
-private:
-    bool m_bCaptionSelectable;
-    std::wstring::size_type m_SelStart;
-    std::wstring::size_type m_SelEnd;
-    std::wstring::size_type m_SelCursor;
 
 
 
@@ -171,14 +144,6 @@ public:
     void StartBlink();
     void StopBlink();
 private:
-    bool m_bBlinkState = false;
-
-
-    //////////////////////////////////////////////////////////////////////////
-    // Cursor
-public:
-private:
-    std::wstring::size_type m_cursorSelStart;
 
     //////////////////////////////////////////////////////////////////////////
     // Text operation
@@ -198,23 +163,31 @@ private:
     //////////////////////////////////////////////////////////////////////////
     // Caption composition
 public:
-    void SetCaptionCompColor(const SkColor color) { m_CaptionCompColor = color; Invalidate(); }
-    SkColor GetCaptionCompColor() const { return m_CaptionCompColor; }
-private:
-    SkColor m_CaptionCompColor;
-    std::wstring m_CaptionComp;
+    void SetCaptionCompColor(const SkColor color) {
+        m_CaptionCompColor = color;
+        Invalidate();
+    }
+    SkColor GetCaptionCompColor() const noexcept {
+        return m_CaptionCompColor;
+    }
+
 
 
     //////////////////////////////////////////////////////////////////////////
     // Caption
 public:
-    void SetCaptionSelectColor(const SkColor color) { m_CaptionSelectColor = color; Invalidate(); }
+    void SetCaptionSelectColor(const SkColor color) {
+        m_CaptionSelectColor = color;
+        Invalidate();
+    }
     void SetSelectBGColor(const SkColor color) { m_SelectBGColor = color; Invalidate(); }
-    SkColor GetCaptionSelectColor() const { return m_CaptionSelectColor; }
-    SkColor GetSelectBGColor() const { return m_SelectBGColor; }
-private:
-    SkColor m_SelectBGColor;
-    SkColor m_CaptionSelectColor;
+    SkColor GetCaptionSelectColor() const noexcept {
+        return m_CaptionSelectColor;
+    }
+    SkColor GetSelectBGColor() const noexcept {
+        return m_SelectBGColor;
+    }
+
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -222,12 +195,49 @@ private:
 public:
     void SetCaptionHintColor(const SkColor color) { m_CaptionHintColor = color; Invalidate(); }
     void SetCaptionHintSize(float size) { m_fCaptionHintSize = size; Invalidate(); }
-    SkColor GetCaptionHintColor() const { return m_CaptionHintColor; }
-    float GetCaptionHintSize() const { return m_fCaptionHintSize; }
+    SkColor GetCaptionHintColor() const noexcept {
+        return m_CaptionHintColor;
+    }
+    float GetCaptionHintSize() const noexcept {
+        return m_fCaptionHintSize;
+    }
+    
+
+public:
+    static const std::wstring::size_type SelAllStart;
+    static const std::wstring::size_type SelAllEnd;
+    static const std::wstring::size_type SelClearStart;
+    static const std::wstring::size_type SelClearEnd;
+
+    // Signals
+    AUISignal<void(AUIWidget*, const std::wstring&, wchar_t)> SignalCharChanged;
+    AUISignal<void(AUIWidget*, const std::wstring&)> SignalAfterTextChanged;
+    AUISignal<void(AUIWidget*)> SignalReturn;
+    AUISignal<void(AUIWidget*)> SignalTab;
+
 private:
+    // Filter
+    std::unique_ptr<AUIStringFilter> m_pFilter;
+    // Colors
+    SkColor m_SelectBGColor;
+    SkColor m_CaptionCompColor;
+    SkColor m_CaptionSelectColor;
     SkColor m_CaptionHintColor;
+    // Captions
+    std::wstring m_CaptionComp;
+    std::wstring m_CaptionBuffer;
+    std::wstring m_CaptionHint;
     float m_fCaptionHintSize;
-
-
+    // Selections
+    std::wstring::size_type m_SelStart = std::wstring::npos;
+    std::wstring::size_type m_SelEnd = 0;
+    std::wstring::size_type m_SelCursor = std::wstring::npos;
+    std::wstring::size_type m_cursorSelStart = std::wstring::npos;
+    bool m_bTabToChar = false;
+    bool m_bReturnToChar = false;
+    bool m_bUseBuffer = true;
+    bool m_bPassword = false;
+    bool m_bCaptionSelectable = true;
+    bool m_bBlinkState = false;
 };
 

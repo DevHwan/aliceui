@@ -16,11 +16,6 @@ AUIExpandToggleDrawable::~AUIExpandToggleDrawable()
 
 void AUIExpandToggleDrawable::OnDraw( SkCanvas* const canvas )
 {
-    const float offset = 5.0f;
-    auto bound = GetDrawBound();
-    ////bound.inset( offset, offset );
-    //bound = SkRect::MakeLTRB( bound.left() + 8.0f, bound.top() + 4.0f, bound.right() - 7.0f, bound.bottom() - 4.0f );
-    ////canvas->translate( offset, offset );
     canvas->translate( 4.0f, 4.0f );
 
     SkPaint iconPaint;
@@ -35,9 +30,6 @@ void AUIExpandToggleDrawable::OnDraw( SkCanvas* const canvas )
     {
         iconPaint.setColor( m_PressColor );
     }
-
-    const auto width = bound.width();
-    const auto height = bound.height();
 
     const auto triSize = 6.0f;//(std::min)( width, height );
     SkPath triPath;

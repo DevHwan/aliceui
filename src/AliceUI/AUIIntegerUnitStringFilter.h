@@ -8,13 +8,13 @@ class ALICEUI_API AUIIntegerUnitStringFilter : public AUIIntegerStringFilter
 {
 public:
     AUIIntegerUnitStringFilter();
-    virtual ~AUIIntegerUnitStringFilter();
+    ~AUIIntegerUnitStringFilter() override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Filter method
 public:
-    virtual std::wstring Filter(const std::wstring& strOrigin) override;
+    std::wstring Filter(const std::wstring& strOrigin) override;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -23,7 +23,7 @@ public:
     void SetUnitType(const AUIUnitType& type) { m_UnitType = type; }
     AUIUnitType GetUnitType() const { return m_UnitType; }
 private:
-    AUIUnitType m_UnitType;
+    AUIUnitType m_UnitType = AUIUnitType::kMeter;
 
 };
 

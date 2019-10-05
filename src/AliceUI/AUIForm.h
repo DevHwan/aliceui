@@ -91,18 +91,18 @@ public:
     void DoShowDefault();
 
 
-
-    //////////////////////////////////////////////////////////////////////////
-    // Handle
-protected:
-    AUIHandle* const GetHandle() const { return m_pHandle.get(); }
-private:
-    std::shared_ptr< AUIHandle > m_pHandle;
-
-
     //////////////////////////////////////////////////////////////////////////
     // Transparency
 public:
     void SetTransparent(bool val);
     bool IsTransparent() const;
+
+
+    
+    
+    // Handle
+protected:
+    AUIHandle* const GetHandle() const { return m_pHandle.get(); }
+private:
+    std::shared_ptr< AUIHandle > m_pHandle;
 };

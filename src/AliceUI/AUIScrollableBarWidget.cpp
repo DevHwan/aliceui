@@ -16,10 +16,7 @@ namespace
 }
 
 AUIScrollableBarWidget::AUIScrollableBarWidget()
-    : m_ContentHeight( 0.0f )
-    , m_ScrollPos( 0.0f )
-    , m_pThumbDrawable( ::GetScrollThumbDrawable() )
-    , m_bShowThumbOnHit( false )
+    : m_pThumbDrawable( ::GetScrollThumbDrawable() )
 {
     SetSizePolicy( AUISizePolicy::kParent, AUISizePolicy::kParent );
     //Freeze();
@@ -33,7 +30,7 @@ AUIScrollableBarWidget::~AUIScrollableBarWidget()
 
 void AUIScrollableBarWidget::OnDraw( SkCanvas* const canvas )
 {
-    SuperClass::OnDraw( canvas );
+    SuperWidget::OnDraw( canvas );
 
     AUIAssert( m_pThumbDrawable );
 

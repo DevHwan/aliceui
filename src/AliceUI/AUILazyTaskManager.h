@@ -29,6 +29,8 @@ protected:
 public:
     size_t GetTaskCount() const;
     void PushTask(const std::shared_ptr<AUILazyTask>& pTask);
+    
+    
 protected:
     std::vector<std::shared_ptr<AUILazyTask>> m_Tasks;
     mutable std::recursive_mutex m_mtxTasks;

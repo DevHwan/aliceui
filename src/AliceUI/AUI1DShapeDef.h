@@ -5,9 +5,9 @@
 
 struct AUIShapeLine
 {
-    glm::dvec3 pos[2];
+    glm::dvec3 pos[2] = { { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 } };
 
-    AUIShapeLine() {}
+    AUIShapeLine() = default;
 
     //////////////////////////////////////////////////////////////////////////
     // Make
@@ -23,14 +23,14 @@ struct AUIShapeLine
 
 struct AUIShapeCircle
 {
-    glm::dvec3 pos;
-    glm::dvec3 norm;
-    double radius;
+    glm::dvec3 pos{ 0.0, 0.0, 0.0 };
+    glm::dvec3 norm{ 0.0, 0.0, 1.0 };
+    double radius = 1.0;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Base constructor
-    AUIShapeCircle() : norm(0.0, 0.0, 1.0), radius(1.0) { }
+    AUIShapeCircle() = default;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -54,16 +54,16 @@ struct AUIShapeCircle
 
 struct AUIShapeArc
 {
-    glm::dvec3 pos;
-    glm::dvec3 norm;
-    glm::dvec3 dir;
-    double radius;
-    double angle[2] = { 0.0, };
+    glm::dvec3 pos{ 0.0, 0.0, 0.0 };
+    glm::dvec3 norm{ 0.0, 0.0, 1.0 };
+    glm::dvec3 dir{ 1.0, 0.0, 0.0 };
+    double radius = 1.0;
+    double angle[2] = { 0.0, 360.0 };
 
 
     //////////////////////////////////////////////////////////////////////////
     // Base constructor
-    AUIShapeArc() : norm(0.0, 0.0, 1.0), radius(1.0), dir(1.0, 0.0, 0.0) { angle[0] = 0.; angle[1] = 360.; }
+    AUIShapeArc() = default;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -121,17 +121,17 @@ struct AUIShapeArc
 
 struct AUIShapeEllipse
 {
-    glm::dvec3 pos;
-    glm::dvec3 norm;
-    double radiusMajor;
-    double radiusMinor;
-    glm::dvec3 axisMajor;
-    glm::dvec3 axisMinor;
+    glm::dvec3 pos{ 0.0, 0.0, 0.0 };
+    glm::dvec3 norm{ 0.0, 0.0, 1.0 };
+    double radiusMajor = 1.0;
+    double radiusMinor = 1.0;
+    glm::dvec3 axisMajor{ 1.0, 0.0, 0.0 };
+    glm::dvec3 axisMinor{ 0.0, 1.0, 0.0 };
 
 
     //////////////////////////////////////////////////////////////////////////
     // Base constructor
-    AUIShapeEllipse() : norm(0.0, 0.0, 1.0), radiusMajor(1.0), radiusMinor(1.0), axisMajor(1.0, 0.0, 0.0), axisMinor(0.0, 1.0, 0.0) { }
+    AUIShapeEllipse() = default;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -186,19 +186,19 @@ struct AUIShapeEllipse
 
 struct AUIShapeEllipseArc
 {
-    glm::dvec3 pos;
-    glm::dvec3 norm;
-    double radiusMajor;
-    double radiusMinor;
-    glm::dvec3 axisMajor;
-    glm::dvec3 axisMinor;
-    double startAngle;
-    double endAngle;
+    glm::dvec3 pos{ 0.0, 0.0, 0.0 };
+    glm::dvec3 norm{ 0.0, 0.0, 1.0 };
+    double radiusMajor = 1.0;
+    double radiusMinor = 1.0;
+    glm::dvec3 axisMajor = { 1.0, 0.0, 0.0 };
+    glm::dvec3 axisMinor = { 0.0, 1.0, 0.0 };
+    double startAngle = 0.0;
+    double endAngle = 0.0;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Base constructor
-    AUIShapeEllipseArc() : norm(0.0, 0.0, 1.0), radiusMajor(1.0), radiusMinor(1.0), axisMajor(1.0, 0.0, 0.0), axisMinor(0.0, 1.0, 0.0), startAngle(0.0), endAngle(0.0) { }
+    AUIShapeEllipseArc() = default;
 
 
     //////////////////////////////////////////////////////////////////////////

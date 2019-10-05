@@ -31,8 +31,6 @@ public:
     AUIWidgetManager* GetWidgetManager() const noexcept {
         return m_pWidgetManager;
     }
-private:
-    AUIWidgetManager* const m_pWidgetManager = nullptr;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -50,9 +48,6 @@ private:
     void CreateInstance();
     void DestroyInstance();
     void UpdateInstance();
-    bool m_bValid = false;
-    bool m_bDirty = true;
-    int m_iWidgetDepth = 0;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -68,7 +63,6 @@ public:
     //////////////////////////////////////////////////////////////////////////
     // Hit Test
 public:
-    static const float kHitDistanceScreen;
     bool IsHit() const noexcept {
         return m_bHit;
     }
@@ -87,11 +81,6 @@ public:
     void UpdateCompass(AUICompass* pCompass);
 private:
     void UpdateHitData(int sx, int sy);
-    bool m_bHit = false;
-    float m_fHitDist;
-    glm::vec3 m_vLocalOrg;
-    glm::vec3 m_vLocalDir;
-    std::weak_ptr<AUISensor> m_wpCurSensor;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -101,12 +90,25 @@ public:
         return m_pWidget.get();
     }
 private:
-    std::shared_ptr<AUIWidget> const m_pWidget;
 
 public:
     bool IsDrawableRoot() const noexcept {
         return m_bDrawableRoot;
     }
+    
+public:
+    static const float kHitDistanceScreen;
 protected:
     bool m_bDrawableRoot = false;
+private:
+    AUIWidgetManager* const m_pWidgetManager = nullptr;
+    std::shared_ptr<AUIWidget> const m_pWidget;
+    std::weak_ptr<AUISensor> m_wpCurSensor;
+    glm::vec3 m_vLocalOrg = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec3 m_vLocalDir = glm::vec3(0.0f, 0.0f, 1.0f);
+    float m_fHitDist = kHitDistanceScreen;
+    int m_iWidgetDepth = 0;
+    bool m_bValid = false;
+    bool m_bDirty = true;
+    bool m_bHit = false;
 };

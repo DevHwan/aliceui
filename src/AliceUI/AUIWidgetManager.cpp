@@ -17,16 +17,7 @@
 
 
 AUIWidgetManager::AUIWidgetManager()
-    : m_pWidgetSelection( std::make_unique< AUIWidgetSelection >() )
-    , m_MousePosX( 0 )
-    , m_MousePosY( 0 )
-    , m_bEnabled( true )
-    , m_bGrabMouseEvent( false )
-    , m_bShowTooltip( false )
-    , m_bHasTooltipInst( false )
-    , m_TooltipOffsetX( 20 )
-    , m_TooltipOffsetY( 20 )
-    , m_bDirty( false )
+    : m_pWidgetSelection(std::make_unique<AUIWidgetSelection>())
 {
     AUIApplication::Instance().AttachWidgetManager( this );
 }

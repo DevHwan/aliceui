@@ -42,7 +42,6 @@ bool AUIScrollableContentWidget::OnMouseWheel( AUIMouseEvent::EventFlag flag, fl
 
 void AUIScrollableContentWidget::OnMeasureSize(SkScalar width, AUIMeasureSpec widthSpec, SkScalar height, AUIMeasureSpec heightSpec)
 {
-    const auto beforeHeight = height;
     if ( AUISizePolicy::kContent == GetSizePolicyHeight() && AUIMeasureSpec::kAtMost == heightSpec )
     {
         height = kOverfittingSize;

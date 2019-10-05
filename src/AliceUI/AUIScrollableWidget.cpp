@@ -7,20 +7,13 @@
 #include "AUIScrollableBarWidget.h"
 
 namespace {
-    constexpr SkScalar DefaultScrollOffset = 30.0f;
     constexpr SkScalar DefaultWidth = 100.0f;
     constexpr SkScalar DefaultHeight = 100.0f;
 }
 
 AUIScrollableWidget::AUIScrollableWidget()
-    : m_pContent( std::make_shared< AUIScrollableContentWidget >() )
-    , m_pScrollBar( std::make_shared< AUIScrollableBarWidget >() )
-    , m_eScrollBarPolicy( SBP_Show )
-    , m_fScrollPos( 0.0f )
-    , m_fScrollOffset( DefaultScrollOffset )
-    , m_bHorizontal( false )
-    , m_bPendingScrolllToBottom( false )
-    , m_bPendingScrollToTop( false )
+    : m_pContent(std::make_shared<AUIScrollableContentWidget>())
+    , m_pScrollBar(std::make_shared<AUIScrollableBarWidget>())
 {
     Connect( m_pContent->ScrollSignal, this, &AUIScrollableWidget::OnContentScroll );
     Connect( m_pScrollBar->ThumbScrollSignal, this, &AUIScrollableWidget::OnThumbScroll );
@@ -109,7 +102,7 @@ void AUIScrollableWidget::OnContentScroll( AUIScrollableContentWidget* const pWi
 {
     if ( 0.0f < delta )
     {
-        if ((delta == std::numeric_limits<float>::max()))
+        if (delta == std::numeric_limits<float>::max())
         {
             // TopMost
             m_fScrollPos = 0.0f;
@@ -124,7 +117,7 @@ void AUIScrollableWidget::OnContentScroll( AUIScrollableContentWidget* const pWi
     }
     else if ( 0.0f > delta )
     {
-        if ((delta == std::numeric_limits<float>::lowest()))
+        if (delta == std::numeric_limits<float>::lowest())
         {
             m_fScrollPos = (std::min)(0.0f, -(m_pContent->GetHeight() - this->GetHeight()));
         }

@@ -7,5 +7,5 @@ class ALICEUI_API AUISpaceWidget : public AUIDrawableWidget
 {
 public:
     AUISpaceWidget();
-    virtual ~AUISpaceWidget();
+    ~AUISpaceWidget() override;
 };

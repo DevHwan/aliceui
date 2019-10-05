@@ -4,7 +4,7 @@
 
 class ALICEUI_API AUITextWidget : public AUIDrawableWidget
 {
-    typedef AUIDrawableWidget SuperWidget;
+    using SuperWidget = AUIDrawableWidget;
 public:
     AUITextWidget();
     AUITextWidget(const std::wstring& caption);
@@ -13,7 +13,7 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	// Create & Destroy
 public:
-	virtual void OnDestroy() override;
+	void OnDestroy() override;
 
     //////////////////////////////////////////////////////////////////////////
     // Caption parameter
@@ -34,15 +34,17 @@ public:
     SkColor GetCaptionColor() const;
     SkColor GetCaptionColor(AUIState::Index idx, bool state) const;
 protected:
-    virtual std::wstring OnSetCaption(const std::wstring& text) { return text; }
-    virtual std::wstring OnGetCaption(const std::wstring& text) const { return text; }
-private:
-    std::wstring m_Caption;
+    virtual std::wstring OnSetCaption(const std::wstring& text) {
+        return text;
+    }
+    virtual std::wstring OnGetCaption(const std::wstring& text) const {
+        return text;
+    }
 
     //////////////////////////////////////////////////////////////////////////
     // Draw
 protected:
-    virtual void OnDraw(SkCanvas* const canvas) override;
+    void OnDraw(SkCanvas* const canvas) override;
     virtual void OnDrawCaption(SkCanvas* const canvas);
     void OnDrawCaption_SingleLine(SkCanvas* const canvas);
     void OnDrawCaption_Multiline(SkCanvas* const canvas);
@@ -56,13 +58,11 @@ protected:
     //////////////////////////////////////////////////////////////////////////
     // Drawable
 public:
-    virtual void SetBackgroundDrawable(const std::shared_ptr< AUIDrawable >& pDrawable) override;
+    void SetBackgroundDrawable(const std::shared_ptr< AUIDrawable >& pDrawable) override;
 private:
-    enum DrawableLayer
-    {
+    enum DrawableLayer {
         BackgroundLayer = 0,
     };
-    std::shared_ptr< AUIDrawable > m_pBackgroundDrawable;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -81,54 +81,97 @@ protected:
     //////////////////////////////////////////////////////////////////////////
     // Caption parameter
 public:
-    void SetCaptionAntialias(bool state) { m_bCaptionAA = state; InvalidateCaption(); }
-    void SetCaptionSize(SkScalar size) { m_fCaptionSize = size; InvalidateCaption(); }
-    void SetCaptionStyle(const SkFontStyle style) { m_captionStyle = style; InvalidateCaption(); }
-    void SetCaptionFontName(const std::wstring& name) { m_captionFontName = name; InvalidateCaption(); }
-    bool GetCaptionAntialias() const { return m_bCaptionAA; }
-    SkScalar GetCaptionSize() const { return m_fCaptionSize; }
-    SkFontStyle GetCaptionStyle() const { return m_captionStyle; }
-    std::wstring GetCaptionFontName() const { return m_captionFontName; }
+    void SetCaptionAntialias(bool state) {
+        m_bCaptionAA = state;
+        InvalidateCaption();
+    }
+    void SetCaptionSize(SkScalar size) {
+        m_fCaptionSize = size;
+        InvalidateCaption();
+    }
+    void SetCaptionStyle(const SkFontStyle style) {
+        m_captionStyle = style;
+        InvalidateCaption();
+    }
+    void SetCaptionFontName(const std::wstring& name) {
+        m_captionFontName = name;
+        InvalidateCaption();
+    }
+    bool GetCaptionAntialias() const noexcept {
+        return m_bCaptionAA;
+    }
+    SkScalar GetCaptionSize() const noexcept {
+        return m_fCaptionSize;
+    }
+    SkFontStyle GetCaptionStyle() const noexcept {
+        return m_captionStyle;
+    }
+    std::wstring GetCaptionFontName() const noexcept {
+        return m_captionFontName;
+    }
     void InvalidateCaption();
 private:
     bool HasTrueStateColor(AUIState::Index idx) const;
     bool HasFalseStateColor(AUIState::Index idx) const;
-    bool m_bCaptionAA;
-    SkScalar m_fCaptionSize;
-    SkFontStyle m_captionStyle;
-    std::wstring m_captionFontName;
-    std::unordered_map< AUIState::Index, SkColor > m_mapTrueStateCaptionColor;
-    std::unordered_map< AUIState::Index, SkColor > m_mapFalseStateCaptionColor;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Multi-Line
 public:
     void SetMinLines(int line);
-    int GetMinLines() const { return m_iMinLines; }
+    int GetMinLines() const noexcept {
+        return m_iMinLines;
+    }
     void SetMaxLines(int line);
-    int GetMaxLines() const { return m_iMaxLines; }
+    int GetMaxLines() const noexcept {
+        return m_iMaxLines;
+    }
     void SetLines(int line);
-    int GetLines() const { return m_iLines; }
-    void SetUseMultiline(bool val) { m_bUseMultiline = val; InvalidateCaption(); }
-    bool IsUseMultiline() const { return m_bUseMultiline; }
-    void SetMultilineType(const AUITextLineFeed& type) { m_MultilineType = type; InvalidateCaption(); }
-    AUITextLineFeed GetMultilineType() const { return m_MultilineType; }
+    int GetLines() const noexcept {
+        return m_iLines;
+    }
+    void SetUseMultiline(bool val) {
+        m_bUseMultiline = val;
+        InvalidateCaption();
+    }
+    bool IsUseMultiline() const noexcept {
+        return m_bUseMultiline;
+    }
+    void SetMultilineType(const AUITextLineFeed& type) {
+        m_MultilineType = type;
+        InvalidateCaption();
+    }
+    AUITextLineFeed GetMultilineType() const noexcept {
+        return m_MultilineType;
+    }
     void SetLineHeight(const SkScalar lineHeight) {
         m_LineHeight = lineHeight;
         InvalidateCaption();
     }
-    SkScalar GetLineHeight() const {
+    SkScalar GetLineHeight() const noexcept {
         return m_LineHeight;
     }
 protected:
     void MeasureCaption(AUIScalar2& out, SkScalar width, AUIMeasureSpec widthSpec, SkScalar height, AUIMeasureSpec heightSpec);
+
+    
+    
 private:
+    std::wstring m_Caption;
     std::vector<std::wstring> m_MeasuredCaption;
-    int m_iLines;
-    int m_iMinLines;
-    int m_iMaxLines;
-    bool m_bUseMultiline;
-    AUITextLineFeed m_MultilineType;
+    std::shared_ptr<AUIDrawable> m_pBackgroundDrawable;
+    // Cpation styles
+    SkFontStyle m_captionStyle;
+    std::wstring m_captionFontName;
+    std::unordered_map<AUIState::Index, SkColor> m_mapTrueStateCaptionColor;
+    std::unordered_map<AUIState::Index, SkColor> m_mapFalseStateCaptionColor;
+    SkScalar m_fCaptionSize = 13.0f;
+    bool m_bCaptionAA = true;
+    // Line style
+    AUITextLineFeed m_MultilineType = AUITextLineFeed::kNewline;
+    int m_iLines = 0;
+    int m_iMinLines = 1;
+    int m_iMaxLines = (std::numeric_limits<int>::max)();
     SkScalar m_LineHeight = 0.0f;
+    bool m_bUseMultiline = false;
 };

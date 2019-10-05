@@ -6,7 +6,7 @@
 
 AUIRecyclerWidget::AUIRecyclerWidget()
 {
-    SetLayoutManager( std::make_unique< AUIRecyclerLinearLayoutManager >() );
+    SetLayoutManager(std::make_unique<AUIRecyclerLinearLayoutManager>());
 }
 
 AUIRecyclerWidget::~AUIRecyclerWidget()
@@ -14,7 +14,7 @@ AUIRecyclerWidget::~AUIRecyclerWidget()
     m_spoolAdapter.DisconnectAll();
 }
 
-void AUIRecyclerWidget::SetAdapter( std::shared_ptr< AUIRecyclerAdapter > pAdapter )
+void AUIRecyclerWidget::SetAdapter(std::shared_ptr<AUIRecyclerAdapter> pAdapter)
 {
     if ( m_pAdapter == pAdapter )
         return;

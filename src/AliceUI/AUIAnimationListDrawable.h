@@ -26,9 +26,6 @@ public:
     bool IsRunning() const { return m_bRunning; }
     void Start();
     void Stop();
-private:
-    bool m_bRunning;
-    Time m_StartTime;
 
     //////////////////////////////////////////////////////////////////////////
     // Option
@@ -42,11 +39,6 @@ public:
     size_t GetRunCount() const {
         return m_RunCount;
     }
-private:
-    bool m_bRepeat;
-    size_t m_RunCount;
-
-
 
     //////////////////////////////////////////////////////////////////////////
     // Frame Data
@@ -91,5 +83,9 @@ public:
         return totalTime;
     }
 private:
-    std::vector< FrameData > m_ItemData;
+    std::vector<FrameData> m_ItemData;
+    Time m_StartTime = Time::zero();
+    size_t m_RunCount = 0;
+    bool m_bRepeat = false;
+    bool m_bRunning = false;
 };

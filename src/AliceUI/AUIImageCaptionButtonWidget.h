@@ -11,20 +11,20 @@ class ALICEUI_API AUIImageCaptionButtonWidget : public AUILinearLayoutWidget
 public:
     AUIImageCaptionButtonWidget();
     explicit AUIImageCaptionButtonWidget(bool horizontal);
-    virtual ~AUIImageCaptionButtonWidget();
+    ~AUIImageCaptionButtonWidget() override;
 
 
 
     //////////////////////////////////////////////////////////////////////////
     // Event
 protected:
-    virtual void OnMouseEnter() override;
-    virtual void OnMouseHover() override;
-    virtual void OnMouseLeave() override;
-    virtual bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseLBtnDblClk(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseMove(AUIMouseEvent::EventFlag flag) override;
+    void OnMouseEnter() override;
+    void OnMouseHover() override;
+    void OnMouseLeave() override;
+    bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseLBtnDblClk(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseMove(AUIMouseEvent::EventFlag flag) override;
 
 
 
@@ -33,8 +33,6 @@ protected:
 public:
     void SetImageCaptionStyle(AUIImageCaptionStyle style);
     AUIImageCaptionStyle GetImageCaptionStyle() const { return m_Style; }
-private:
-    AUIImageCaptionStyle m_Style;
 
     //////////////////////////////////////////////////////////////////////////
     // Size
@@ -42,8 +40,8 @@ public:
     void SetImageDefaultSize(float width, float height);
 	void SetImageMarginLTRB(float marginLeft, float marginTop, float marginRight, float marginBottom);
 protected:
-    virtual void OnSetDefaultSize(const AUIScalar2& size) override;
-    virtual void OnSetChecked(bool state) override;
+    void OnSetDefaultSize(const AUIScalar2& size) override;
+    void OnSetChecked(bool state) override;
 
     //////////////////////////////////////////////////////////////////////////
     // Caption
@@ -71,9 +69,6 @@ public:
     bool IsUseMultiline() const;
     void SetMultilineType(const AUITextLineFeed& type);
     AUITextLineFeed GetMultilineType() const;
-private:
-    std::shared_ptr< AUITextWidget > m_pCaption;
-
 
     //////////////////////////////////////////////////////////////////////////
     // Image
@@ -85,6 +80,10 @@ public:
     void SetImageDrawable(const std::shared_ptr< AUIDrawable >& pBitmap);
     sk_sp<SkImage> GetImage() const;
     AUIImageWidget* const GetImageWidget() const { return m_pImage.get(); }
+
+    
 private:
-    std::shared_ptr< AUIImageWidget > m_pImage;
+    AUIImageCaptionStyle m_Style = AUIImageCaptionStyle::kImageAndText;
+    std::shared_ptr<AUITextWidget> m_pCaption;
+    std::shared_ptr<AUIImageWidget> m_pImage;
 };

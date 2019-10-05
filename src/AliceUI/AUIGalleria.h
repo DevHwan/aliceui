@@ -40,7 +40,6 @@ public:
     void SetParam(const AUIGalleriaParam& param);
 private:
     AUIGalleriaParam GetFinalParam(const std::wstring key) const;
-    AUIGalleriaParam m_Param;
 
     //////////////////////////////////////////////////////////////////////////
     // Image
@@ -53,14 +52,13 @@ public:
     static std::wstring ToBaseKey(const std::wstring& key);
     static std::wstring ToParamKey(const AUIGalleriaParam& param, const std::wstring& key);
 
-    //////////////////////////////////////////////////////////////////////////
-    // Cache
-private:
-    const std::shared_ptr<AUIGalleriaCache> m_pCache;
-
 
     //////////////////////////////////////////////////////////////////////////
     // Statistics
 public:
     std::wstring GetCacheStatistics() const;
+    
+private:
+    AUIGalleriaParam m_Param;
+    const std::shared_ptr<AUIGalleriaCache> m_pCache;
 };

@@ -20,17 +20,10 @@ public:
     void ExpandOrCollapse();
     void Expand(bool force = false);    // with 'force' it will trigger from scratch
     void Collapse(bool force = false);  // with 'force' it will trigger from scratch
-    bool IsExpanded() const {
+    bool IsExpanded() const noexcept {
         return m_bExpanded;
     }
     void RecalcExpandOrCollapse();
-private:
-    bool m_bExpanded;
-    bool m_PendingExpand;
-    bool m_PendingCollapse;
-    SkScalar m_AnimStartHeight;
-    SkScalar m_AnimCurHeight;
-    SkScalar m_AnimTargetHeight;
 
     //////////////////////////////////////////////////////////////////////////
     // Header
@@ -43,7 +36,6 @@ public:
     void SetHeaderSpinStyleSheet(std::shared_ptr<const AUIWidgetStyle> style);
     void SetHeaderTextStyleSheet(std::shared_ptr<const AUIWidgetStyle> style);
 private:
-    std::shared_ptr<AUIExpandHeaderWidget> m_pHeader;
     // WORKSTREE...
 public:
     AUIExpandHeaderWidget * GetHeaderWidget() const {
@@ -61,24 +53,14 @@ public:
     // Time Event
 protected:
     virtual void OnTickTime(const std::chrono::milliseconds& prevTime, const std::chrono::milliseconds& curTime) override;
-private:
-    bool m_PendingSizeUpdate;
-
-
-
-
 
     //////////////////////////////////////////////////////////////////////////
     // Content
 public:
     void SetContent(const std::shared_ptr<AUIWidget>& pWidget);
-    std::shared_ptr<AUIWidget> GetContent() const {
+    std::shared_ptr<AUIWidget> GetContent() const noexcept {
         return m_pContent;
     }
-private:
-    std::shared_ptr<AUIWidget> m_pContent;
-
-
 
     //////////////////////////////////////////////////////////////////////////
     // Size
@@ -101,4 +83,15 @@ public:
     virtual void ClearSubWidget() override;
     virtual std::shared_ptr< AUIWidget > FindSubWidget(size_t pos) override;
     virtual size_t SubWidgetCount() const override;
+    
+private:
+    std::shared_ptr<AUIExpandHeaderWidget> m_pHeader;
+    std::shared_ptr<AUIWidget> m_pContent;
+    SkScalar m_AnimStartHeight = 0.0f;
+    SkScalar m_AnimCurHeight = 0.0f;
+    SkScalar m_AnimTargetHeight = 0.0f;
+    bool m_bExpanded = false;
+    bool m_PendingExpand = false;
+    bool m_PendingCollapse = false;
+    bool m_PendingSizeUpdate = false;
 };

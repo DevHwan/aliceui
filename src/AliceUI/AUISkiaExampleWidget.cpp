@@ -9,14 +9,9 @@ namespace {
 }
 
 AUISkiaExampleWidget::AUISkiaExampleWidget()
-    : m_fBaseScaleX( 1.0f )
-    , m_fBaseScaleY( 1.0f )
-    , m_fBaseTransX( 0.0f )
-    , m_fBaseTransY( 0.0f )
 {
     SetSizePolicy(AUISizePolicy::kFixed, AUISizePolicy::kFixed);
     SetDefaultSize( DefaultWidth, DefaultHeight );
-
 }
 
 AUISkiaExampleWidget::~AUISkiaExampleWidget()

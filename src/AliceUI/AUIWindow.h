@@ -21,8 +21,6 @@ public:
     // Content Widget
 public:
     void SetContent(const std::shared_ptr<AUIWidget>& pWidget);
-private:
-    std::shared_ptr<AUIWidget> m_pContent;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -43,10 +41,10 @@ public:
 public:
     bool IsActivated() const;
     void Activate();
-    void Activate(const std::shared_ptr< AUIWindow >& pParent);
+    void Activate(const std::shared_ptr<AUIWindow>& pParent);
     void ActivateWithHandle(AUIHandle* const pHandle);
     void ActivateModal();
-    void ActivateModal(const std::shared_ptr< AUIWindow >& pParent);
+    void ActivateModal(const std::shared_ptr<AUIWindow>& pParent);
     void Deactivate();
 
 
@@ -63,17 +61,9 @@ public:
     void SetResizeable(bool val);
     bool IsResizeable() const;
 
-    //////////////////////////////////////////////////////////////////////////
-    // Form
-private:
-    AUIForm m_Form;
-
 
     //////////////////////////////////////////////////////////////////////////
     // System button action
-public:
-    AUISignal<void(AUIWindow*)> ClickCloseSignal;
-    AUISignal<void(AUIWindow*)> ClickMinimizeSignal;
 private:
     void OnClickMinimize(AUIWidget*);
     void OnClickClose(AUIWidget*);
@@ -85,19 +75,14 @@ private:
     void OnDragStart(AUIWidget*);
     void OnDragEnd(AUIWidget*);
     void OnDragging(AUIWidget*, float dx, float dy);
-    int m_iPrevMouseX;
-    int m_iPrevMouseY;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Window Widget
 public:
     // NOTE : milestone 
-    void SetTitleBarDrawable(const std::shared_ptr< AUIDrawable >& pDrawable);
-    void SetBackgroundDrawable(const std::shared_ptr< AUIDrawable >& pDrawable);
-private:
-    AUISlotPool m_spoolWindow;
-    std::shared_ptr< AUIWindowWidget > m_pWindow;
+    void SetTitleBarDrawable(const std::shared_ptr<AUIDrawable>& pDrawable);
+    void SetBackgroundDrawable(const std::shared_ptr<AUIDrawable>& pDrawable);
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -105,4 +90,18 @@ private:
 public:
     void SetTransparent(bool val);
     bool IsTransparent() const;
+    
+
+    // Signals
+public:
+    AUISignal<void(AUIWindow*)> ClickCloseSignal;
+    AUISignal<void(AUIWindow*)> ClickMinimizeSignal;
+    
+private:
+    std::shared_ptr<AUIWindowWidget> m_pWindow;
+    std::shared_ptr<AUIWidget> m_pContent;
+    AUISlotPool m_spoolWindow;
+    AUIForm m_Form;
+    int m_iPrevMouseX = 0;
+    int m_iPrevMouseY = 0;
 };

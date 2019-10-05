@@ -40,8 +40,10 @@ public:
     void SetCenter(const SkIRect& rect) { m_Center = rect; }
     SkIRect GetContent() const { return m_Content; }
     void SetContent(const SkIRect& rect) { m_Content = rect; }
+    
+    
 private:
+    sk_sp<SkImage> m_pImage;
     SkIRect m_Center = SkIRect::MakeEmpty();
     SkIRect m_Content = SkIRect::MakeEmpty();
-    sk_sp<SkImage> m_pImage;
 };

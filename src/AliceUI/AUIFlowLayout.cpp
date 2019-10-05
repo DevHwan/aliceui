@@ -203,11 +203,9 @@ void AUIFlowLayout::OnMeasureSize(SkScalar width, AUIMeasureSpec widthSpec, SkSc
 
     auto requiredWidth = 0.0f;
     auto requiredHeight = 0.0f;
-    auto requiredDepth = 0.0f;
 
     auto requiredTotalWidth = 0.0f;
     auto requiredTotalHeight = 0.0f;
-    auto requiredTotalDepth = 0.0f;
 
     const auto& children = pTarget->GetChildren();
     for (auto itr = children.begin(); itr != children.end(); itr++)
@@ -341,11 +339,11 @@ void AUIFlowLayout::UpdateChild_Horizontal()
     const auto endY = height - pTarget->GetPaddingBottom();
 
 
-    const auto toParentLeft = pTarget->GetPropGravityLeft();
-    const auto toParentTop = pTarget->GetPropGravityTop();
+//    const auto toParentLeft = pTarget->GetPropGravityLeft();
+//    const auto toParentTop = pTarget->GetPropGravityTop();
     const auto toParentRight = pTarget->GetPropGravityRight();
     const auto toParentBottom = pTarget->GetPropGravityBottom();
-    const auto toParentCenterHorizontal = pTarget->GetPropGravityCenterHorizontal();
+//    const auto toParentCenterHorizontal = pTarget->GetPropGravityCenterHorizontal();
     const auto toParentCenterVertical = pTarget->GetPropGravityCenterVertical();
     const auto toParentCenter = pTarget->GetPropGravityCenter();
 
@@ -448,12 +446,12 @@ void AUIFlowLayout::UpdateChild_Vertical()
     const auto endX = width - pTarget->GetPaddingRight();
     const auto startY = pTarget->GetPaddingTop();
 
-    const auto toParentLeft = pTarget->GetPropGravityLeft();
-    const auto toParentTop = pTarget->GetPropGravityTop();
+//    const auto toParentLeft = pTarget->GetPropGravityLeft();
+//    const auto toParentTop = pTarget->GetPropGravityTop();
     const auto toParentRight = pTarget->GetPropGravityRight();
     const auto toParentBottom = pTarget->GetPropGravityBottom();
     const auto toParentCenterHorizontal = pTarget->GetPropGravityCenterHorizontal();
-    const auto toParentCenterVertical = pTarget->GetPropGravityCenterVertical();
+//    const auto toParentCenterVertical = pTarget->GetPropGravityCenterVertical();
     const auto toParentCenter = pTarget->GetPropGravityCenter();
 
     auto childPosY = startY;

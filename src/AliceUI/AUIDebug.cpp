@@ -19,7 +19,7 @@ void AUIDebugPrintImpl(const char* filename, int line, const char* fmt, ...)
     ::OutputDebugStringA(pre.c_str());
     ::OutputDebugStringA(buffer.data());
 #else
-    printf(pre.c_str());
+    printf("%s", pre.c_str());
     va_list va;
     va_start(va, fmt);
     vprintf(fmt, va);
@@ -45,7 +45,7 @@ void AUIDebugPrintImpl(const char* filename, int line, const wchar_t* fmt, ...)
     ::OutputDebugStringA(pre.c_str());
     ::OutputDebugStringW(buffer.data());
 #else
-    printf(pre.c_str());
+    printf("%s", pre.c_str());
     va_list va;
     va_start(va, fmt);
     vwprintf(fmt, va);

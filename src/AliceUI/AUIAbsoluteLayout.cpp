@@ -87,7 +87,6 @@ void AUIAbsoluteLayout::OnMeasureSize(SkScalar width, AUIMeasureSpec widthSpec, 
 
     auto requiredWidth = 0.0f;
     auto requiredHeight = 0.0f;
-    auto requiredDepth = 0.0f;
 
     const auto& children = pTarget->GetChildren();
     for (auto itr = children.begin(); itr != children.end(); ++itr)

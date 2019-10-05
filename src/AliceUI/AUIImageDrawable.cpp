@@ -3,15 +3,12 @@
 #include "AUIStringConvert.h"
 
 AUIImageDrawable::AUIImageDrawable()
-    : m_eImageStretch( AUIImageStretch::kUniform )
-    , m_Opacity(kAUIAlpha100 )
 {
 
 }
 
 AUIImageDrawable::AUIImageDrawable(const sk_sp<SkImage>& image,const AUIImageStretch stretch)
     : m_eImageStretch(stretch)
-    , m_Opacity(kAUIAlpha100)
 {
     SetImage(image);
 }

@@ -64,7 +64,6 @@ sk_sp<SkImage> AUIGalleriaImgProc::ResizeCenterInside( int width, int height )
     const auto imageWidth = SkIntToScalar(m_pImage->width());
     const auto imageHeight = SkIntToScalar(m_pImage->height());
 
-    const auto widthIsLonger = width >= height;
     const auto imageWidthIsLonger = imageWidth >= imageHeight;
 
     const auto scale = SkIntToScalar(imageWidth) / SkIntToScalar(imageWidth >= imageHeight ? imageWidth : imageHeight);

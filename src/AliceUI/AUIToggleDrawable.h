@@ -6,12 +6,12 @@ class ALICEUI_API AUIToggleDrawable : public AUIDrawable
 {
 public:
     AUIToggleDrawable();
-    virtual ~AUIToggleDrawable();
+    ~AUIToggleDrawable() override;
 
     //////////////////////////////////////////////////////////////////////////
     // Draw
 protected:
-    virtual void OnDraw(SkCanvas* const canvas) override;
+    void OnDraw(SkCanvas* const canvas) override;
 
 
 
@@ -22,6 +22,7 @@ public:
     SkColor GetColorBGOff() const { return m_ColorBGOff; }
     SkColor GetColorToggleOn() const { return m_ColorToggleOn; }
     SkColor GetColorToggleOff() const { return m_ColorToggleOff; }
+    
 private:
     SkColor m_ColorBGOn;
     SkColor m_ColorBGOff;

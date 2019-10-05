@@ -17,8 +17,6 @@ public:
     // Popup Widget
 public:
     void SetPopupWidget(const std::shared_ptr< AUIWidget >& pWidget);
-private:
-    std::shared_ptr< AUIWidget > m_pPopupWidget;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -26,8 +24,6 @@ private:
 public:
     void SetPopupPosition(const glm::vec3& pos) { m_v3PopupPos = pos; }
     glm::vec3 GetPopupPosition() const { return m_v3PopupPos; }
-private:
-    glm::vec3 m_v3PopupPos;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -40,9 +36,15 @@ public:
     }
     bool Invoke(AUIWidgetManager* const pWidgetManager) { return Invoke(pWidgetManager, nullptr, AUIPopupPos::kUnchanged); }
     void Dismiss();
+    
+    // Signals
+public:
     AUISignal<void(void)> InvokeSignal;
     AUISignal<void(void)> DismissSignal;
+
 private:
-    AUIWidgetManager* m_pWidgetManager;
-    std::weak_ptr< AUIWidget > m_wpParent;
+    std::shared_ptr<AUIWidget> m_pPopupWidget;
+    std::weak_ptr<AUIWidget> m_wpParent;
+    AUIWidgetManager* m_pWidgetManager = nullptr;
+    glm::vec3 m_v3PopupPos = glm::vec3(0.0f, 0.0f, 0.0f);
 };

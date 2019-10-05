@@ -1,5 +1,4 @@
 #pragma once
-#define MIDAS_SDK
 
 #include "AUII18NCommonDef.h"
 
@@ -33,7 +32,7 @@ public:
     // Internal
 private:
     class Impl;
-    std::unique_ptr< Impl > m_pImpl;
+    std::unique_ptr<Impl> m_pImpl;
 public:
     Impl * GetImpl() const;
 };

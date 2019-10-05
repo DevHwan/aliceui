@@ -12,7 +12,7 @@ class ALICEUI_API AUIComboAdapter
 {
 public:
     AUIComboAdapter() = default;
-    ~AUIComboAdapter() = default;
+    virtual ~AUIComboAdapter() = default;
 
 
     //////////////////////////////////////////////////////////////////////////

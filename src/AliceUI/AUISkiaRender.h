@@ -3,6 +3,7 @@
 #include "AUICommonDef.h"
 
 class AUIWidget;
+
 class ALICEUI_API AUISkiaRenderer
 {
 public:

@@ -4,7 +4,6 @@
 #include "AUIApplication.h"
 
 AUIRecyclerLinearLayoutManager::AUIRecyclerLinearLayoutManager()
-    : m_bHorizontal( false )
 {
 
 }
@@ -206,7 +205,6 @@ void AUIRecyclerLinearLayoutManager::OnMeasureSize( SkScalar width, AUIMeasureSp
 
     auto requiredWidth = 0.0f;
     auto requiredHeight = 0.0f;
-    auto requiredDepth = 0.0f;
 
     const auto& children = pBase->GetChildren();
     for ( auto itr = children.begin(); itr != children.end(); itr++ )
@@ -286,11 +284,8 @@ void AUIRecyclerLinearLayoutManager::UpdateChild_Horizontal()
     const auto endY = height - pBase->GetPaddingBottom();
 
 
-    const auto toParentLeft = pBase->GetPropGravityLeft();
-    const auto toParentTop = pBase->GetPropGravityTop();
     const auto toParentRight = pBase->GetPropGravityRight();
     const auto toParentBottom = pBase->GetPropGravityBottom();
-    const auto toParentCenterHorizontal = pBase->GetPropGravityCenterHorizontal();
     const auto toParentCenterVertical = pBase->GetPropGravityCenterVertical();
     const auto toParentCenter = pBase->GetPropGravityCenter();
 
@@ -371,12 +366,9 @@ void AUIRecyclerLinearLayoutManager::UpdateChild_Vertical()
     const auto endX = width - pBase->GetPaddingRight();
     const auto startY = pBase->GetPaddingTop();
 
-    const auto toParentLeft = pBase->GetPropGravityLeft();
-    const auto toParentTop = pBase->GetPropGravityTop();
     const auto toParentRight = pBase->GetPropGravityRight();
     const auto toParentBottom = pBase->GetPropGravityBottom();
     const auto toParentCenterHorizontal = pBase->GetPropGravityCenterHorizontal();
-    const auto toParentCenterVertical = pBase->GetPropGravityCenterVertical();
     const auto toParentCenter = pBase->GetPropGravityCenter();
 
     auto childPosY = startY;

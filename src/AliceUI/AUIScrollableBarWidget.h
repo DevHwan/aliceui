@@ -4,57 +4,71 @@
 
 class ALICEUI_API AUIScrollableBarWidget : public AUIDrawableWidget
 {
-    typedef AUIDrawableWidget SuperClass;
+    using SuperWidget = AUIDrawableWidget;
 public:
     AUIScrollableBarWidget();
-    virtual ~AUIScrollableBarWidget();
+    ~AUIScrollableBarWidget() override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Event
 protected:
-    virtual void OnMouseEnter() override;
-    virtual void OnMouseHover() override;
-    virtual void OnMouseLeave() override;
-    virtual bool OnMouseLBtnDblClk(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseRBtnDblClk(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseMBtnDblClk(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseRBtnDown(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseMBtnDown(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseRBtnUp(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseMBtnUp(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseMove(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseWheel(AUIMouseEvent::EventFlag flag, float delta) override;
-    virtual bool OnChangeCursorIcon(AUICursorIcon& cursoricon) override;
+    void OnMouseEnter() override;
+    void OnMouseHover() override;
+    void OnMouseLeave() override;
+    bool OnMouseLBtnDblClk(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseRBtnDblClk(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseMBtnDblClk(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseRBtnDown(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseMBtnDown(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseRBtnUp(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseMBtnUp(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseMove(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseWheel(AUIMouseEvent::EventFlag flag, float delta) override;
+    bool OnChangeCursorIcon(AUICursorIcon& cursoricon) override;
 
     //////////////////////////////////////////////////////////////////////////
     // Draw
 protected:
-    virtual void OnDraw(SkCanvas* const canvas) override;
+    void OnDraw(SkCanvas* const canvas) override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Values
 public:
-    void SetContentHeight(const SkScalar& val) { m_ContentHeight = val; }
-    void SetScrollPos(const SkScalar& val) { m_ScrollPos = val; }
+    void SetContentHeight(const SkScalar val) {
+        m_ContentHeight = val;
+    }
+    void SetScrollPos(const SkScalar val) {
+        m_ScrollPos = val;
+    }
 private:
-    SkScalar m_ContentHeight;
-    SkScalar m_ScrollPos;
-    std::shared_ptr< AUIDrawable > m_pThumbDrawable;
 
     //////////////////////////////////////////////////////////////////////////
     // Thumb
 public:
-    void SetShowThumbOnHit(bool show) { m_bShowThumbOnHit = show; }
-    bool IsShowThumbOnHit() const { return m_bShowThumbOnHit; }
+    void SetShowThumbOnHit(bool show) {
+        m_bShowThumbOnHit = show;
+    }
+    bool IsShowThumbOnHit() const {
+        return m_bShowThumbOnHit;
+    }
     SkRect GetThumbRect() const;
-    AUISignal<void(const SkScalar&)> ThumbScrollSignal;
     bool IsScrollable() const;
+    
+    
+    // Signals
+public:
+    AUISignal<void(const SkScalar&)> ThumbScrollSignal;
+    
+    
 private:
+    std::shared_ptr<AUIDrawable> m_pThumbDrawable;
+    SkScalar m_ContentHeight = 0.0f;
+    SkScalar m_ScrollPos = 0.0f;
     AUIState m_ThumbState;
     SkPoint m_PrevLDownPos = { 0, 0 };
-    bool m_bShowThumbOnHit;
+    bool m_bShowThumbOnHit = false;
 };

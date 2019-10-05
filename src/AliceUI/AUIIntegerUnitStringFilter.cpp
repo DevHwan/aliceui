@@ -2,7 +2,6 @@
 #include "AUIIntegerUnitStringFilter.h"
 
 AUIIntegerUnitStringFilter::AUIIntegerUnitStringFilter()
-    : m_UnitType( AUIUnitType::kMeter )
 {
 
 }

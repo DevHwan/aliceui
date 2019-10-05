@@ -21,6 +21,8 @@ public:
     void SetHorizontal(bool horizontal);
 protected:
     void UpdateDivisionInfo();
+    
+    
 private:
     std::shared_ptr<AUIGridLayout> m_pGridLayout;
 };

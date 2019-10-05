@@ -26,13 +26,16 @@ public:
     float GetHeight() const noexcept { return m_fHeight; }
 protected:
     virtual void OnResize(float width, float height) { /* Implement in subclass */ }
-private:
-    float m_fWidth = 0.0f;
-    float m_fHeight = 0.0f;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Alpha
 public:
     virtual bool HasAlpha() const { return false; }
+    
+
+    
+private:
+    float m_fWidth = 0.0f;
+    float m_fHeight = 0.0f;
 };

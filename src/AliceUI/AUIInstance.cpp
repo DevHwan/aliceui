@@ -8,14 +8,13 @@
 const float AUIInstance::kHitDistanceScreen = /*(std::numeric_limits< float >::lowest)() +*/ -10000.f;
 
 AUIInstance::AUIInstance( AUIWidgetManager* pWidgetManager, const std::shared_ptr< AUIWidget >& pWidget )
-    : m_pWidgetManager( pWidgetManager )
-    , m_pWidget( pWidget )
-    , m_fHitDist( kHitDistanceScreen )
+    : m_pWidgetManager(pWidgetManager)
+    , m_pWidget(pWidget)
 {
     AUIAssert(GetWidgetManager());
     AUIAssert(pWidget);
 	auto pTmp = GetWidget();
-	while( pTmp = pTmp->GetParent())
+    while (nullptr != (pTmp = pTmp->GetParent()))
 		m_iWidgetDepth++;
 }
 
@@ -85,12 +84,10 @@ void AUIInstance::UpdateHitData( int sx, int sy )
 	}
 
 	glm::vec3 vLocalOrg, vLocalDir;
-	glm::vec3 vGlobalOrg, vGlobalDir;
 
 
 
 	const auto coord =  GetWidget()->GetRootTargetCoord();
-	auto pWidget= GetWidget();
 	auto pos =  GetWidget()->GetPositionAtRoot().toGlm();
 
 	float fHitDistWeight = 0;
@@ -235,10 +232,7 @@ glm::mat4 AUIInstance::GetLocalMatrix()
 {
 	glm::mat4 matLocal;
 	const auto coord =  GetWidget()->GetRootTargetCoord();
-	auto pWidget= GetWidget();
 	auto pos =  GetWidget()->GetPositionAtRoot().toGlm();
-
-	float fHitDistWeight = 0;
 
 	if ( coord == AUICoordSpace::kScreenSpace)
 	{

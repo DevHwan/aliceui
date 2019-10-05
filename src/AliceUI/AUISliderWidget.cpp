@@ -4,10 +4,6 @@
 
 AUISliderWidget::AUISliderWidget()
     : m_pIndicator(std::make_shared<AUISliderIndicatorWidget>())
-    , m_bHorizontal( false )
-    , m_RangeMin( 0.0 )
-    , m_RangeMax( 1.0 )
-    , m_Value( 0.0 )
 {
     SetClickable( true );
     SetDraggable( true );
@@ -47,7 +43,6 @@ void AUISliderWidget::OnDraw( SkCanvas* const canvas )
 {
     SuperWidget::OnDraw( canvas );
     const auto rect = GetRect();
-    const auto thick = 5.0f;
     const auto weight = std::clamp((GetValue() - GetSlideRangeMin()) / (GetSlideRangeMax() - GetSlideRangeMin()), 0.0f, 1.0f);
     const auto indicatorSize = m_pIndicator->GetSize();
 

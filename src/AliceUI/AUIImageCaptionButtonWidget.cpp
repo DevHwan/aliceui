@@ -18,9 +18,8 @@ AUIImageCaptionButtonWidget::AUIImageCaptionButtonWidget()
 
 AUIImageCaptionButtonWidget::AUIImageCaptionButtonWidget( bool horizontal )
     : AUILinearLayoutWidget( horizontal )
-    , m_Style( AUIImageCaptionStyle::kImageAndText )
-    , m_pCaption( std::make_shared< AUITextWidget >() )
-    , m_pImage( std::make_shared< AUIImageWidget >() )
+    , m_pCaption(std::make_shared<AUITextWidget>())
+    , m_pImage(std::make_shared<AUIImageWidget>())
 {
 	m_pImage->SetPropLayoutGravityCenter(true);
 

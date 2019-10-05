@@ -18,8 +18,6 @@ public:
     // Drawable
 protected:
     AUIRulerDrawable* const GetRulerDrawable() const;
-private:
-    std::shared_ptr< AUIRulerDrawable > m_pRulerDrawable;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -76,5 +74,8 @@ public:
 public:
     void SetUseMarking(bool val);
     bool IsUseMarking() const;
+    
 
+private:
+    std::shared_ptr<AUIRulerDrawable> m_pRulerDrawable;
 };

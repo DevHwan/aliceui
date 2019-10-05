@@ -24,11 +24,6 @@ void AUIFrameLayout::OnMeasureSize(SkScalar width, AUIMeasureSpec widthSpec, SkS
 
     auto needWidthFitting = false;
     auto needHeightFitting = false;
-    auto needDepthFitting = false;
-
-    auto needWidthFitParent = false;
-    auto needHeightFitParent = false;
-    auto needDepthFitParent = false;
 
 
     if (AUIMeasureSpec::kExactly == widthSpec)
@@ -171,7 +166,6 @@ void AUIFrameLayout::OnMeasureSize(SkScalar width, AUIMeasureSpec widthSpec, SkS
 
     auto requiredWidth = 0.0f;
     auto requiredHeight = 0.0f;
-    auto requiredDepth = 0.0f;
 
     const auto& children = pTarget->GetChildren();
     for (auto itr = children.begin(); itr != children.end(); ++itr)

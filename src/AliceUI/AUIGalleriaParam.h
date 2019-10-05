@@ -54,15 +54,16 @@ public:
     bool IsOnlyScaleDown() const { return m_bOnlyScaleDown; }
     // Fallback
     std::wstring GetFallbackPath() const { return m_FallbackPath; }
+
 private:
-    bool m_bCenterCrop;
-    bool m_bCenterInside;
-    bool m_bOnlyScaleDown;
-    float m_RotateDegree;
-    float m_RotatePivotX;
-    float m_RotatePivotY;
-    int m_TargetWidth;
-    int m_TargetHeight;
-    bool m_bTargetFit;
     std::wstring m_FallbackPath;
+    float m_RotateDegree = 0.0f;
+    float m_RotatePivotX = 0.0f;
+    float m_RotatePivotY = 0.0f;
+    int m_TargetWidth = -1;
+    int m_TargetHeight = -1;
+    bool m_bTargetFit = false;
+    bool m_bCenterCrop = false;
+    bool m_bCenterInside = false;
+    bool m_bOnlyScaleDown = false;
 };

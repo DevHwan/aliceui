@@ -7,61 +7,79 @@ class ALICEUI_API AUIRulerDrawable : public AUIDrawable
 {
 public:
     AUIRulerDrawable();
-    virtual ~AUIRulerDrawable();
+    ~AUIRulerDrawable() override;
 
     //////////////////////////////////////////////////////////////////////////
     // Location
 public:
-    void SetLocation(AUIRulerLocation location) { m_Location = location; }
-    AUIRulerLocation GetLocation() const { return m_Location; }
-private:
-    AUIRulerLocation m_Location;
+    void SetLocation(const AUIRulerLocation location) noexcept {
+        m_Location = location;
+    }
+    AUIRulerLocation GetLocation() const noexcept {
+        return m_Location;
+    }
 
 
     //////////////////////////////////////////////////////////////////////////
     // Reference Position
 public:
-    void SetRefPos(SkScalar pos) { m_RefPos = pos; }
-    SkScalar GetRefPos() const { return m_RefPos; }
-private:
-    SkScalar m_RefPos;
+    void SetRefPos(const SkScalar pos) noexcept {
+        m_RefPos = pos;
+    }
+    SkScalar GetRefPos() const noexcept {
+        return m_RefPos;
+    }
 
 
     //////////////////////////////////////////////////////////////////////////
     // Paint
 public:
-    SkPaint& RefLinePaint() { return m_LinePaint; }
-    SkPaint& RefTextPaint() { return m_TextPaint; }
-private:
-    SkPaint m_LinePaint;
-    SkPaint m_TextPaint;
+    SkPaint& RefLinePaint() noexcept {
+        return m_LinePaint;
+    }
+    SkPaint& RefTextPaint() noexcept {
+        return m_TextPaint;
+    }
 
 
     //////////////////////////////////////////////////////////////////////////
     // Basis & Scale
 public:
-    void SetScale(SkScalar val) { m_Scale = val; }
-    void SetBasis(SkScalar val) { m_Basis = val; }
-    void SetGradationSize(SkScalar val) { m_GradationSize = val; }
-    SkScalar GetScale() const { return m_Scale; }
-    SkScalar GetBasis() const { return m_Basis; }
-    SkScalar GetGradationSize() const { return m_GradationSize; }
-private:
-    SkScalar m_Scale = 1.0f;
-    SkScalar m_Basis = 1.0f;
-    SkScalar m_GradationSize = 1.0f;
+    void SetScale(SkScalar val) noexcept {
+        m_Scale = val;
+    }
+    void SetBasis(SkScalar val) noexcept {
+        m_Basis = val;
+    }
+    void SetGradationSize(SkScalar val) noexcept {
+        m_GradationSize = val;
+    }
+    SkScalar GetScale() const noexcept {
+        return m_Scale;
+    }
+    SkScalar GetBasis() const noexcept {
+        return m_Basis;
+    }
+    SkScalar GetGradationSize() const noexcept {
+        return m_GradationSize;
+    }
 
 
     //////////////////////////////////////////////////////////////////////////
     // Text
 public:
-    void SetMaxTextWidth(SkScalar val) { m_MaxTextWidth = val; }
-    void SetMaxTextHeight(SkScalar val) { m_MaxTextHeight = val; }
-    SkScalar GetMaxTextWidth() const { return m_MaxTextWidth; }
-    SkScalar GetMaxTextHeight() const { return m_MaxTextHeight; }
-private:
-    SkScalar m_MaxTextWidth;
-    SkScalar m_MaxTextHeight;
+    void SetMaxTextWidth(SkScalar val) noexcept {
+        m_MaxTextWidth = val;
+    }
+    void SetMaxTextHeight(SkScalar val) noexcept {
+        m_MaxTextHeight = val;
+    }
+    SkScalar GetMaxTextWidth() const noexcept {
+        return m_MaxTextWidth;
+    }
+    SkScalar GetMaxTextHeight() const noexcept {
+        return m_MaxTextHeight;
+    }
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -76,12 +94,24 @@ protected:
 
     // Marking
 public:
-    void SetUseMarking(bool val) {
+    void SetUseMarking(bool val) noexcept {
         m_UseMarking = val;
     }
-    bool IsUseMarking() const {
+    bool IsUseMarking() const noexcept {
         return m_UseMarking;
     }
+    
+    
+    
 private:
+    AUIRulerLocation m_Location = AUIRulerLocation::kTop;
+    SkScalar m_Scale = 1.0f;
+    SkScalar m_Basis = 1.0f;
+    SkScalar m_GradationSize = 5.0f;
+    SkScalar m_RefPos = 0.0f;
+    SkScalar m_MaxTextWidth = 30.0f;
+    SkScalar m_MaxTextHeight = 15.0f;
+    SkPaint m_LinePaint;
+    SkPaint m_TextPaint;
     bool m_UseMarking = true;
 };

@@ -20,5 +20,5 @@ public:
         return m_pTimeZone.get();
     }
 private:
-    std::unique_ptr< icu::TimeZone > m_pTimeZone;
+    std::unique_ptr<icu::TimeZone> m_pTimeZone;
 };

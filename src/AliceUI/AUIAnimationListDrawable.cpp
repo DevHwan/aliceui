@@ -2,10 +2,6 @@
 #include "AUIAnimationListDrawable.h"
 
 AUIAnimationListDrawable::AUIAnimationListDrawable()
-    : m_bRunning(false)
-    , m_bRepeat(false)
-    , m_StartTime(0)
-	, m_RunCount(0)
 {
 
 }

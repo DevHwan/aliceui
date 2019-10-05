@@ -8,38 +8,32 @@ class ALICEUI_API AUISeparatorWidget : public AUIDrawableWidget
 public:
     AUISeparatorWidget();
     explicit AUISeparatorWidget(bool horizontal);
-    virtual ~AUISeparatorWidget();
-
-
+    ~AUISeparatorWidget() override;
 
     //////////////////////////////////////////////////////////////////////////
     // Mode
 public:
-    bool IsHorizontal() const;
-private:
-    bool m_bHorizontal;
-
+    bool IsHorizontal() const noexcept {
+        return m_bHorizontal;
+    }
 
     //////////////////////////////////////////////////////////////////////////
     // Cursor Icon
 public:
-    virtual bool OnChangeCursorIcon(AUICursorIcon& cursoricon);
+    bool OnChangeCursorIcon(AUICursorIcon& cursoricon) override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Event
 protected:
-    virtual bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Move state
 protected:
-    virtual bool OnDragging() override;
-private:
-    float m_fAbsPrevX;
-    float m_fAbsPrevY;
+    bool OnDragging() override;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -54,4 +48,9 @@ public:
     AUISignal<void(AUIWidget*)> DragPressSignal;
     AUISignal<void(AUIWidget*)> DragReleaseSignal;
     AUISignal<void(AUIWidget*, float, float)> DragMoveSignal;
+    
+private:
+    float m_fAbsPrevX = 0.0f;
+    float m_fAbsPrevY = 0.0f;
+    bool m_bHorizontal = false;
 };

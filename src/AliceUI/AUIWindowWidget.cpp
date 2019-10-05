@@ -10,9 +10,6 @@
 #include "AUIWindowTitleBarWidget.h"
 
 namespace {
-    constexpr SkScalar DefaultTitleBarHeight = 29.0f;
-    constexpr SkScalar DefaultSystemButtonWidth = 24.0f;
-    constexpr SkScalar DefaultSystemButtonHeight = 24.0f;
 
     constexpr wchar_t kDefaultBackground[] = L"ui_frame/window/window_BG.9.png";
 

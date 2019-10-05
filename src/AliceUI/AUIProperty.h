@@ -97,9 +97,7 @@ public:
     SkScalar GetHeight() const noexcept {
         return m_RangeMax.fY - m_RangeMin.fY;
     }
-private:
-    AUIScalar2 m_RangeMin;
-    AUIScalar2 m_RangeMax;
+
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -169,11 +167,7 @@ public:
     SkScalar GetMeasureHeight() const noexcept {
         return m_MeasureSize.fY;
     }
-private:
-    AUIScalar2 m_MinimumSize;
-    AUIScalar2 m_MaximumSize;
-    AUIScalar2 m_DefaultSize;
-    AUIScalar2 m_MeasureSize;
+
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -195,9 +189,6 @@ public:
     AUISizePolicy GetSizePolicyHeight() const noexcept {
         return m_HeightPolicy;
     }
-private:
-    AUISizePolicy m_WidthPolicy = AUISizePolicy::kContent;
-    AUISizePolicy m_HeightPolicy = AUISizePolicy::kContent;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -215,8 +206,6 @@ public:
     {
         return m_Weight;
     }
-private:
-    SkScalar m_Weight = 1.0f;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -269,11 +258,6 @@ public:
     {
         return m_PaddingBottom;
     }
-private:
-    SkScalar m_PaddingLeft = 0.0f;
-    SkScalar m_PaddingTop = 0.0f;
-    SkScalar m_PaddingRight = 0.0f;
-    SkScalar m_PaddingBottom = 0.0f;
 
     //////////////////////////////////////////////////////////////////////////
     // Margin
@@ -325,11 +309,6 @@ public:
     {
         return m_MarginBottom;
     }
-private:
-    SkScalar m_MarginLeft = 0.0f;
-    SkScalar m_MarginTop = 0.0f;
-    SkScalar m_MarginRight = 0.0f;
-    SkScalar m_MarginBottom = 0.0f;
 
     //////////////////////////////////////////////////////////////////////////
     // Align by parent option
@@ -417,7 +396,6 @@ private:
     {
         return m_ParentOption[opt];
     }
-    std::array< bool, kParentOptTotal_ParentOpt > m_ParentOption = { false, };
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -525,7 +503,6 @@ private:
     {
         return m_TargetOption[opt];
     }
-    std::array< AUIRuntimeID, kTargetOptTotal_TargetOpt > m_TargetOption = { false, };
 
     //////////////////////////////////////////////////////////////////////////
     // Gravity
@@ -683,6 +660,36 @@ private:
     {
         return m_GravityOption[opt];
     }
-    std::array< bool, kGravityOptTotal_GravityOpt > m_LayoutGravityOption = { false, };
-    std::array< bool, kGravityOptTotal_GravityOpt > m_GravityOption = { false, };
+    
+private:
+    // Range
+    AUIScalar2 m_RangeMin;
+    AUIScalar2 m_RangeMax;
+    // Size
+    AUIScalar2 m_MinimumSize;
+    AUIScalar2 m_MaximumSize;
+    AUIScalar2 m_DefaultSize;
+    AUIScalar2 m_MeasureSize;
+    // Size policy
+    AUISizePolicy m_WidthPolicy = AUISizePolicy::kContent;
+    AUISizePolicy m_HeightPolicy = AUISizePolicy::kContent;
+    // Weight
+    SkScalar m_Weight = 1.0f;
+    // Padding
+    SkScalar m_PaddingLeft = 0.0f;
+    SkScalar m_PaddingTop = 0.0f;
+    SkScalar m_PaddingRight = 0.0f;
+    SkScalar m_PaddingBottom = 0.0f;
+    // Margin
+    SkScalar m_MarginLeft = 0.0f;
+    SkScalar m_MarginTop = 0.0f;
+    SkScalar m_MarginRight = 0.0f;
+    SkScalar m_MarginBottom = 0.0f;
+    // Parent option
+    std::array<bool, kParentOptTotal_ParentOpt> m_ParentOption = { false, };
+    // Runtime target
+    std::array<AUIRuntimeID, kTargetOptTotal_TargetOpt> m_TargetOption = { false, };
+    // Gravity option
+    std::array<bool, kGravityOptTotal_GravityOpt> m_LayoutGravityOption = { false, };
+    std::array<bool, kGravityOptTotal_GravityOpt> m_GravityOption = { false, };
 };

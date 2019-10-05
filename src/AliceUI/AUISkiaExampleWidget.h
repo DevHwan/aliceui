@@ -5,33 +5,32 @@
 
 class ALICEUI_API AUISkiaExampleWidget : public AUIDrawableWidget
 {
-    typedef AUIDrawableWidget SuperWidget;
+    using SuperWidget = AUIDrawableWidget;
 public:
     AUISkiaExampleWidget();
-    virtual ~AUISkiaExampleWidget();
+    ~AUISkiaExampleWidget() override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Draw
 protected:
-    virtual void OnDraw(SkCanvas* const canvas) override;
+    void OnDraw(SkCanvas* const canvas) override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Mouse event
 protected:
-    virtual bool OnMouseMove(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseWheel(AUIMouseEvent::EventFlag flag, float delta) override;
-    virtual bool OnMouseMBtnDown(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseMBtnUp(AUIMouseEvent::EventFlag flag) override;
-private:
-    float m_fPrevMDownPosX;
-    float m_fPrevMDownPosY;
+    bool OnMouseMove(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseWheel(AUIMouseEvent::EventFlag flag, float delta) override;
+    bool OnMouseMBtnDown(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseMBtnUp(AUIMouseEvent::EventFlag flag) override;
 
 
 private:
-    float m_fBaseScaleX;
-    float m_fBaseScaleY;
-    float m_fBaseTransX;
-    float m_fBaseTransY;
+    float m_fPrevMDownPosX = 0.0f;
+    float m_fPrevMDownPosY = 0.0f;
+    float m_fBaseScaleX = 1.0f;
+    float m_fBaseScaleY = 1.0f;
+    float m_fBaseTransX = 0.0f;
+    float m_fBaseTransY = 0.0f;
 };

@@ -11,8 +11,6 @@ public:
     AUISliderWidget();
     ~AUISliderWidget() override;
 
-
-
     //////////////////////////////////////////////////////////////////////////
     // Draw
 protected:
@@ -21,43 +19,44 @@ protected:
     //////////////////////////////////////////////////////////////////////////
     // Mouse event
 protected:
-    virtual bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseMove(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseMove(AUIMouseEvent::EventFlag flag) override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Horizontal
 public:
     void SetHorizontal(bool val);
-    bool IsHorizontal() const { return m_bHorizontal; }
-private:
-    bool m_bHorizontal;
-
+    bool IsHorizontal() const noexcept {
+        return m_bHorizontal;
+    }
 
     //////////////////////////////////////////////////////////////////////////
     // Range
 public:
-    void SetSlideRange(SkScalar minVal, SkScalar maxVal) { m_RangeMin = minVal; m_RangeMax = maxVal; }
-    SkScalar GetSlideRangeMin() const { return m_RangeMin; }
-    SkScalar GetSlideRangeMax() const { return m_RangeMax; }
-private:
-    SkScalar m_RangeMin;
-    SkScalar m_RangeMax;
-
+    void SetSlideRange(const SkScalar minVal, const SkScalar maxVal) noexcept {
+        m_RangeMin = minVal;
+        m_RangeMax = maxVal;
+    }
+    SkScalar GetSlideRangeMin() const noexcept {
+        return m_RangeMin;
+    }
+    SkScalar GetSlideRangeMax() const noexcept {
+        return m_RangeMax;
+    }
 
     //////////////////////////////////////////////////////////////////////////
     // Value
 public:
     void SetValue(SkScalar val);
     SkScalar GetValue() const;
-private:
-    SkScalar m_Value;
 
-
-    //////////////////////////////////////////////////////////////////////////
-    // Indicator
-public:
+    
 private:
-    std::shared_ptr< AUISliderIndicatorWidget > m_pIndicator;
+    std::shared_ptr<AUISliderIndicatorWidget> m_pIndicator;
+    SkScalar m_RangeMin = 0.0f;
+    SkScalar m_RangeMax = 1.0f;
+    SkScalar m_Value = 0.0f;
+    bool m_bHorizontal = false;
 };

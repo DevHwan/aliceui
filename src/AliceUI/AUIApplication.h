@@ -52,11 +52,9 @@ public:
 public:
     bool Initialize();
     bool Finalize();
-    bool IsInitialized() const {
+    bool IsInitialized() const noexcept {
         return m_bInitialized;
     }
-private:
-    bool m_bInitialized;
 
     //////////////////////////////////////////////////////////////////////////
     // Widget Manager
@@ -72,55 +70,26 @@ public:
     void ClearInstance(AUIWidgetManager* const pWidgetManager);
     void RunUpdateInstanceTask();
     void RunInstanceGarbageCollection();
-    bool IsInUpdateInstanceTask() const {
+    bool IsInUpdateInstanceTask() const noexcept {
         return m_bInUpdateInstanceTask;
     }
 private:
     void OnRunLazyCreateInstance(AUIWidgetManager* const pWidgetManager, const std::shared_ptr< AUIWidget >& pWidget);
     void OnRunLazyDestroyInstance(AUIWidgetManager* const pWidgetManager, const std::shared_ptr< AUIWidget >& pWidget);
-    std::unordered_set< AUIWidgetManager* > m_setWidgetManager;
-    bool m_bInUpdateInstanceTask;
 
-    struct WidgetLazyTask final
-    {
-        enum TaskType
-        {
-            kInvalid_TaskType,
-            kCreate_TaskType,
-            kDestroy_TaskType
-        };
-        TaskType fTaskType = kInvalid_TaskType;
-        std::shared_ptr< AUIWidget > fWidget;
-        AUIWidgetManager* fWidgetManager = nullptr;
-
-        WidgetLazyTask() noexcept = default;
-        WidgetLazyTask(const TaskType& _taskType, const std::shared_ptr< AUIWidget >& _widget, AUIWidgetManager* const _widgetManager) noexcept;
-        WidgetLazyTask(const WidgetLazyTask& _other) noexcept = default;
-        WidgetLazyTask(WidgetLazyTask&& _other) noexcept = default;
-        WidgetLazyTask& operator=(const WidgetLazyTask&) noexcept = default;
-        WidgetLazyTask& operator=(WidgetLazyTask&&) noexcept = default;
-
-        bool IsSameWidget(const WidgetLazyTask& _lazyTask) noexcept
-        {
-            return (this->fWidget == _lazyTask.fWidget);
-        }
-        bool IsSameTask(const WidgetLazyTask& _lazyTask) noexcept
-        {
-            return (this->fWidget == _lazyTask.fWidget &&
-                this->fTaskType == _lazyTask.fTaskType &&
-                this->fWidgetManager == _lazyTask.fWidgetManager);
-        }
-
-        static WidgetLazyTask MakeCreate(const std::shared_ptr< AUIWidget >& _widget, AUIWidgetManager* const _widgetManager) noexcept;
-        static WidgetLazyTask MakeDestroy(const std::shared_ptr< AUIWidget >& _widget, AUIWidgetManager* const _widgetManager) noexcept;
-    };
-    std::vector< WidgetLazyTask > m_arrWidgetLazyTask;
-
+    //////////////////////////////////////////////////////////////////////////
+    // Widget Tree
+public:
+    AUIWidgetTreeHelper& GetWidgetTree() const;
 
 
     //////////////////////////////////////////////////////////////////////////
-    // Debug
+    // Debug Tool
 public:
+    void SetVisualizeLayout(bool val) { m_bVisualizeLayout = val; }
+    bool IsVisualizeLayout() const { return m_bVisualizeLayout; }
+    void SetTraceWidgetLifecycle(bool val) { m_bTraceWidgetLifecycle = val; }
+    bool IsTraceWidgetLifecycle() const { return m_bTraceWidgetLifecycle; }
 #ifdef _DEBUG
     inline void DebugPrintTreeInfo(AUIWidget* pWidget) const
     {
@@ -136,39 +105,11 @@ private:
     void DebugPrintTreeInfo_Private(AUIWidget* pWidget, int step = 0) const;
 
 
-
-    //////////////////////////////////////////////////////////////////////////
-    // Widget Tree
-public:
-    AUIWidgetTreeHelper& GetWidgetTree() const;
-private:
-    std::unique_ptr< AUIWidgetTreeHelper > m_pWidgetTree;
-
-
-
-
-
-    //////////////////////////////////////////////////////////////////////////
-    // Debug Tool
-public:
-    void SetVisualizeLayout(bool val) { m_bVisualizeLayout = val; }
-    bool IsVisualizeLayout() const { return m_bVisualizeLayout; }
-    void SetTraceWidgetLifecycle(bool val) { m_bTraceWidgetLifecycle = val; }
-    bool IsTraceWidgetLifecycle() const { return m_bTraceWidgetLifecycle; }
-private:
-    bool m_bVisualizeLayout;
-    bool m_bTraceWidgetLifecycle;
-
-
     //////////////////////////////////////////////////////////////////////////
     // Refresh
 public:
     void Refresh();
     void MainRefresh();
-
-    AUISignal<void(), false > RefreshSignal;    // May not called in main-thread
-    AUISignal<void()> RefreshMainSignal;        // Called in main-thread
-    AUISignal<void()> HeavyUpdateSignal;        // Called in main-thread
 
     //////////////////////////////////////////////////////////////////////////
     // Lazy update
@@ -176,20 +117,11 @@ public:
     void RunLazyUpdate();
     void PostLazyUpdate();
 
-    AUISignal<void()> LazyUpdateSignal;             // Called in main-thread
-    AUISignal<void()> AfterLazyUpdateSignal;        // Called in main-thread
-    AUISignal<void(), false> PostLazyUpdateSignal;  // May not called in main-thread
-
-private:
-    std::unique_ptr<AUILazyTaskManager> m_pLazyTaskManager;
-
 
     //////////////////////////////////////////////////////////////////////////
     // Async Task
 public:
     void AsyncExecute(const std::shared_ptr<AUIAsyncTask>& pAsyncTask);
-private:
-    std::unordered_set<std::shared_ptr<AUIAsyncTask>> m_setAsyncExecute;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -201,8 +133,6 @@ public:
     bool IsRegisteredWindow(const std::shared_ptr< AUIWindow >& pWindow) const;
 private:
     void UnregisterAllWindows();
-    std::unordered_map<AUIWindow*, std::list<std::shared_ptr<AUIWindow>>> m_Windows;
-    std::unordered_map<AUIWindow*, std::weak_ptr<AUIWindow>> m_RegisteredWindows;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -241,15 +171,64 @@ public:
     std::shared_ptr<AUIForm> GetTooltipForm() const {
         return m_pTooltipForm;
     }
-private:
-    std::shared_ptr<AUIForm> m_pTooltipForm;
+    
+    // Signals
+public:
+    AUISignal<void(), false > RefreshSignal;    // May not called in main-thread
+    AUISignal<void()> RefreshMainSignal;        // Called in main-thread
+    AUISignal<void()> HeavyUpdateSignal;        // Called in main-thread
+    AUISignal<void()> LazyUpdateSignal;             // Called in main-thread
+    AUISignal<void()> AfterLazyUpdateSignal;        // Called in main-thread
+    AUISignal<void(), false> PostLazyUpdateSignal;  // May not called in main-thread
 
-
-    //////////////////////////////////////////////////////////////////////////
-    // OS Implementation
 private:
+    struct WidgetLazyTask final
+    {
+        enum TaskType
+        {
+            kInvalid_TaskType,
+            kCreate_TaskType,
+            kDestroy_TaskType
+        };
+        TaskType fTaskType = kInvalid_TaskType;
+        std::shared_ptr< AUIWidget > fWidget;
+        AUIWidgetManager* fWidgetManager = nullptr;
+
+        WidgetLazyTask() noexcept = default;
+        WidgetLazyTask(const TaskType& _taskType, const std::shared_ptr< AUIWidget >& _widget, AUIWidgetManager* const _widgetManager) noexcept;
+        WidgetLazyTask(const WidgetLazyTask& _other) noexcept = default;
+        WidgetLazyTask(WidgetLazyTask&& _other) noexcept = default;
+        WidgetLazyTask& operator=(const WidgetLazyTask&) noexcept = default;
+        WidgetLazyTask& operator=(WidgetLazyTask&&) noexcept = default;
+
+        bool IsSameWidget(const WidgetLazyTask& _lazyTask) noexcept
+        {
+            return (this->fWidget == _lazyTask.fWidget);
+        }
+        bool IsSameTask(const WidgetLazyTask& _lazyTask) noexcept
+        {
+            return (this->fWidget == _lazyTask.fWidget &&
+                this->fTaskType == _lazyTask.fTaskType &&
+                this->fWidgetManager == _lazyTask.fWidgetManager);
+        }
+
+        static WidgetLazyTask MakeCreate(const std::shared_ptr< AUIWidget >& _widget, AUIWidgetManager* const _widgetManager) noexcept;
+        static WidgetLazyTask MakeDestroy(const std::shared_ptr< AUIWidget >& _widget, AUIWidgetManager* const _widgetManager) noexcept;
+    };
     AUIApplicationImpl* const GetImpl() const { return m_pImpl.get(); }
     std::unique_ptr<AUIApplicationImpl> m_pImpl;
+    std::unique_ptr<AUILazyTaskManager> m_pLazyTaskManager;
+    std::unique_ptr<AUIWidgetTreeHelper> m_pWidgetTree;
+    std::shared_ptr<AUIForm> m_pTooltipForm;
+    std::unordered_map<AUIWindow*, std::list<std::shared_ptr<AUIWindow>>> m_Windows;
+    std::unordered_map<AUIWindow*, std::weak_ptr<AUIWindow>> m_RegisteredWindows;
+    std::unordered_set<std::shared_ptr<AUIAsyncTask>> m_setAsyncExecute;
+    std::vector<WidgetLazyTask> m_arrWidgetLazyTask;
+    std::unordered_set<AUIWidgetManager*> m_setWidgetManager;
+    bool m_bInUpdateInstanceTask = false;
+    bool m_bInitialized = false;
+    bool m_bVisualizeLayout = false;
+    bool m_bTraceWidgetLifecycle = false;
 };
 
 class ALICEUI_API AUIApplicationAutoInit final

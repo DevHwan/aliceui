@@ -11,8 +11,6 @@ namespace {
 
 AUIWindow::AUIWindow()
     : m_pWindow(std::make_shared<AUIWindowWidget>())
-    , m_iPrevMouseX( 0 )
-    , m_iPrevMouseY( 0 )
 {
     m_pWindow->SetIgnoreSysButton(true, true, false);
 
@@ -29,8 +27,6 @@ AUIWindow::AUIWindow()
 
 AUIWindow::AUIWindow(const std::shared_ptr<AUIWindowWidget>& pWindowWidget)
     : m_pWindow(pWindowWidget)
-    , m_iPrevMouseX(0)
-    , m_iPrevMouseY(0)
 {
 
     m_pWindow->SetIgnoreSysButton(true, true, false);

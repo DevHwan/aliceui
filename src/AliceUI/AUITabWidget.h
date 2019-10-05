@@ -10,14 +10,14 @@ class ALICEUI_API AUITabWidget : public AUILinearLayoutWidget
 {
 public:
     AUITabWidget();
-    explicit AUITabWidget(const std::shared_ptr< AUITabBarWidget >& pTabBar);
-    virtual ~AUITabWidget();
+    explicit AUITabWidget(const std::shared_ptr<AUITabBarWidget>& pTabBar);
+    ~AUITabWidget() override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Default Size
 protected:
-    virtual void OnSetDefaultSize(const AUIScalar2& size) override;
+    void OnSetDefaultSize(const AUIScalar2& size) override;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -52,10 +52,10 @@ private:
     // SubWidget
 public:
     void SetCurrentTab(AUITab* const pTab) { TabClicked(pTab); }
-    void SetCurrentTab(const std::shared_ptr< AUITab >& pTab) { TabClicked(pTab.get()); }
-    std::shared_ptr< AUITab > GetCurrentTab() const;
-    std::shared_ptr< AUITab > FindTabByWidget(const std::shared_ptr< AUIWidget >& pWidget) const;
-    std::shared_ptr< AUITab > FindTabByIndex(const size_t idx) const;
+    void SetCurrentTab(const std::shared_ptr<AUITab>& pTab) { TabClicked(pTab.get()); }
+    std::shared_ptr<AUITab> GetCurrentTab() const;
+    std::shared_ptr<AUITab> FindTabByWidget(const std::shared_ptr<AUIWidget>& pWidget) const;
+    std::shared_ptr<AUITab> FindTabByIndex(const size_t idx) const;
 protected:
     AUITransitionWidget* GetContentWidget() const {
         return m_pContentWidget.get();
@@ -68,12 +68,12 @@ private:
     //////////////////////////////////////////////////////////////////////////
     // Public child interface
 private:
-    virtual void AddSubWidgetAt(const std::shared_ptr< AUIWidget >& widget, const size_t pos) override;
-    virtual void DelSubWidget(const std::shared_ptr< AUIWidget >& widget) override;
-    virtual void PopSubWidget() override;
-    virtual void ClearSubWidget() override;
-    virtual std::shared_ptr< AUIWidget > FindSubWidget(size_t pos) override;
-    virtual size_t SubWidgetCount() const override;
+    void AddSubWidgetAt(const std::shared_ptr<AUIWidget>& widget, const size_t pos) override;
+    void DelSubWidget(const std::shared_ptr<AUIWidget>& widget) override;
+    void PopSubWidget() override;
+    void ClearSubWidget() override;
+    std::shared_ptr<AUIWidget> FindSubWidget(size_t pos) override;
+    size_t SubWidgetCount() const override;
 
 
     //////////////////////////////////////////////////////////////////////////

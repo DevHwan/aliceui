@@ -32,28 +32,12 @@ public:
     virtual ~AUIWidget();
 
     //////////////////////////////////////////////////////////////////////////
-    // Common Signals
-public:
-    AUISignal<void(AUIWidget*)> EnterSignal;
-    AUISignal<void(AUIWidget*)> LeaveSignal;
-    AUISignal<void(AUIWidget*)> ClickSignal;
-    AUISignal<void(AUIWidget*)> DblClickSignal;
-    AUISignal<void(AUIWidget*)> PressSignal;
-    AUISignal<void(AUIWidget*)> DragSignal;
-    AUISignal<void(AUIWidget*)> FocusInSignal;
-    AUISignal<void(AUIWidget*)> FocusOutSignal;
-    AUISignal<void(AUIWidget*)> MouseRBtnClickSignal;
-
-    //////////////////////////////////////////////////////////////////////////
     // Runtime Helper
 public:
     AUIRuntimeID GetRuntimeID() const noexcept {
         return m_RuntimeID;
     }
     static AUIWidget* FindByRuntimeID(const AUIRuntimeID id);
-private:
-    AUIRuntimeID m_RuntimeID = 0;
-
 
     //////////////////////////////////////////////////////////////////////////
     // Typecast helper
@@ -99,10 +83,6 @@ public:
     std::shared_ptr< AUITooltip > GetTooltip() const {
         return m_pTooltip;
     }
-private:
-    std::shared_ptr< AUITooltip > m_pTooltip;
-    bool m_bShowTooltip;
-
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -126,10 +106,6 @@ public:
     void SetUseHotkeyCut(bool use) noexcept {
         m_bUseHotkeyCut = use;
     }
-private:
-    bool m_bUseHotkeyCopy;
-    bool m_bUseHotkeyPaste;
-    bool m_bUseHotkeyCut;
 
 
 
@@ -154,7 +130,6 @@ public:
     }
 private:
     virtual void OnPositionChange() { }
-    AUIScalar3 m_vPos;
 
 
 
@@ -186,8 +161,6 @@ protected:
     virtual void OnPreUpdate() { /* Implement in subclass */ }
     virtual void OnPostUpdate() { /* Implement in subclass */ }
     bool WasDirty() const { return m_bWasDirty; }
-private:
-    bool m_bWasDirty;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -205,9 +178,6 @@ protected:
         m_bHitTestAffectedByParent = val;
         Invalidate();
     }
-private:
-    bool m_bHitTestAffectedByParent = false;
-
 
     //////////////////////////////////////////////////////////////////////////
     // Children
@@ -224,9 +194,9 @@ public:
     virtual void OnUpdateChildPosition();  // NOTE: Use careful
 public: // TODO : Move To WidgetTreeHelper
     static void CallOnUpdateChildPosition(AUIWidget* const pWidget);
-    static void CallOnUpdateChildPosition(const std::shared_ptr< AUIWidget >& pWidget) { AUIWidget::CallOnUpdateChildPosition(pWidget.get()); }
-private:
-    bool m_bUpdateChildPosition;
+    static void CallOnUpdateChildPosition(const std::shared_ptr< AUIWidget >& pWidget) {
+        AUIWidget::CallOnUpdateChildPosition(pWidget.get());
+    }
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -249,9 +219,6 @@ protected:
     virtual void OnCreate() { /* Implement in subclass */ }
     virtual void OnDestroy() { /* Implement in subclass */ }
     AUIWidgetManager* GetWidgetManager() const noexcept;
-private:
-    AUILifeState m_LifeState;
-
 
     //////////////////////////////////////////////////////////////////////////
     // Coordinate
@@ -279,10 +246,6 @@ public:
     bool IsForceDepthMask() const noexcept {
         return m_bForceDepthMask;
     }
-private:
-    std::shared_ptr< AUIWidgetRootInfo > m_spRootInfo;
-    bool m_bForceDepthTest;
-    bool m_bForceDepthMask;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -309,14 +272,8 @@ public:
     }
 protected:
     virtual void OnScrollChanged(const SkScalar& x, const SkScalar& y, const SkScalar& oldX, const SkScalar& oldY) { /* Implement in subclass */ }
-private:
-    SkScalar m_ScrollX;
-    SkScalar m_ScrollY;
 
 
-
-    //////////////////////////////////////////////////////////////////////////
-    // Midas Style Sheet v2
 public:
     void SetStyleSheet(std::shared_ptr<const AUIWidgetStyle> style);
     std::shared_ptr<const AUIWidgetStyle> GetStyleSheet() const;
@@ -325,7 +282,6 @@ public:
 private:
     void UpdateStyle();
     void SetStyleNotion(const AUIStyleNotion& notion);
-    std::shared_ptr<AUIStyleUpdator> m_pStyleUpdator;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -469,8 +425,6 @@ public: // NOTE : Use at your own risk
         m_UIState.SetPressed(false);
         m_UIState.ResetMouse();
     }
-private:
-    AUIState m_UIState;
 protected:
     void NotifyUIStateChange(); // For WidgetTree
 
@@ -484,9 +438,6 @@ public:
     SkColor GetColor() const noexcept {
         return m_Color;
     }
-private:
-    SkColor m_Color;
-
 
     //////////////////////////////////////////////////////////////////////////
     // Property
@@ -785,8 +736,6 @@ public:
     AUISizePolicy GetSizePolicyHeight() const noexcept {
         return m_Property.GetSizePolicyHeight();
     }
-private:
-    AUIProperty m_Property;
 
 
 
@@ -910,7 +859,6 @@ private:
     void SetSize(const AUIScalar2& size) noexcept {
         m_Property.SetSize(size);
     }
-    bool m_bNeedUpdateSize;
 
     //////////////////////////////////////////////////////////////////////////
     // Size Update
@@ -918,13 +866,6 @@ public:
     static void CallMeasureAndUpdateSize(AUIWidget* const pWidget);
     //protected: // NOTE : LinearLayoutManager -> TODO : Alias
     static void OnCallMeasureAndUpdateSize(AUIWidget* const pWidget, SkScalar width, AUIMeasureSpec widthSpec, SkScalar height, AUIMeasureSpec heightSpec);
-private:
-    SkScalar m_PrevUpdateWidth;
-    SkScalar m_PrevUpdateHeight;
-    AUIMeasureSpec m_PrevUpdateWidthSpec;
-    AUIMeasureSpec m_PrevUpdateHeightSpec;
-
-
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -937,8 +878,6 @@ public:
     void SetUseHitTest(bool use) noexcept {
         m_bUseHitTest = use;
     }
-private:
-    bool m_bUseHitTest;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -969,7 +908,6 @@ private:
     bool OnKeyboardEvent(const AUIKeyboardEvent& evt);
     void OnTickTimeEvent(const std::chrono::milliseconds& prevTickTime, const std::chrono::milliseconds& curTickTime);
     bool OnSetCursorEvent(AUICursorIcon& cursoricon);
-    std::function<bool(AUIMouseEvent)> m_PreviewMouseCallback;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -1046,9 +984,6 @@ protected:
     void TickTime(const std::chrono::milliseconds& prevTime, const std::chrono::milliseconds& curTime);
     virtual void OnTickTime(const std::chrono::milliseconds& prevTime, const std::chrono::milliseconds& curTime);
     std::chrono::milliseconds GetTimeTick() const { return m_CurTimeTick; }
-private:
-    std::chrono::milliseconds m_CurTimeTick;
-
 
     //////////////////////////////////////////////////////////////////////////
     // Animation Helper
@@ -1059,21 +994,12 @@ protected:
     void StartAnimRunning();
     void StopAnimRunning();
     void ResetAnimRunning();
-private:
-    std::chrono::milliseconds m_AnimStartTick = std::chrono::milliseconds::zero();
-    bool m_bAnimRunning;
-
-
-
 
 
     //////////////////////////////////////////////////////////////////////////
     // Timing
 public:
     std::chrono::milliseconds GetPressTime() const;
-private:
-    std::chrono::milliseconds m_TimePressStart = std::chrono::milliseconds::zero();
-
 
     ///////////////////////////////////////////////////////////////////////////
     //  Sensor
@@ -1102,7 +1028,6 @@ public:
         return m_aCompasses;
     }
 private:
-    std::vector<std::shared_ptr<AUICompass>> m_aCompasses;
 
 
 
@@ -1112,9 +1037,6 @@ private:
 public:
     void LoadDefault2DSensor();
     void UpdateDefault2DSensorSize();
-private:
-    bool m_bDefault2DSensor;
-    bool m_bDefault2DCompass;
 
 
 
@@ -1136,8 +1058,6 @@ public:
     void InvalidateChildren() noexcept;
 protected:
     virtual void OnUpdate() { /* Implement in subclass */ }
-private:
-    bool m_bDirty;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -1150,9 +1070,6 @@ public:
     SkScalar GetOpacity() const noexcept {
         return m_Opacity;
     }
-private:
-    SkScalar m_Opacity;
-
 
     //////////////////////////////////////////////////////////////////////////
     // Instance
@@ -1165,6 +1082,64 @@ public:
     virtual AUIDrawable* GetAsDrawable() const;
 
 
+public:
+    // Signals
+    AUISignal<void(AUIWidget*)> EnterSignal;
+    AUISignal<void(AUIWidget*)> LeaveSignal;
+    AUISignal<void(AUIWidget*)> ClickSignal;
+    AUISignal<void(AUIWidget*)> DblClickSignal;
+    AUISignal<void(AUIWidget*)> PressSignal;
+    AUISignal<void(AUIWidget*)> DragSignal;
+    AUISignal<void(AUIWidget*)> FocusInSignal;
+    AUISignal<void(AUIWidget*)> FocusOutSignal;
+    AUISignal<void(AUIWidget*)> MouseRBtnClickSignal;
+    
+private:
+    std::shared_ptr<AUIWidgetRootInfo> m_spRootInfo;
+    std::shared_ptr<AUITooltip> m_pTooltip;
+    std::shared_ptr<AUIStyleUpdator> m_pStyleUpdator;
+    // Callback
+    std::function<bool(AUIMouseEvent)> m_PreviewMouseCallback;
+    // Runtime
+    AUIRuntimeID m_RuntimeID = 0;
+    // Meta information
+    SkColor m_Color = kAUIColorTransparent;
+    AUIScalar3 m_vPos;
+    // Widget internals
+    AUIState m_UIState;
+    AUILifeState m_LifeState;
+    AUIProperty m_Property;
+    // Scrolling
+    SkScalar m_ScrollX = 0.0f;
+    SkScalar m_ScrollY = 0.0f;
+    // Updates
+    SkScalar m_PrevUpdateWidth = -1.0f;
+    SkScalar m_PrevUpdateHeight = -1.0f;
+    AUIMeasureSpec m_PrevUpdateWidthSpec = AUIMeasureSpec::kUnspecified;
+    AUIMeasureSpec m_PrevUpdateHeightSpec = AUIMeasureSpec::kUnspecified;
+    // Timing
+    std::chrono::milliseconds m_CurTimeTick = std::chrono::milliseconds::zero();
+    std::chrono::milliseconds m_TimePressStart = std::chrono::milliseconds::zero();
+    std::chrono::milliseconds m_AnimStartTick = std::chrono::milliseconds::zero();
+    // Compass
+    std::vector<std::shared_ptr<AUICompass>> m_aCompasses;
+    SkScalar m_Opacity = 1.0f;
+    // Flags
+    bool m_bAnimRunning = false;
+    bool m_bForceDepthTest = false;
+    bool m_bForceDepthMask = false;
+    bool m_bShowTooltip = false;
+    bool m_bUseHotkeyCopy = false;
+    bool m_bUseHotkeyPaste = false;
+    bool m_bUseHotkeyCut = false;
+    bool m_bWasDirty = false;
+    bool m_bHitTestAffectedByParent = false;
+    bool m_bUpdateChildPosition = false;
+    bool m_bNeedUpdateSize = true;
+    bool m_bUseHitTest = true;
+    bool m_bDefault2DSensor = false;
+    bool m_bDefault2DCompass = false;
+    bool m_bDirty = true;
 
     //////////////////////////////////////////////////////////////////////////
     // Friend class

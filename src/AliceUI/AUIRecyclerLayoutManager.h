@@ -21,13 +21,14 @@ protected:
     //////////////////////////////////////////////////////////////////////////
     // Setup
 public:
-    void SetRecyclerWidget(AUIRecyclerWidget* pRecyclerWidget) {
+    void SetRecyclerWidget(AUIRecyclerWidget* pRecyclerWidget) noexcept {
         m_pRecyclerWidget = pRecyclerWidget;
     }
 
-    AUIRecyclerWidget* GetRecyclerWidget() const { AUIAssert(m_pRecyclerWidget); return m_pRecyclerWidget; }
-private:
-    AUIRecyclerWidget* m_pRecyclerWidget;
+    AUIRecyclerWidget* GetRecyclerWidget() const {
+        AUIAssert(m_pRecyclerWidget);
+        return m_pRecyclerWidget;
+    }
 
 
 
@@ -53,4 +54,9 @@ protected:
 public:
     void MeasureSize(SkScalar width, AUIMeasureSpec widthSpec, SkScalar height, AUIMeasureSpec heightSpec);
     void UpdateChildPosition();
+    
+
+    
+private:
+    AUIRecyclerWidget* m_pRecyclerWidget = nullptr;
 };

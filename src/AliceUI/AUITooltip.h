@@ -14,19 +14,23 @@ public:
     //////////////////////////////////////////////////////////////////////////
     // Show Duration
 public:
-    void SetShowDuration(const std::chrono::milliseconds& duration) { m_ShowDuration = duration; }
-    std::chrono::milliseconds GetShowDuration() const { return m_ShowDuration; }
-private:
-    std::chrono::milliseconds m_ShowDuration;
+    void SetShowDuration(const std::chrono::milliseconds& duration) {
+        m_ShowDuration = duration;
+    }
+    std::chrono::milliseconds GetShowDuration() const {
+        return m_ShowDuration;
+    }
 
 
     //////////////////////////////////////////////////////////////////////////
     // Message
 public:
-    void SetMessage(const std::wstring& message) { m_Message = message; }
-    std::wstring GetMessage() const { return m_Message; }
-private:
-    std::wstring m_Message;
+    void SetMessage(const std::wstring& message) {
+        m_Message = message;
+    }
+    std::wstring GetMessage() const {
+        return m_Message;
+    }
 
 public:
     void SetPopupOpt(AUIPopupPos opt) {
@@ -35,6 +39,10 @@ public:
     AUIPopupPos GetPopupOpt() const {
         return m_PopupOpt;
     }
+    
+    
 private:
+    std::chrono::milliseconds m_ShowDuration{ 500 };
+    std::wstring m_Message;
     AUIPopupPos m_PopupOpt = AUIPopupPos::kOptimal;
 };

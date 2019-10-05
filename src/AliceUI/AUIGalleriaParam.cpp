@@ -8,15 +8,6 @@ AUIGalleriaParam AUIGalleriaParam::Make()
 }
 
 AUIGalleriaParam::AUIGalleriaParam()
-    : m_bCenterCrop( false )
-    , m_bCenterInside( false )
-    , m_bOnlyScaleDown( false )
-    , m_RotateDegree( 0.0f )
-    , m_RotatePivotX( 0.0f )
-    , m_RotatePivotY( 0.0f )
-    , m_TargetWidth( -1 )
-    , m_TargetHeight( -1 )
-    , m_bTargetFit( false )
 {
 
 }

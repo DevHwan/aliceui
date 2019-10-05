@@ -14,9 +14,6 @@ void AUIGridLayout::OnMeasureSize(SkScalar width, AUIMeasureSpec widthSpec, SkSc
         return;
     }
 
-    SkScalar basePosX = pTarget->GetMarginLeft();
-    SkScalar basePosY = pTarget->GetMarginTop();
-
     SkScalar totalWidth = pTarget->GetMarginLeft() + pTarget->GetMarginRight();
     SkScalar totalHeight = pTarget->GetMarginTop() + pTarget->GetMarginBottom();
 
@@ -54,11 +51,9 @@ void AUIGridLayout::OnMeasureSize(SkScalar width, AUIMeasureSpec widthSpec, SkSc
             // TODO : weighted
             SkScalar targetWidth = IsHorizontal() ? divInfo.fDefaultSize : pWidget->GetWeight() * width / divisionTotalWeight;
             SkScalar targetHeight = IsHorizontal() ? pWidget->GetWeight() * height / divisionTotalWeight : divInfo.fDefaultSize;
-            SkScalar targetDepth = 0.0f;
 
             AUIWidget::OnCallMeasureAndUpdateSize(pWidget.get(), targetWidth, AUIMeasureSpec::kAtMost, targetHeight, AUIMeasureSpec::kAtMost);
 
-            const auto divisionChildPos = pWidget->GetPosition();
             const auto divisionChildSize = pWidget->GetMeasureSize();
             const auto divisionChildWidth = pWidget->GetMarginLeft() + pWidget->GetMarginRight() + divisionChildSize.fX;
             const auto divisionChildHeight = pWidget->GetMarginTop() + pWidget->GetMarginBottom() + divisionChildSize.fY;
@@ -81,7 +76,6 @@ void AUIGridLayout::OnMeasureSize(SkScalar width, AUIMeasureSpec widthSpec, SkSc
 
     SkScalar resultWidth = 0.0f;
     SkScalar resultHeight = 0.0f;
-    SkScalar resultDepth = 0.0f;
     if (AUIMeasureSpec::kExactly == widthSpec)
     {
         resultWidth = width;

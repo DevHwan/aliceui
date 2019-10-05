@@ -2,7 +2,6 @@
 #include "AUITooltip.h"
 
 AUITooltip::AUITooltip()
-    : m_ShowDuration( 500 )
 {
 
 }
