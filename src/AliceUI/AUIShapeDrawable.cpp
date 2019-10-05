@@ -2,25 +2,14 @@
 #include "AUIShapeDrawable.h"
 #include "AUIRectShape.h"
 
-namespace {
-    constexpr SkColor DefaultColor = kAUIColorBlack;
-    constexpr float DefaultStrokeWidth = 1.0f;
-}
-
 AUIShapeDrawable::AUIShapeDrawable()
     : m_pShape(std::make_shared<AUIRectShape>() )
-    , m_StrokeStyle( SkPaint::kFill_Style )
-    , m_Color( DefaultColor )
-    , m_fStrokeWidth( DefaultStrokeWidth )
 {
 
 }
 
 AUIShapeDrawable::AUIShapeDrawable( const std::shared_ptr< AUIShape >& shape )
     : m_pShape( shape )
-    , m_StrokeStyle( SkPaint::kFill_Style )
-    , m_Color( DefaultColor )
-    , m_fStrokeWidth( DefaultStrokeWidth )
 {
 
 }

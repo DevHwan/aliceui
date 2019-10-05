@@ -4,7 +4,6 @@
 #include "AUIWidgetManager.h"
 
 AUIPopup::AUIPopup()
-    : m_pWidgetManager( nullptr )
 {
 
 }

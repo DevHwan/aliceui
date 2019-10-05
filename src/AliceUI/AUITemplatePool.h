@@ -6,7 +6,7 @@
 
 class AUITemplate;
 class AUITemplateProcessor;
-class ALICEUI_API AUITemplatePool : public std::enable_shared_from_this< AUITemplatePool >
+class ALICEUI_API AUITemplatePool : public std::enable_shared_from_this<AUITemplatePool>
 {
 public:
     AUITemplatePool();

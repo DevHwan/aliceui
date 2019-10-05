@@ -3,7 +3,6 @@
 #include "AUIRecyclerWidget.h"
 
 AUIRecyclerLayoutManager::AUIRecyclerLayoutManager()
-    : m_pRecyclerWidget( nullptr )
 {
 
 }

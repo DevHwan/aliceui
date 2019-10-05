@@ -14,10 +14,6 @@ namespace {
     constexpr wchar_t DefaultCaptionHint[] = L"Insert Here";
     constexpr SkColor DefaultCaptionColor = SkColorSetRGB( 17, 17, 17 ); // default text color
 
-    constexpr bool DefaultTabToChar = false;
-    constexpr bool DefaultReturnToChar = false;
-    constexpr bool DefaultUseBuffered = true;
-    constexpr bool DefaultCaptionSelectable = true;
     constexpr bool DefaultFocusable = true;
 
     constexpr SkColor DefaultCaptionCompColor = SkColorSetRGB( 66, 151, 255 ); // cursor color 어따 쓰는지 몰겠
@@ -51,7 +47,7 @@ namespace {
             SkColor m_Color = SK_ColorTRANSPARENT;
 
         protected:
-            virtual void OnDraw( SkCanvas* const canvas )
+            virtual void OnDraw( SkCanvas* const canvas ) override
             {
                 const auto rect = GetDrawBound();
 
@@ -101,20 +97,14 @@ const std::wstring::size_type AUIEditWidget::SelAllStart = 0;
 const std::wstring::size_type AUIEditWidget::SelAllEnd = std::wstring::npos;
 
 AUIEditWidget::AUIEditWidget()
-    : AUITextWidget( DefaultCaption )
-    , m_CaptionHint( DefaultCaptionHint )
-    , m_bTabToChar( DefaultTabToChar )
-    , m_bReturnToChar( DefaultReturnToChar )
-    , m_bUseBuffer( DefaultUseBuffered )
-    , m_bCaptionSelectable( DefaultCaptionSelectable )
-    , m_SelStart( SelClearStart )
-    , m_SelEnd( SelClearEnd )
-    , m_SelCursor( std::wstring::npos )
-    , m_SelectBGColor( DefaultSelectBackgroundColor )
-    , m_CaptionSelectColor( DefaultCaptionSelectColor )
-    , m_CaptionHintColor( DefaultCaptionHintColor )
-    , m_CaptionCompColor( DefaultCaptionCompColor )
-    , m_bPassword( false )
+    : AUITextWidget(DefaultCaption)
+    , m_SelectBGColor(DefaultSelectBackgroundColor)
+    , m_CaptionCompColor(DefaultCaptionCompColor)
+    , m_CaptionSelectColor(DefaultCaptionSelectColor)
+    , m_CaptionHintColor(DefaultCaptionHintColor)
+    , m_CaptionHint(DefaultCaptionHint)
+    , m_SelStart(SelClearStart)
+    , m_SelEnd(SelClearEnd)
 {
     SetCaptionColor( DefaultCaptionColor );
     SetFocusable( DefaultFocusable );
@@ -131,20 +121,14 @@ AUIEditWidget::AUIEditWidget()
 }
 
 AUIEditWidget::AUIEditWidget( const std::wstring& captionhint )
-    : AUITextWidget( DefaultCaption )
-    , m_CaptionHint( captionhint )
-    , m_bTabToChar( DefaultTabToChar )
-    , m_bReturnToChar( DefaultReturnToChar )
-    , m_bUseBuffer( DefaultUseBuffered )
-    , m_bCaptionSelectable( DefaultCaptionSelectable )
-    , m_SelStart( SelClearStart )
-    , m_SelEnd( SelClearEnd )
-    , m_SelCursor( std::wstring::npos )
-    , m_SelectBGColor( DefaultSelectBackgroundColor )
-    , m_CaptionSelectColor( DefaultCaptionSelectColor )
-    , m_CaptionHintColor( DefaultCaptionHintColor )
-    , m_CaptionCompColor( DefaultCaptionCompColor )
-    , m_bPassword( false )
+    : AUITextWidget(DefaultCaption)
+    , m_SelectBGColor(DefaultSelectBackgroundColor)
+    , m_CaptionCompColor(DefaultCaptionCompColor)
+    , m_CaptionSelectColor(DefaultCaptionSelectColor)
+    , m_CaptionHintColor(DefaultCaptionHintColor)
+    , m_CaptionHint(captionhint)
+    , m_SelStart(SelClearStart)
+    , m_SelEnd(SelClearEnd)
 {
     SetCaptionColor( DefaultCaptionColor );
     SetFocusable( DefaultFocusable );
@@ -376,8 +360,6 @@ void AUIEditWidget::OnDrawCaption( SkCanvas* const canvas )
 
 void AUIEditWidget::OnDrawEditCaption_Single( SkCanvas* const canvas )
 {
-    const auto rect = GetRect();
-
     const auto compChar = m_CaptionComp;
     const auto hasCompChar = !compChar.empty();
 
@@ -447,11 +429,10 @@ void AUIEditWidget::OnDrawEditCaption_Single( SkCanvas* const canvas )
 
         SkRect preBound;
         SkRect selBound;
-        SkRect postBound;
+        
         const auto preAdvance = AUISkiaUtil::MeasureTextBound( preCaption, preBound, true, captionPaint );
         const auto selAdvance = AUISkiaUtil::MeasureTextBound( selCaption, selBound, true, captionSelPaint );
-        const auto postAdvance = AUISkiaUtil::MeasureTextBound( postCaption, postBound, true, captionPaint );
-
+        
         SkPaint selBGPaint;
         selBGPaint.setAntiAlias( true );
         selBGPaint.setColor( GetSelectBGColor() );
@@ -603,8 +584,6 @@ bool AUIEditWidget::OnMouseLBtnUp( AUIMouseEvent::EventFlag flag )
     SuperWidget::OnMouseLBtnUp( flag );
 	if (false == IsClickable())
 		return false;
-
-    const auto endPos = GetStringPos( GetMouseLocPosX(), GetMouseLocPosY() );
 
     return true;
 }
@@ -1223,12 +1202,9 @@ std::wstring::size_type AUIEditWidget::GetStringPos( float x, float y )
     const auto textStartPos = AUISkiaUtil::CalcTextStartPos( targetCaption, captionArea, GetCaptionVertAlign(), GetCaptionHorzAlign(), true, captionPaint );
 
     const auto diffX = x - textStartPos.x();
-    const auto diffY = y - textStartPos.y();
 
     const auto p = AUISkiaUtil::BreakText( targetCaption, true, diffX, captionPaint );
     return p;
-
-
 }
 
 float AUIEditWidget::GetAdvanceOfStringPos( std::wstring::size_type pos )

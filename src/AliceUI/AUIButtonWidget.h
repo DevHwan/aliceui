@@ -8,7 +8,7 @@ class ALICEUI_API AUIButtonWidget : public AUITextWidget
 public:
     AUIButtonWidget();
     explicit AUIButtonWidget(const std::wstring& caption);
-    virtual ~AUIButtonWidget();
+    ~AUIButtonWidget() override;
 
     //////////////////////////////////////////////////////////////////////////
     // Event

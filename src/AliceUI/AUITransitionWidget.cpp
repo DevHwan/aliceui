@@ -6,11 +6,6 @@ namespace {
 }
 
 AUITransitionWidget::AUITransitionWidget()
-    : m_bInTransition( false )
-    , m_fFromTargetOpacity( 1.0f )
-    , m_fToTargetOpacity( 1.0f )
-    , m_bFromFreezed( false )
-    , m_bToFreezed( false )
 {
 
 }

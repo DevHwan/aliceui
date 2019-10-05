@@ -14,36 +14,51 @@ public:
     //////////////////////////////////////////////////////////////////////////
     // Draw
 protected:
-    virtual void OnDraw(SkCanvas* const canvas) override;
+    void OnDraw(SkCanvas* const canvas) override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Shape
 public:
-    std::shared_ptr< AUIShape > GetShape() const { return m_pShape; }
-    void SetShape(const std::shared_ptr< AUIShape >& shape) { m_pShape = shape; }
-private:
-    std::shared_ptr< AUIShape > m_pShape;
-
+    std::shared_ptr<AUIShape> GetShape() const {
+        return m_pShape;
+    }
+    void SetShape(const std::shared_ptr<AUIShape>& shape) {
+        m_pShape = shape;
+    }
 
     //////////////////////////////////////////////////////////////////////////
     // Color
 public:
-    SkColor GetColor() const { return m_Color; }
-    void SetColor(const SkColor color) { m_Color = color; }
+    SkColor GetColor() const noexcept {
+        return m_Color;
+    }
+    void SetColor(const SkColor color) {
+        m_Color = color;
+    }
 private:
-    SkColor m_Color;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Stroke Style
 public:
-    SkPaint::Style GetStrokeStyle() const { return m_StrokeStyle; }
-    float GetStrokeWidth() const { return m_fStrokeWidth; }
-    void SetStrokeStyle(const SkPaint::Style style) { m_StrokeStyle = style; }
-    void SetStrokeWidth(const float val) { m_fStrokeWidth = val; }
+    SkPaint::Style GetStrokeStyle() const noexcept {
+        return m_StrokeStyle;
+    }
+    float GetStrokeWidth() const noexcept {
+        return m_fStrokeWidth;
+    }
+    void SetStrokeStyle(const SkPaint::Style style) noexcept {
+        m_StrokeStyle = style;
+    }
+    void SetStrokeWidth(const float val) noexcept {
+        m_fStrokeWidth = val;
+    }
+    
+    
 private:
-    SkPaint::Style m_StrokeStyle;
-    float m_fStrokeWidth;
-
+    std::shared_ptr<AUIShape> m_pShape;
+    SkPaint::Style m_StrokeStyle = SkPaint::kFill_Style;
+    SkColor m_Color = kAUIColorBlack;
+    float m_fStrokeWidth = 1.0f;
 };

@@ -11,35 +11,35 @@ class ALICEUI_API AUIScrollableWidget : public AUIFrameLayoutWidget
     typedef AUIFrameLayoutWidget SuperClass;
 public:
     AUIScrollableWidget();
-    virtual ~AUIScrollableWidget();
+    ~AUIScrollableWidget() override;
 
 
 
     //////////////////////////////////////////////////////////////////////////
     // Draw
 protected:
-    virtual void OnDraw(SkCanvas* const canvas) override;
+    void OnDraw(SkCanvas* const canvas) override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Size
 protected:
-    virtual void OnMeasureSize(SkScalar width, AUIMeasureSpec widthSpec, SkScalar height, AUIMeasureSpec heightSpec) override;
+    void OnMeasureSize(SkScalar width, AUIMeasureSpec widthSpec, SkScalar height, AUIMeasureSpec heightSpec) override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Public child interface
 public:
-    virtual void AddSubWidgetAt(const std::shared_ptr< AUIWidget >& widget, const size_t pos) override;
-    virtual void DelSubWidget(const std::shared_ptr< AUIWidget >& widget) override;
-    virtual void PopSubWidget() override;
-    virtual void ClearSubWidget() override;
-    virtual std::shared_ptr< AUIWidget > FindSubWidget(size_t pos) override;
-    virtual size_t SubWidgetCount() const override;
+    void AddSubWidgetAt(const std::shared_ptr<AUIWidget>& widget, const size_t pos) override;
+    void DelSubWidget(const std::shared_ptr<AUIWidget>& widget) override;
+    void PopSubWidget() override;
+    void ClearSubWidget() override;
+    std::shared_ptr<AUIWidget> FindSubWidget(size_t pos) override;
+    size_t SubWidgetCount() const override;
 protected:
-    AUIScrollableContentWidget* const GetContent() const { return m_pContent.get(); }
-private:
-    std::shared_ptr< AUIScrollableContentWidget > m_pContent;
+    AUIScrollableContentWidget* const GetContent() const noexcept {
+        return m_pContent.get();
+    }
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -48,21 +48,17 @@ public:
     void SetShowThumbOnHit(bool show);
     bool IsShowThumbOnHit() const;
 protected:
-    AUIScrollableBarWidget* GetScrollBarWidget() const {
+    AUIScrollableBarWidget* GetScrollBarWidget() const noexcept {
         return m_pScrollBar.get();
     }
-private:
-    std::shared_ptr< AUIScrollableBarWidget > m_pScrollBar;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Scroll Info
 public:
-    bool IsHorizontal() const { return m_bHorizontal; }
-private:
-    float m_fScrollPos;
-    float m_fScrollOffset;
-    bool m_bHorizontal;
+    bool IsHorizontal() const noexcept {
+        return m_bHorizontal;
+    }
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -74,17 +70,17 @@ public:
         SBP_Show,
         SBP_Hide
     };
-    ScrollBarPolicy GetScrollBarPolicy() const { return m_eScrollBarPolicy; }
+    ScrollBarPolicy GetScrollBarPolicy() const noexcept {
+        return m_eScrollBarPolicy;
+    }
 protected:
     void OnSetDefaultSize(const AUIScalar2& size) override;
-private:
-    ScrollBarPolicy m_eScrollBarPolicy;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Children
 protected:
-    virtual void OnUpdateChildPosition() override;
+    void OnUpdateChildPosition() override;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -96,8 +92,17 @@ protected:
     virtual void OnContentScroll(AUIScrollableContentWidget* const pWidget, float delta);
     virtual void OnAfterMeasureSize(SkScalar width, SkScalar height) override;
 private:
-    bool m_bPendingScrollToTop;
-    bool m_bPendingScrolllToBottom;
-
     void OnThumbScroll(const SkScalar& val);
+    
+
+    
+private:
+    std::shared_ptr<AUIScrollableContentWidget> m_pContent;
+    std::shared_ptr< AUIScrollableBarWidget > m_pScrollBar;
+    float m_fScrollPos = 0.0f;
+    float m_fScrollOffset = 30.0f;
+    ScrollBarPolicy m_eScrollBarPolicy = SBP_Show;
+    bool m_bHorizontal = false;
+    bool m_bPendingScrollToTop = false;
+    bool m_bPendingScrolllToBottom = false;
 };

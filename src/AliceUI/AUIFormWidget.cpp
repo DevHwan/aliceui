@@ -13,9 +13,8 @@ namespace
 }
 
 AUIFormWidget::AUIFormWidget()
-    : AUILinearLayoutWidget( false )
-    , m_pTitleBar( std::make_shared< AUITitleBarTitleWidget >() )
-    , m_bMoveable( true )
+    : AUILinearLayoutWidget(false)
+    , m_pTitleBar(std::make_shared<AUITitleBarTitleWidget>())
 {
 
     SetDefaultSize( DefaultWidth, DefaultHeight );
@@ -36,13 +35,13 @@ AUIFormWidget::AUIFormWidget()
 
     SetBackgroundDrawable( pBackground );
 
-    InitWidget(  );
+    InitWidget();
 }
 
 AUIFormWidget::AUIFormWidget(bool moveable)
     : AUILinearLayoutWidget( false )
-    , m_pTitleBar( std::make_shared< AUITitleBarTitleWidget >() )
-    , m_bMoveable( moveable )
+    , m_pTitleBar(std::make_shared<AUITitleBarTitleWidget>())
+    , m_bMoveable(moveable)
 {
 
     SetDefaultSize( DefaultWidth, DefaultHeight );

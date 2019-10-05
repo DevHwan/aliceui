@@ -30,6 +30,7 @@ public:
         // Default
         SetRestoreIcon();
     }
+    ~MaximizeButtonWidget() override = default;
 
     virtual void OnPostMeasureSize() override
     {
@@ -89,6 +90,7 @@ public:
         if (auto refDrawable = parser.LoadFromPathByResource(TitleBar::SysButton::kBackground))
             SetBackgroundDrawable(*refDrawable);
     }
+    ~CloseButtonWidget() override = default;
 };
 class HideButtonWidget : public AUIImageButtonWidget
 {
@@ -111,6 +113,7 @@ public:
         if (auto refDrawable = parser.LoadFromPathByResource(TitleBar::SysButton::kBackground))
             SetBackgroundDrawable(*refDrawable);
     }
+    ~HideButtonWidget() override = default;
 };
 
 class TitleTextWidget : public AUITextWidget
@@ -121,6 +124,7 @@ public:
         SetDefaultSize(TitleBar::SysButton::kWidth, TitleBar::SysButton::kHeight);
         SetSizePolicy(AUISizePolicy::kContent, AUISizePolicy::kParent);
     }
+    ~TitleTextWidget() override = default;
 };
 
 class MainIconWidget : public AUIImageWidget
@@ -131,16 +135,15 @@ public:
         SetDefaultSize(TitleBar::SysButton::kWidth, TitleBar::SysButton::kHeight);
         SetSizePolicy(AUISizePolicy::kFixed, AUISizePolicy::kFixed);
     }
+    ~MainIconWidget() override = default;
 };
 
 AUIWindowTitleBarWidget::AUIWindowTitleBarWidget()
     : m_pIcon(std::make_shared<MainIconWidget>())
     , m_pTitleText(std::make_shared<TitleTextWidget>())
-    , m_pMinimizeButton(std::make_shared< HideButtonWidget >())
-    , m_pMaximizeButton(std::make_shared< MaximizeButtonWidget>())
-    , m_pCloseButton(std::make_shared< CloseButtonWidget >())
-    , m_fAbsPrevX(-1.0f)
-    , m_fAbsPrevY(-1.0f)
+    , m_pMinimizeButton(std::make_shared<HideButtonWidget>())
+    , m_pMaximizeButton(std::make_shared<MaximizeButtonWidget>())
+    , m_pCloseButton(std::make_shared<CloseButtonWidget>())
 {
     SetDraggable(true);
     SetClickable(true);

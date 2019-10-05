@@ -21,7 +21,7 @@ public:
     //////////////////////////////////////////////////////////////////////////
     // Draw
 protected:
-    virtual void OnDraw(SkCanvas* const canvas) override;
+    void OnDraw(SkCanvas* const canvas) override;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -33,8 +33,6 @@ protected:
     void OnUpdateChildPosition() override;
 public:
     void SetLayout(const std::shared_ptr<AUILayoutBase>& pLayout);
-private:
-    std::unique_ptr<AUILayoutManager> m_pLayoutManager;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -77,14 +75,6 @@ protected:
 protected:
     void OnUpdate() override;
 
-
-    //////////////////////////////////////////////////////////////////////////
-    // Debug Tool
-private:
-    SkColor m_DebugColor;
-
-
-
     //////////////////////////////////////////////////////////////////////////
     // Tick time event
 protected:
@@ -118,4 +108,10 @@ public:
 protected:
     virtual void OnSetAllDisabled(bool state);
     virtual void OnSetAllIgnored(bool state);
+    
+    
+
+private:
+    std::unique_ptr<AUILayoutManager> m_pLayoutManager;
+    SkColor m_DebugColor = kAUIColorTransparent;
 };

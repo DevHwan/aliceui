@@ -13,7 +13,7 @@ public:
     //////////////////////////////////////////////////////////////////////////
     // Draw
 protected:
-    virtual void OnDraw(SkCanvas* const canvas) override;
+    void OnDraw(SkCanvas* const canvas) override;
 
     //////////////////////////////////////////////////////////////////////////
     // Load
@@ -27,8 +27,6 @@ public:
 public:
     void SetImageStretch(AUIImageStretch stretch) { m_eImageStretch = stretch; }
     AUIImageStretch GetImageStretch() const { return m_eImageStretch; }
-private:
-    AUIImageStretch m_eImageStretch;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -36,8 +34,6 @@ private:
 public:
     void SetOpacity(SkAlpha val) { m_Opacity = val; }
     SkAlpha GetOpacity() const { return m_Opacity; }
-private:
-    SkAlpha m_Opacity;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -48,6 +44,10 @@ public:
     }
     void SetImage(const sk_sp<SkImage>& image);
     sk_sp<SkImage> GetImage() const { return m_pImage; }
+
+
 private:
+    AUIImageStretch m_eImageStretch = AUIImageStretch::kUniform;
     sk_sp<SkImage> m_pImage;
+    SkAlpha m_Opacity = kAUIAlpha100;
 };

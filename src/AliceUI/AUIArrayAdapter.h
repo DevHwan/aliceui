@@ -8,8 +8,8 @@ template< typename T >
 class AUIArrayAdapter : public AUIComboAdapter
 {
 public:
-    AUIArrayAdapter() : m_bSendDataChangeSignal(true) { }
-    virtual ~AUIArrayAdapter() { }
+    AUIArrayAdapter() = default;
+    ~AUIArrayAdapter() override = default;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -93,23 +93,24 @@ public:
 public:
     void SetSendDataChangeSignal(bool send) { m_bSendDataChangeSignal = send; }
     bool IsSendDataChangeSignal() const { return m_bSendDataChangeSignal; }
-private:
-    bool m_bSendDataChangeSignal;
+
 
 
     //////////////////////////////////////////////////////////////////////////
     // Data
 protected:
-    std::vector< T > m_arrData;
+    std::vector<T> m_arrData;
+private:
+    bool m_bSendDataChangeSignal = true;
 };
 
 
 template<>
-class AUIArrayAdapter< std::wstring > : public AUIComboAdapter
+class AUIArrayAdapter<std::wstring> : public AUIComboAdapter
 {
 public:
-    AUIArrayAdapter() {}
-    virtual ~AUIArrayAdapter() { }
+    AUIArrayAdapter() = default;
+    ~AUIArrayAdapter() override = default;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -201,12 +202,11 @@ public:
 public:
     void SetSendDataChangeSignal(bool send) { m_bSendDataChangeSignal = send; }
     bool IsSendDataChangeSignal() const { return m_bSendDataChangeSignal; }
-private:
-    bool m_bSendDataChangeSignal;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Data
 protected:
-    std::vector< std::wstring > m_arrData;
+    std::vector<std::wstring> m_arrData;
+    bool m_bSendDataChangeSignal = true;
 };

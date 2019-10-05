@@ -22,13 +22,14 @@ public:
     void Set(const std::wstring& key, const sk_sp<SkImage>& pImage);
     void ClearKeyPrefix(const std::wstring& keyPrefix);
     void ClearAll();
+
+
+    // Statistics
+public:
+    std::wstring GetStatistics() const;
+    
 private:
     mutable std::mutex m_mtxKey2Image;
     std::unordered_map<std::wstring, sk_sp<SkImage>> m_mapKey2Image;
 
-
-    //////////////////////////////////////////////////////////////////////////
-    // Statistics
-public:
-    std::wstring GetStatistics() const;
 };

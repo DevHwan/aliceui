@@ -97,10 +97,7 @@ namespace {
 size_t AUIComboWidget::InvalidPos = (std::numeric_limits< size_t >::max)();
 
 AUIComboWidget::AUIComboWidget()
-    : m_pPopup( std::make_shared< AUIComboPopupWidget >() )
-    , m_curPos( InvalidPos )
-    , m_PopupMaxHeight( -1.0f )
-    , m_bUsePopuptHitRect(false)
+    : m_pPopup(std::make_shared<AUIComboPopupWidget>())
 	, m_pArrowDrawable(::GetArrowDrawable())
 {
     SetSizePolicy(AUISizePolicy::kFixed, AUISizePolicy::kFixed);

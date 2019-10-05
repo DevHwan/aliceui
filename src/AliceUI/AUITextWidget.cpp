@@ -13,22 +13,13 @@ namespace {
 namespace {
     constexpr SkScalar DefaultWidth = 100.0f;
     constexpr SkScalar DefaultHeight = 23.0f;
-    constexpr bool DefaultCaptionAntialias = true;
-    constexpr SkScalar DefaultCaptionSize = 13.0f;
     constexpr AUITextHorzAlign DefaultHorzAlign = AUITextHorzAlign::kLeft;
     constexpr AUITextVertAlign DefaultVertAlign = AUITextVertAlign::kCenter;
     constexpr SkColor DefaultCaptionColor = SkColorSetRGB( 17, 17, 17 );
 }
 
 AUITextWidget::AUITextWidget()
-    : m_Caption( DefaultCaption )
-    , m_bCaptionAA( DefaultCaptionAntialias )
-    , m_fCaptionSize( DefaultCaptionSize )
-    , m_MultilineType( AUITextLineFeed::kNewline )
-    , m_iMinLines( 1 )
-    , m_iMaxLines( ( std::numeric_limits< int >::max )( ) )
-    , m_iLines( 0 )
-    , m_bUseMultiline(false)
+    : m_Caption(DefaultCaption)
     , m_mapTrueStateCaptionColor{ {AUIState::kDefault, DefaultCaptionColor} }
     , m_mapFalseStateCaptionColor{ {AUIState::kDefault, DefaultCaptionColor} }
 {
@@ -41,14 +32,7 @@ AUITextWidget::AUITextWidget()
 }
 
 AUITextWidget::AUITextWidget( const std::wstring& caption )
-    : m_Caption( caption )
-    , m_bCaptionAA( DefaultCaptionAntialias )
-    , m_fCaptionSize( DefaultCaptionSize )
-    , m_MultilineType( AUITextLineFeed::kNewline )
-    , m_iMinLines( 1 )
-    , m_iMaxLines( ( std::numeric_limits< int >::max )( ) )
-    , m_iLines( 0 )
-    , m_bUseMultiline( false )
+    : m_Caption(caption)
     , m_mapTrueStateCaptionColor{ {AUIState::kDefault, DefaultCaptionColor} }
     , m_mapFalseStateCaptionColor{ {AUIState::kDefault, DefaultCaptionColor} }
 {
@@ -336,9 +320,6 @@ void AUITextWidget::OnMeasureSize(SkScalar width, AUIMeasureSpec widthSpec, SkSc
 
 SkRect AUITextWidget::GetCaptionAreaRect() const
 {
-    const auto captionHorzAlign = GetCaptionHorzAlign();
-    const auto captionVertAlign = GetCaptionVertAlign();
-
     float captionRectLeft = ( std::max )( 1.0f, GetPaddingLeft() );
     float captionRectRight = GetWidth() - ( std::max )( 1.0f, GetPaddingRight() );
 
@@ -397,7 +378,7 @@ void AUITextWidget::GetCaptionPaint( SkPaint& paint ) const
     {
         SkTypeface::MakeDefault()->getFamilyName(&defaultFontName);
     }
-    const auto kDefaultFontStyle = SkFontStyle::Normal();
+//    const auto kDefaultFontStyle = SkFontStyle::Normal();
     // TODO : Need alternative method for this feature
 //    if (GetCaptionFontName().empty() == false )
 //    {

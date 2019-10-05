@@ -7,17 +7,17 @@ class ALICEUI_API AUIImageButtonWidget : public AUIImageWidget
     using SuperWidget = AUIImageWidget;
 public:
     AUIImageButtonWidget();
-    virtual ~AUIImageButtonWidget();
+    ~AUIImageButtonWidget() override;
 
 
 
     //////////////////////////////////////////////////////////////////////////
     // Event
 protected:
-    virtual void OnMouseEnter() override;
-    virtual void OnMouseLeave() override;
-    virtual bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseLBtnDblClk(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseMove(AUIMouseEvent::EventFlag flag) override;
+    void OnMouseEnter() override;
+    void OnMouseLeave() override;
+    bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseLBtnDblClk(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseMove(AUIMouseEvent::EventFlag flag) override;
 };

@@ -34,8 +34,9 @@ public:
 protected:
     unsigned int GetPrecision() const { return m_uiPrecision; }
     Format GetFormat() const { return m_eFormat; }
+    
 private:
-    unsigned int m_uiPrecision;
-    Format m_eFormat;
+    unsigned int m_uiPrecision = 4;
+    Format m_eFormat = kDefault_Format;
 
 };

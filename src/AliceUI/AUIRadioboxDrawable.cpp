@@ -8,11 +8,11 @@ AUIRadioboxDrawable::AUIRadioboxDrawable()
     , m_OffDefaultBorderColor( SkColorSetRGB( 173, 173, 173 ) )
     , m_OffHoverBorderColor( SkColorSetRGB( 146, 146, 146 ) )
     , m_OffPressBorderColor( SkColorSetRGB( 146, 146, 146 ) )
-    , m_OnBorderColor( SkColorSetRGB( 130, 186, 255 ) )
     , m_OnDefaultBGColor( SkColorSetRGB( 255, 255, 255 ) )
     , m_OnHoverBGColor( SkColorSetRGB( 255, 255, 255 ) )
-    , m_OnHoverBorderColor( SkColorSetRGB( 144, 194, 255 ) )
     , m_OnPressBGColor( SkColorSetRGB( 255, 255, 255 ) )
+    , m_OnBorderColor( SkColorSetRGB( 130, 186, 255 ) )
+    , m_OnHoverBorderColor( SkColorSetRGB( 144, 194, 255 ) )
     , m_OnPressBorderColor( SkColorSetRGB( 118, 179, 255 ) )
 {
 

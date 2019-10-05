@@ -12,12 +12,10 @@ namespace
 }
 
 AUITabBarWidget::AUITabBarWidget()
-    : AUILinearLayoutWidget( true )
-    , m_TabStyle( AUIImageCaptionStyle::kTextOnly )
+    : AUILinearLayoutWidget(true)
 	, m_TabDefaultTextColor(SkColorSetRGB(63, 63, 63))
 	, m_TabUncheckTextColor(SkColorSetRGB(152, 152, 152))
 	, m_TabHoverTextColor(SkColorSetRGB(107, 127, 145))
-	, m_bUnderLine( false )
 {
     SetDefaultSize( DefaultWidth, DefaultHeight );
 	SetUnderLineColor(SkColorSetRGB(26, 135, 220));

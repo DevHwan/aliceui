@@ -7,12 +7,10 @@ namespace
 {
     constexpr SkScalar DefaultWidth = 5.0f;
     constexpr SkScalar DefaultHeight = 5.0f;
-    constexpr SkScalar DefaultDragDiffMin = 0.0f;
 }
 
 
 AUISeparatorWidget::AUISeparatorWidget()
-    : m_bHorizontal( false )
 {
     SetHorizontal( false );
     SetDraggable( false );
@@ -27,9 +25,9 @@ AUISeparatorWidget::AUISeparatorWidget()
 }
 
 AUISeparatorWidget::AUISeparatorWidget( bool horizontal )
-    : m_bHorizontal( horizontal )
+    : m_bHorizontal(horizontal)
 {
-    SetHorizontal( horizontal );
+    SetHorizontal(horizontal);
 
     SetDraggable( false );
     SetDefaultSize( DefaultWidth, DefaultHeight );
@@ -64,13 +62,6 @@ void AUISeparatorWidget::SetColor( const SkColor color )
     pBG->SetColor( color );
 
     SetBackgroundDrawable( pBG );
-}
-
-bool AUISeparatorWidget::IsHorizontal() const
-{
-
-
-    return m_bHorizontal;
 }
 
 bool AUISeparatorWidget::OnChangeCursorIcon( AUICursorIcon& cursoricon )

@@ -2,7 +2,6 @@
 #include "AUITriangleShape.h"
 
 AUITriangleShape::AUITriangleShape()
-    : m_fAngle( 0.0f )
 {
 
 }

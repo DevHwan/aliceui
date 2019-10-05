@@ -7,6 +7,7 @@ class AUILayoutManager;
 
 class ALICEUI_API AUILayoutBase
 {
+    friend class AUILayoutManager;
 protected:
     AUILayoutBase() noexcept = default;
 public:
@@ -22,5 +23,4 @@ protected:
     AUIWidget * GetTargetWidget() const;
 private:
     AUILayoutManager * m_pLayoutManager = nullptr;
-    friend class AUILayoutManager;
 };

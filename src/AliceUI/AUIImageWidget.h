@@ -23,7 +23,7 @@ protected:
     //////////////////////////////////////////////////////////////////////////
     // Drawable
 public:
-    void SetBackgroundDrawable(const std::shared_ptr< AUIDrawable >& pDrawable);
+    void SetBackgroundDrawable(const std::shared_ptr< AUIDrawable >& pDrawable) override;
 	//////////////////////////////////////////////////////////////////////////
     // Image Drawable
 public:

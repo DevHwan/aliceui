@@ -11,7 +11,7 @@ class ALICEUI_API AUITitleBarWidget : public AUIRelativeLayoutWidget
     using SuperWidget = AUIRelativeLayoutWidget;
 public:
     AUITitleBarWidget();
-    virtual ~AUITitleBarWidget();
+    ~AUITitleBarWidget() override;
 
     //////////////////////////////////////////////////////////////////////////
     // Signals
@@ -43,11 +43,15 @@ public:
     };
 
     void SetVisibleSysButton(SysBtnFlag sysbtnFlag = SysBtnFlag::kAll);
-    AUITitleBarTitleWidget* const GetTitleBar() const { return m_pTitleBar.get(); }
+    AUITitleBarTitleWidget* const GetTitleBar() const {
+        return m_pTitleBar.get();
+    }
+    
+    
 private:
-    std::shared_ptr< AUITitleBarTitleWidget > m_pTitleBar;
-    std::shared_ptr< AUIImageButtonWidget > m_pMinimizeButton;
-    std::shared_ptr< AUIImageButtonWidget > m_pMaximizeButton;
-    std::shared_ptr< AUIImageButtonWidget > m_pCloseButton;
+    std::shared_ptr<AUITitleBarTitleWidget> m_pTitleBar;
+    std::shared_ptr<AUIImageButtonWidget> m_pMinimizeButton;
+    std::shared_ptr<AUIImageButtonWidget> m_pMaximizeButton;
+    std::shared_ptr<AUIImageButtonWidget> m_pCloseButton;
 };
 

@@ -26,7 +26,6 @@ protected:
     void PublishProgress(int val);
 private:
     int RunThread();
-    bool m_bRunning = false;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -51,9 +50,6 @@ private:
 public:
     bool IsPublishedProgress() const;
     int GetProgressValue() const;
-private:
-    std::atomic_bool m_isPublishedProgress;
-    std::atomic_int m_iProgressValue;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -61,7 +57,11 @@ private:
 public:
     bool IsCancelled() const;
     void Cancel();
+
 private:
     std::atomic_bool m_isCancelled;
+    std::atomic_bool m_isPublishedProgress;
+    std::atomic_int m_iProgressValue;
     std::future<int> m_thisFuture;
+    bool m_bRunning = false;
 };

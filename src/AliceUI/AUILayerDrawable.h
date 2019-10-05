@@ -8,7 +8,7 @@ class ALICEUI_API AUILayerDrawable : public AUIDrawable
 {
 public:
     AUILayerDrawable();
-    virtual ~AUILayerDrawable();
+    ~AUILayerDrawable() override;
 
 
     //////////////////////////////////////////////////////////////////////////

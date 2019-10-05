@@ -6,14 +6,14 @@
 class ALICEUI_API AUIWidgetStyle : public AUIStateFeature<AUIStyleNotion>
 {
 public:
-    AUIWidgetStyle() {}
-    virtual ~AUIWidgetStyle() {}
+    AUIWidgetStyle() = default;
+    virtual ~AUIWidgetStyle() = default;
 
 };
 
 class  ALICEUI_API AUIStyleUpdator : public AUIStateFeatureUpdator<AUIStyleNotion>
 {
 public:
-    AUIStyleUpdator(std::shared_ptr<const AUIWidgetStyle> pStyle) :AUIStateFeatureUpdator<AUIStyleNotion>(pStyle) {}
-    virtual ~AUIStyleUpdator() {}
+    AUIStyleUpdator(std::shared_ptr<const AUIWidgetStyle> pStyle) : AUIStateFeatureUpdator<AUIStyleNotion>(pStyle) {}
+    virtual ~AUIStyleUpdator() = default;
 };

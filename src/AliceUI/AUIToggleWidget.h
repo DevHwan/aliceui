@@ -8,5 +8,5 @@ class ALICEUI_API AUIToggleWidget : public AUICheckboxWidget
 public:
     AUIToggleWidget();
     explicit AUIToggleWidget(bool state);
-    virtual ~AUIToggleWidget();
+    ~AUIToggleWidget() override;
 };

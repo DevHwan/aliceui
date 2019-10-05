@@ -24,7 +24,7 @@ public:
     AUISignal<void(const int, const int, const int) > UserEventSignal;
 
 private:
-    bool m_bFold;
-    std::wstring m_Date;
     std::shared_ptr<AUICalendarFrameWidget> m_pCalendar;
+    bool m_bFold = true;
+    std::wstring m_Date = L"Calendar";
 };

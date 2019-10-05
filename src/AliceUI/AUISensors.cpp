@@ -139,8 +139,6 @@ bool MAUICircleBoundarySensor::UpdateHit(const glm::vec3& vRayOrg, const glm::ve
 
 bool MAUILinesSensor::UpdateHit(const glm::vec3& vRayOrg, const glm::vec3& vRayDir)
 {
-    auto vLocalEyePos = glm::vec3(m_matSensorInv * glm::vec4(vRayOrg, 1));
-    auto vLocalEyeDir = glm::vec3(m_matSensorInv * glm::vec4(vRayDir, 0));
     float fRad = 0.010f;
     for (auto line : m_arrLines)
     {

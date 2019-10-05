@@ -4,31 +4,35 @@
 
 class ALICEUI_API AUIRoundRectShape : public AUIShape
 {
-    // TODO : Inner / Outer / Inset
 public:
     AUIRoundRectShape();
     AUIRoundRectShape(const float radii[8]);
     AUIRoundRectShape(const SkVector radii[4]);
-    virtual ~AUIRoundRectShape();
+    ~AUIRoundRectShape() override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Draw
 protected:
-    virtual void OnDraw(SkCanvas* const canvas, const SkPaint& paint) override;
+    void OnDraw(SkCanvas* const canvas, const SkPaint& paint) override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Size
 protected:
-    virtual void OnResize(float width, float height) override;
+    void OnResize(float width, float height) override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Rect
 protected:
-    SkRRect& RefRRect() { return m_RRect; }
-    const SkRRect& RefRRect() const { return m_RRect; }
+    SkRRect& RefRRect() noexcept {
+        return m_RRect;
+    }
+    const SkRRect& RefRRect() const noexcept {
+        return m_RRect;
+    }
+    
 private:
     SkRRect m_RRect;
 };

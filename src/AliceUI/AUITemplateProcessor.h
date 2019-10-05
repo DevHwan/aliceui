@@ -14,18 +14,17 @@ class ALICEUI_API AUITemplateProcessor
 public:
     AUITemplateProcessor();
 
-
     //////////////////////////////////////////////////////////////////////////
     // Pool
 public:
     void Clear();
-    bool Insert(const std::wstring& tag, const std::shared_ptr< AUITemplate >& pTemplate);
+    bool Insert(const std::wstring& tag, const std::shared_ptr<AUITemplate>& pTemplate);
     bool Remove(const std::wstring& tag);
     bool Has(const std::wstring& tag) const;
 protected:
-    void SetPool(const std::shared_ptr< AUITemplatePool >& pPool);
+    void SetPool(const std::shared_ptr<AUITemplatePool>& pPool);
 private:
-    std::shared_ptr< AUITemplatePool > m_pPool;
+    std::shared_ptr<AUITemplatePool> m_pPool;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -35,15 +34,15 @@ public:
     bool Load();
     bool Unload();
 private:
-    bool m_bLoaded;
+    bool m_bLoaded = false;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Root
 public:
-    void SetRootWidget(const std::shared_ptr< AUILinearLayoutWidget >& pRootWidget);
+    void SetRootWidget(const std::shared_ptr<AUILinearLayoutWidget>& pRootWidget);
     void SetRootWidget(AUILinearLayoutWidget* const pRootWidget);
-    std::shared_ptr< AUILinearLayoutWidget > GetRootWidget() const { return m_pRootWidget; }
+    std::shared_ptr<AUILinearLayoutWidget> GetRootWidget() const { return m_pRootWidget; }
     void SetRootTags(const std::vector< std::wstring >& arrRootTags);
     void SetRootTags(const std::wstring& rootTag0) {
         std::vector< std::wstring > _RootTags; _RootTags.reserve(1);
@@ -71,8 +70,8 @@ public:
         this->SetRootTags(_RootTags);
     }
 private:
-    std::shared_ptr< AUILinearLayoutWidget > m_pRootWidget;
-    std::vector< std::wstring > m_RootTags;
+    std::shared_ptr<AUILinearLayoutWidget> m_pRootWidget;
+    std::vector<std::wstring> m_RootTags;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -94,7 +93,7 @@ public:
     void TrClear(const std::wstring& toTag);
 private:
     bool TrOptimize();
-    bool m_bTrPrepared;
+    bool m_bTrPrepared = false;
 private:
     struct Tr
     {
@@ -121,9 +120,9 @@ private:
         Tr(const Cmd& _cmd, const std::wstring& _toTag, const std::shared_ptr< AUIWidget >& _widget) : fCmd(_cmd), fToTag(_toTag), fWidget(_widget) { }
         Tr(const Cmd& _cmd, const std::wstring& _toTag, const std::shared_ptr< AUIWidget >& _widget, const std::wstring& _text, const std::shared_ptr< AUIDrawable >& _image) : fCmd(_cmd), fToTag(_toTag), fWidget(_widget), fText(_text), fImage(_image) { }
     };
-    std::vector< Tr > m_Transactions;
-    std::unordered_map< AUIWidget*, std::wstring > m_Widget2Tag;
-    std::unordered_map< std::wstring, std::wstring > m_Tag2Tag;
+    std::vector<Tr> m_Transactions;
+    std::unordered_map<AUIWidget*, std::wstring> m_Widget2Tag;
+    std::unordered_map<std::wstring, std::wstring> m_Tag2Tag;
 
 
 
@@ -131,8 +130,8 @@ private:
     // Update
 public:
     void UpdateParam(const std::wstring& tag, const AUITemplParam& param);
-    std::shared_ptr< AUIWidget > GetTagWidget(const std::wstring& tag) const;
-    std::vector< std::wstring > GetAllTag() const;
+    std::shared_ptr<AUIWidget> GetTagWidget(const std::wstring& tag) const;
+    std::vector<std::wstring> GetAllTag() const;
 private:
-    std::unordered_map< std::wstring, std::shared_ptr< AUIWidget > > m_mapTag2Widget;
+    std::unordered_map<std::wstring, std::shared_ptr<AUIWidget>> m_mapTag2Widget;
 };

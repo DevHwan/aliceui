@@ -19,9 +19,6 @@ public:
     void AsyncUpdate();
     void SendTickTimeEvent();
     bool SendSetCursorEvent();
-private:
-    std::chrono::milliseconds m_PrevTickTime = std::chrono::milliseconds::zero();
-    std::chrono::milliseconds m_CurTickTime = std::chrono::milliseconds::zero();
 
     //////////////////////////////////////////////////////////////////////////
     // Render
@@ -40,17 +37,11 @@ public:
     bool IsNeedRedraw() const {
         return m_bNeedRedraw;
     }
-private:
-    SkColor m_BackgroundColor = SkColorSetRGB(255, 255, 255);
-    bool m_bNeedRedraw = true;
 
     //////////////////////////////////////////////////////////////////////////
     // UI Manager
 public:
     AUIRasterWidgetManager* GetWidgetManager() const;
-private:
-    std::unique_ptr<AUIRasterWidgetManager> m_pWidgetManager;
-
 
     //////////////////////////////////////////////////////////////////////////
     // Root Widget
@@ -59,10 +50,17 @@ public:
     void UpdateWidgetSize();
     void UpdateWidgetChildPosition();
 protected:
-    AUIWidget* GetRootWidget() const {
+    AUIWidget* GetRootWidget() const noexcept {
         return m_pRootWidget.get();
     }
+    
+    
+    
 private:
-    std::shared_ptr< AUIWidget > m_pRootWidget;
-
+    std::unique_ptr<AUIRasterWidgetManager> m_pWidgetManager;
+    std::shared_ptr<AUIWidget> m_pRootWidget;
+    std::chrono::milliseconds m_PrevTickTime = std::chrono::milliseconds::zero();
+    std::chrono::milliseconds m_CurTickTime = std::chrono::milliseconds::zero();
+    SkColor m_BackgroundColor = SkColorSetRGB(255, 255, 255);
+    bool m_bNeedRedraw = true;
 };

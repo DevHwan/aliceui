@@ -7,7 +7,7 @@ class ALICEUI_API AUIScrollableContentWidget : public AUILinearLayoutWidget
     typedef AUILinearLayoutWidget SuperWidget;
 public:
     AUIScrollableContentWidget();
-    virtual ~AUIScrollableContentWidget();
+    ~AUIScrollableContentWidget() override;
 
 
     //////////////////////////////////////////////////////////////////////////

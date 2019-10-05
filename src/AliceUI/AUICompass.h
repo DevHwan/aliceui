@@ -30,12 +30,9 @@ public:
         return m_vPlanePosition;
     }
 private:
-    glm::vec3 m_vPlanePos;
-    glm::vec3 m_vPlaneNorm;
-
-    glm::mat4 m_matPlane;
-    glm::mat4 m_matPlaneInv;
-    glm::vec2 m_vPlanePosition;
+    glm::mat4 m_matPlane = glm::mat4(1.0f);
+    glm::mat4 m_matPlaneInv = glm::mat4(1.0f);
+    glm::vec2 m_vPlanePosition = glm::vec2(0.0f, 0.0f);
 
     // Optimization Hint
     bool m_IsBasePlane = true;

@@ -10,7 +10,7 @@ class AUIWidget;
 class ALICEUI_API AUIRasterInstance : public AUIInstance
 {
 public:
-    AUIRasterInstance(AUIRasterWidgetManager* const pWidgetManager, const std::shared_ptr< AUIWidget >& pWidget);
+    AUIRasterInstance(AUIRasterWidgetManager* const pWidgetManager, const std::shared_ptr<AUIWidget>& pWidget);
     ~AUIRasterInstance() override = default;
 
     //////////////////////////////////////////////////////////////////////////
@@ -22,7 +22,7 @@ protected:
     void OnSetDirty() override;
 
 private:
-    std::weak_ptr< AUIWidget > m_wpDrawableRootWidget;
+    std::weak_ptr<AUIWidget> m_wpDrawableRootWidget;
 
 
     //////////////////////////////////////////////////////////////////////////

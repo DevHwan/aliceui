@@ -7,8 +7,7 @@
 
 AUITab::AUITab()
 {
-	m_bFirst = false;
-	m_bLast = false;
+    
 }
 
 AUITab::~AUITab()

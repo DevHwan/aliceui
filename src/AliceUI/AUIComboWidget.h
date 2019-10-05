@@ -38,8 +38,6 @@ public:
     std::shared_ptr< AUIComboAdapter > GetAdapter() const;
 protected:
     virtual void OnAdapterDataChanged(AUIComboAdapter*);
-private:
-    AUISlotPool m_spoolDataChange;
 
     //////////////////////////////////////////////////////////////////////////
     // Public child interface
@@ -61,9 +59,9 @@ protected:
     //////////////////////////////////////////////////////////////////////////
     // Combo click
 public:
-    size_t GetCurPos() const { return m_curPos; }
-    AUISignal<void(AUIComboWidget*)> ComboClickSignal;     // Only if UsePopupHitRect
-    AUISignal<void(AUIComboWidget*)> ComboPopupSignal;     // Popup invoke callback
+    size_t GetCurPos() const noexcept {
+        return m_curPos;
+    }
     void SetCurPos(size_t pos);
     static size_t InvalidPos;
 protected:
@@ -72,18 +70,20 @@ protected:
     virtual void OnPopupFocusLost();
 private:
     void RefreshLabel();
-    AUISlotPool m_spoolItemClick;
-    size_t m_curPos;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Combo Popup
 public:
-    void SetPopupMaxHeight(SkScalar val) { m_PopupMaxHeight = val; }
-    SkScalar GetPopupMaxHeight() const { return m_PopupMaxHeight; }
+    void SetPopupMaxHeight(SkScalar val) {
+        m_PopupMaxHeight = val;
+    }
+    SkScalar GetPopupMaxHeight() const noexcept {
+        return m_PopupMaxHeight;
+    }
     void SetUseMarquee(bool val);
     bool IsUseMarquee() const;
-    bool IsUsePopupHitRect() const {
+    bool IsUsePopupHitRect() const noexcept {
         return m_bUsePopuptHitRect;
     }
     void SetUsePopupHitRect(bool state) {
@@ -95,19 +95,27 @@ public:
     void SetPopupOpt(const AUIPopupPos opt) {
         m_PopupOpt = opt;
     }
-    AUIPopupPos GetPopupOpt() const {
+    AUIPopupPos GetPopupOpt() const noexcept {
         return m_PopupOpt;
     }
 protected:
     void SetLabel(const std::shared_ptr< AUIWidget >& pLabel);
     std::shared_ptr< AUIWidget > GetLabel() const { return m_pLabel.lock(); }
+    
+    // Signals
+public:
+    AUISignal<void(AUIComboWidget*)> ComboClickSignal;     // Only if UsePopupHitRect
+    AUISignal<void(AUIComboWidget*)> ComboPopupSignal;     // Popup invoke callback
+    
 private:
-    std::shared_ptr< AUIComboPopupWidget > m_pPopup;
-    std::weak_ptr< AUIWidget > m_pLabel;
-    SkScalar m_PopupMaxHeight;
+    std::shared_ptr<AUIComboPopupWidget> m_pPopup;
+    std::shared_ptr<AUIDrawable> m_pArrowDrawable;
+    std::weak_ptr<AUIWidget> m_pLabel;
+    SkScalar m_PopupMaxHeight = -1.0f;
     SkRect m_PopupHitRect = SkRect::MakeEmpty();
-    bool m_bUsePopuptHitRect;
+    bool m_bUsePopuptHitRect = false;
     AUIPopupPos m_PopupOpt = AUIPopupPos::kOptimal;
-
-	std::shared_ptr<AUIDrawable> m_pArrowDrawable;
+    AUISlotPool m_spoolDataChange;
+    AUISlotPool m_spoolItemClick;
+    size_t m_curPos = InvalidPos;
 };

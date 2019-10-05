@@ -21,16 +21,16 @@ public:
     //////////////////////////////////////////////////////////////////////////
     // Invoke / Dismiss
 protected:
-    bool OnInvoke(const std::shared_ptr< AUIWidget >& pWidget, const std::shared_ptr< AUIWidget >& pParent, const AUIScalar3& pos, const AUIPopupPos& opt) override;
-    bool OnDismiss(const std::shared_ptr< AUIWidget >& pWidget) override;
+    bool OnInvoke(const std::shared_ptr<AUIWidget>& pWidget, const std::shared_ptr<AUIWidget>& pParent, const AUIScalar3& pos, const AUIPopupPos& opt) override;
+    bool OnDismiss(const std::shared_ptr<AUIWidget>& pWidget) override;
 private:
-    std::unordered_map< AUIWidget*, std::shared_ptr< AUIForm > > m_Popups;
+    std::unordered_map<AUIWidget*, std::shared_ptr<AUIForm>> m_Popups;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Tooltip
 protected:
-    void OnShowTooltip(const std::shared_ptr< AUITooltip >& pTooltip, int x, int y) override;
+    void OnShowTooltip(const std::shared_ptr<AUITooltip>& pTooltip, int x, int y) override;
     void OnHideTooltip() override;
 private:
     std::weak_ptr<AUITooltip> m_wpCurTooltip;
@@ -50,7 +50,7 @@ private:
     //////////////////////////////////////////////////////////////////////////
     // Instance
 protected:
-    std::shared_ptr< AUIInstance > OnRegisterWidget(const std::shared_ptr< AUIWidget >& pWidget) override;
+    std::shared_ptr<AUIInstance> OnRegisterWidget(const std::shared_ptr<AUIWidget>& pWidget) override;
 
     //////////////////////////////////////////////////////////////////////////
     // Rendering

@@ -2,9 +2,7 @@
 #include "AUICalendarFoldButton.h"
 
 AUICalendarFoldButton::AUICalendarFoldButton() noexcept
-	: m_pCalendar( std::make_shared< AUICalendarFrameWidget >() )
-	, m_bFold( true )
-	, m_Date( L"Calendar" )
+	: m_pCalendar(std::make_shared<AUICalendarFrameWidget>())
 {
 	SetCaption(m_Date);
 	SetCaptionHorzAlign(AUITextHorzAlign::kCenter);

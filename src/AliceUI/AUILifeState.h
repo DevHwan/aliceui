@@ -66,7 +66,6 @@ private:
     {
         return m_States[state];
     }
-    std::array< bool, kStateTotal_State > m_States = { false, };
 
     //////////////////////////////////////////////////////////////////////////
     // Widget Manager
@@ -90,10 +89,6 @@ public:
     void SetPendingDestroyWidgetManager(AUIWidgetManager* pWidgetManager) noexcept {
         m_pPendingDestroyWidgetManager = pWidgetManager;
     }
-private:
-    AUIWidgetManager* m_pCurWidgetManager = nullptr;
-    AUIWidgetManager* m_pPendingCreateWidgetManager = nullptr;
-    AUIWidgetManager* m_pPendingDestroyWidgetManager = nullptr;
 
     //////////////////////////////////////////////////////////////////////////
     // Instance
@@ -105,6 +100,12 @@ public:
     std::weak_ptr< AUIInstance > GetCurInstance() const noexcept {
         return m_wpCurInstance;
     }
+    
+    
 private:
+    std::array< bool, kStateTotal_State > m_States = { false, };
     std::weak_ptr< AUIInstance > m_wpCurInstance;
+    AUIWidgetManager* m_pCurWidgetManager = nullptr;
+    AUIWidgetManager* m_pPendingCreateWidgetManager = nullptr;
+    AUIWidgetManager* m_pPendingDestroyWidgetManager = nullptr;
 };

@@ -74,9 +74,7 @@ public:
     void GetSize(int& width, int& height) override;
     void GetPosition(int& x, int& y) override;
     void GetPositionAndSize(int& x, int& y, int& sx, int& sy) override;
-private:
-    bool m_bUseDefaultPos = true;
-    
+
     
     //////////////////////////////////////////////////////////////////////////
     // Modal Loop

@@ -17,20 +17,12 @@ namespace
 
 AUIExpandWidget::AUIExpandWidget()
     : m_pHeader(std::make_shared<AUIExpandHeaderWidget>())
-    , m_bExpanded(false)
-    , m_PendingExpand(false)
-    , m_PendingCollapse(false)
-    , m_PendingSizeUpdate(false)
-    , m_AnimStartHeight(0.0f)
-    , m_AnimCurHeight(0.0f)
-    , m_AnimTargetHeight(0.0f)
 {
     SetSizePolicy(AUISizePolicy::kContent, AUISizePolicy::kContent);
 
     m_pHeader->SetPropParentTop(true);
 
     SetContent(nullptr);
-
 
     Connect(m_pHeader->ClickSignal, [&](AUIWidget*) {
         ExpandOrCollapse();
@@ -188,8 +180,6 @@ void AUIExpandWidget::OnBeforeMeasureSize()
     {
         if (m_PendingSizeUpdate)
             return;
-
-        const auto spHeight = GetSizePolicyHeight();
 
         SuperWidget::OnMeasureSize(0, AUIMeasureSpec::kUnspecified, MaximumExpandHeight, AUIMeasureSpec::kAtMost);
 

@@ -72,8 +72,7 @@ public:
         return m_curDir;
     }
 private:
-    glm::vec3 m_center;
-    glm::vec3 m_norm;
-    float m_fRadius = 0.0f;
-    glm::vec3 m_curDir;
+    glm::vec3 m_center = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec3 m_norm = glm::vec3(0.0f, 0.0f, 1.0f);
+    glm::vec3 m_curDir = glm::vec3(1.0f, 0.0f, 0.0f);
 };

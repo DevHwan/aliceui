@@ -6,12 +6,12 @@ class ALICEUI_API AUIRadioboxDrawable : public AUIDrawable
 {
 public:
     AUIRadioboxDrawable();
-    virtual ~AUIRadioboxDrawable();
+    ~AUIRadioboxDrawable() override;
 
     //////////////////////////////////////////////////////////////////////////
     // Draw
 protected:
-    virtual void OnDraw(SkCanvas* const canvas) override;
+    void OnDraw(SkCanvas* const canvas) override;
 
 
 

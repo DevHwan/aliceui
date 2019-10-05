@@ -7,19 +7,18 @@
 template< class _TabWidget >
 class MAUITabTemplate : public AUITemplate
 {
+    static_assert(std::is_base_of< AUITabWidget, _TabWidget >::value, "Derived from tab widget only.");
 public:
-    MAUITabTemplate() {
-        static_assert(std::is_base_of< AUITabWidget, _TabWidget >::value, "Derived from tab widget only.");
-    }
-    virtual ~MAUITabTemplate() { }
+    MAUITabTemplate() = default;
+    ~MAUITabTemplate() override = default;
 
 protected:
-    virtual std::shared_ptr< AUIWidget > OnCreateWidget() override {
-        auto pWidget = std::make_shared< _TabWidget >();
+    std::shared_ptr<AUIWidget> OnCreateWidget() override {
+        auto pWidget = std::make_shared<_TabWidget>();
         return pWidget;
     }
-    virtual void OnUpdateParam(AUIWidget* const pRoot, const AUITemplParam& param) override {
-        auto _pTab = pRoot->DynCast< _TabWidget >();
+    void OnUpdateParam(AUIWidget* const pRoot, const AUITemplParam& param) override {
+        auto _pTab = pRoot->DynCast<_TabWidget>();
         if (nullptr == _pTab)
         {
             AUIAssertFailReason("Incorrect widget");
@@ -54,8 +53,8 @@ protected:
             _pTab->SetStyleSheet(pMss);
         }
     }
-    virtual void OnUpdateInsert(AUIWidget* const pRoot, const AUITemplInput& input) override {
-        auto _pTab = pRoot->DynCast< AUITabWidget >();
+    void OnUpdateInsert(AUIWidget* const pRoot, const AUITemplInput& input) override {
+        auto _pTab = pRoot->DynCast<AUITabWidget>();
         if (nullptr == _pTab)
         {
             AUIAssertFailReason("Incorrect widget");
@@ -71,8 +70,8 @@ protected:
         AUIAssert(_pWidget);
         _pTab->AddTab(AUITab::CreateTab(_text, _image, _pWidget));
     }
-    virtual void OnUpdateRemove(AUIWidget* const pRoot, const AUITemplInput& input) override {
-        auto _pTab = pRoot->DynCast< AUITabWidget >();
+    void OnUpdateRemove(AUIWidget* const pRoot, const AUITemplInput& input) override {
+        auto _pTab = pRoot->DynCast<AUITabWidget>();
         if (nullptr == _pTab)
         {
             AUIAssertFailReason("Incorrect widget");
@@ -87,8 +86,8 @@ protected:
         AUIAssert(_pWidget);
         _pTab->RemoveTab(_pWidget);
     }
-    virtual void OnUpdateClear(AUIWidget* const pRoot, const AUITemplInput& input) override {
-        auto _pTab = pRoot->DynCast< AUITabWidget >();
+    void OnUpdateClear(AUIWidget* const pRoot, const AUITemplInput& input) override {
+        auto _pTab = pRoot->DynCast<AUITabWidget>();
         if (nullptr == _pTab)
         {
             AUIAssertFailReason("Incorrect widget");

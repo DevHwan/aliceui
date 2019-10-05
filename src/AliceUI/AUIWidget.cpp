@@ -17,34 +17,9 @@ constexpr float DefaultWheelDelta = 120.0f;
 static AUIRuntimeID gNextRuntimeId = 1;
 
 AUIWidget::AUIWidget()
-	: m_bUpdateChildPosition(false)
-	, m_bWasDirty(false)
-	, m_bShowTooltip(false)
-	, m_bDirty(true)
-	, m_bNeedUpdateSize(true)
-	, m_bAnimRunning(false)
-	, m_bUseHitTest(true)
-	, m_Opacity(1.0f)
-	, m_Color(kAUIColorTransparent)
-	, m_bUseHotkeyCopy(false)
-	, m_bUseHotkeyPaste(false)
-	, m_bUseHotkeyCut(false)
-	, m_bDefault2DCompass(false)
-	, m_bDefault2DSensor(false)
-	, m_ScrollX(0.0f)
-	, m_ScrollY(0.0f)
-	, m_PrevUpdateWidth(-1.0f)
-	, m_PrevUpdateHeight(-1.0f)
-	, m_PrevUpdateWidthSpec(AUIMeasureSpec::kUnspecified)
-	, m_PrevUpdateHeightSpec(AUIMeasureSpec::kUnspecified)
-	, m_CurTimeTick(std::chrono::milliseconds::zero())
-    , m_bForceDepthTest(false)
-    , m_bForceDepthMask(false)
+	: m_spRootInfo(std::make_shared<AUIWidgetRootInfo>())
     , m_RuntimeID(gNextRuntimeId++)
 {
-	m_spRootInfo = std::make_shared<AUIWidgetRootInfo>();
-
-
 	// Register widget
     if (AUIApplication::Instance().IsInitialized())
 	    AUIApplication::Instance().GetWidgetTree().RegisterWidget(this);
@@ -722,13 +697,13 @@ void AUIWidget::CallMeasureAndUpdateSize(AUIWidget* const pWidget)
 		return;
 	}
 
-	const auto isRoot = pWidget->IsRoot();
+//	const auto isRoot = pWidget->IsRoot();
 	const auto defaultSize = pWidget->GetDefaultSize();
 	const auto width = defaultSize.fX;
 	const auto height = defaultSize.fY;
 	AUIMeasureSpec widthSpec = AUIMeasureSpec::kUnspecified;
 	AUIMeasureSpec heightSpec = AUIMeasureSpec::kUnspecified;
-	AUIMeasureSpec depthSpec = AUIMeasureSpec::kUnspecified;
+//	AUIMeasureSpec depthSpec = AUIMeasureSpec::kUnspecified;
 
 	switch (pWidget->GetSizePolicyWidth())
 	{

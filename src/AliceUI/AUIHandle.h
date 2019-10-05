@@ -37,9 +37,7 @@ public:
     void SetNonActivate(bool val) { m_bNonActivate = val; }
     bool IsTopMost() const { return m_bTopMost; }
     void SetTopMost(bool val) { m_bTopMost = val; }
-protected:
-    bool m_bNonActivate;
-    bool m_bTopMost;
+
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -47,8 +45,6 @@ protected:
 public:
     virtual void SetRootWidget(const std::shared_ptr< AUIWidget >& pWidget);
     virtual std::shared_ptr< AUIWidget > GetWidget() const;
-protected:
-    std::shared_ptr< AUIWidget > m_pWidget;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -56,17 +52,12 @@ protected:
 public:
     virtual void SetTitle(const std::wstring& title);
     virtual std::wstring GetTitle() const;
-protected:
-    std::wstring m_strTitle;
-
 
     //////////////////////////////////////////////////////////////////////////
     // Mode
 public:
     virtual void SetMode(AUIHandleMode mode);
     virtual AUIHandleMode GetMode() const;
-protected:
-    AUIHandleMode m_Mode = AUIHandleMode::kPopup;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -88,9 +79,6 @@ public:
     bool IsActivatedAsModal() const {
         return m_bActivatedAsModal;
     }
-protected:
-    bool m_bActivated;
-    bool m_bActivatedAsModal;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -103,8 +91,6 @@ public:
     // Visible
 public:
     virtual void SetVisible(bool state);
-protected:
-    bool m_bVisible;
 
     //////////////////////////////////////////////////////////////////////////
     // Focus
@@ -122,8 +108,6 @@ public:
 public:
     virtual void CaptureMouseEvent();
     virtual void ReleaseMouseEvent();
-protected:
-    bool m_bMouseCaptured;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -131,8 +115,6 @@ protected:
 public:
     virtual void SetOpacity(const SkAlpha opacity);
     virtual SkAlpha GetOpacity() const;
-protected:
-    SkAlpha m_Opacity;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -151,16 +133,7 @@ public:
     virtual void GetMinSize(int& width, int& height);
     virtual void GetMaxSize(int& width, int& height);
     static constexpr int kNoMinMaxSizeValue = -1;
-protected:
-    int m_iX;
-    int m_iY;
-    int m_iWidth;
-    int m_iHeight;
-    int m_MinWidth = kNoMinMaxSizeValue;
-    int m_MinHeight = kNoMinMaxSizeValue;
-    int m_MaxWidth = kNoMinMaxSizeValue;
-    int m_MaxHeight = kNoMinMaxSizeValue;
-    bool m_Resizeable = false;
+
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -177,4 +150,31 @@ public:
 public:
     virtual void SetTransparent(bool val) {};
     virtual bool IsTransparent() const { return false; };
+    
+    
+
+protected:
+    std::shared_ptr<AUIWidget> m_pWidget;
+    std::wstring m_strTitle;
+    AUIHandleMode m_Mode = AUIHandleMode::kPopup;
+    // Activate
+    bool m_bNonActivate = false;
+    bool m_bActivated = false;
+    bool m_bActivatedAsModal = false;
+    // Visibility
+    SkAlpha m_Opacity = kAUIAlpha100;
+    bool m_bVisible = true;
+    // UI state
+    bool m_bTopMost = false;
+    bool m_bMouseCaptured = false;
+    // Window size
+    int m_iX = 0;
+    int m_iY = 0;
+    int m_iWidth = 0;
+    int m_iHeight = 0;
+    int m_MinWidth = kNoMinMaxSizeValue;
+    int m_MinHeight = kNoMinMaxSizeValue;
+    int m_MaxWidth = kNoMinMaxSizeValue;
+    int m_MaxHeight = kNoMinMaxSizeValue;
+    bool m_Resizeable = false;
 };

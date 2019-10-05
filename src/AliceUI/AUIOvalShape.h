@@ -6,11 +6,11 @@ class ALICEUI_API AUIOvalShape : public AUIRoundRectShape
 {
 public:
     AUIOvalShape();
-    virtual ~AUIOvalShape();
+    ~AUIOvalShape() override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Size
 protected:
-    virtual void OnResize(float width, float height) override;
+    void OnResize(float width, float height) override;
 };

@@ -8,38 +8,34 @@ class ALICEUI_API AUITitleBarTitleWidget : public AUITextWidget
 public:
     AUITitleBarTitleWidget();
     AUITitleBarTitleWidget(const std::wstring& caption);
-    virtual ~AUITitleBarTitleWidget();
+    ~AUITitleBarTitleWidget() override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Cursor Icon
 protected:
-    virtual bool OnChangeCursorIcon(AUICursorIcon& cursoricon) override;
+    bool OnChangeCursorIcon(AUICursorIcon& cursoricon) override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Event
 protected:
-    virtual bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseLBtnDblClk(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseLBtnDblClk(AUIMouseEvent::EventFlag flag) override;
     //////////////////////////////////////////////////////////////////////////
     // Move state
 protected:
-    virtual bool OnDragging() override;
-private:
-    float m_fAbsPrevX;
-    float m_fAbsPrevY;
+    bool OnDragging() override;
 
-    //////////////////////////////////////////////////////////////////////////
-    // DblClick signal
+    // signals
 public:
     AUISignal<void(AUIWidget*)> TitleBarDblClickSignal;
-
-    //////////////////////////////////////////////////////////////////////////
-    // Dragging signal
-public:
     AUISignal<void(AUIWidget*)> DragPressSignal;
     AUISignal<void(AUIWidget*)> DragReleaseSignal;
     AUISignal<void(AUIWidget*, float, float)> DragMoveSignal;
+
+private:
+    float m_fAbsPrevX = -1.0f;
+    float m_fAbsPrevY = -1.0f;
 };

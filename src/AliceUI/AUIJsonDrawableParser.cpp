@@ -398,7 +398,7 @@ namespace
 		}
 		if (stateList.HasMember(L"transitions"))
 		{
-			const auto& transitions = stateList.FindMember(L"transitions")->value;
+//			const auto& transitions = stateList.FindMember(L"transitions")->value;
 
 
 		}

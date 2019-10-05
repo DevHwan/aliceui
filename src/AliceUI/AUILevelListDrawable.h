@@ -6,24 +6,22 @@ class ALICEUI_API AUILevelListDrawable : public AUIDrawable
 {
 public:
     AUILevelListDrawable();
-    virtual ~AUILevelListDrawable();
+    ~AUILevelListDrawable() override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Draw
 protected:
-    virtual void OnDraw(SkCanvas* const canvas) override;
-    virtual bool IsRefreshDraw() const override {
+    void OnDraw(SkCanvas* const canvas) override;
+    bool IsRefreshDraw() const override {
         return m_bRefreshDraw;
     }
-private:
-    bool m_bRefreshDraw;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Level Index
 protected:
-    virtual void OnChangeLevelIndex() override;
+    void OnChangeLevelIndex() override;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -35,16 +33,22 @@ public:
         AddLevel(val, val, pDrawable);
     }
 protected:
-    AUIDrawable* GetCurDrawable() const { return m_pCurDrawable.get(); }
+    AUIDrawable* GetCurDrawable() const noexcept {
+        return m_pCurDrawable.get();
+    }
 private:
-    std::shared_ptr< AUIDrawable > m_pCurDrawable;
     struct IndexData
     {
-        int fLowBound;
-        int fHighBound;
-        std::shared_ptr< AUIDrawable > fDrawable;
-        IndexData() : fLowBound(0), fHighBound(0) {}
-        IndexData(int _low, int _high, const std::shared_ptr< AUIDrawable >& _pDrawable) : fLowBound(_low), fHighBound(_high), fDrawable(_pDrawable) {}
+        int fLowBound = 0;
+        int fHighBound = 0;
+        std::shared_ptr<AUIDrawable> fDrawable;
+        IndexData() = default;
+        IndexData(int _low, int _high, const std::shared_ptr<AUIDrawable>& _pDrawable) : fLowBound(_low), fHighBound(_high), fDrawable(_pDrawable) {}
     };
-    std::vector< IndexData > m_IndexData;
+    
+    
+private:
+    std::shared_ptr<AUIDrawable> m_pCurDrawable;
+    std::vector<IndexData> m_IndexData;
+    bool m_bRefreshDraw = false;
 };

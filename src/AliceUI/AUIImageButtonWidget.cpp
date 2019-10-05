@@ -14,8 +14,6 @@ AUIImageButtonWidget::AUIImageButtonWidget()
     SetClickable( true );
     SetDefaultSize( DefaultWidth, DefaultHeight );
 
-    constexpr SkScalar radii[] = { 3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f };
-
     auto pDefaultBG = std::make_shared< AUIShapeDrawable >( std::make_shared< AUIRectShape >() );
     pDefaultBG->SetColor( SkColorSetRGB( 253, 253, 253 ) );
     //pDefaultBG->SetUseAA( true );

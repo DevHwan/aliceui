@@ -6,13 +6,13 @@ class ALICEUI_API AUIRecyclerLinearLayoutManager : public AUIRecyclerLayoutManag
 {
 public:
     AUIRecyclerLinearLayoutManager();
-    virtual ~AUIRecyclerLinearLayoutManager();
+    ~AUIRecyclerLinearLayoutManager() override;
 
     //////////////////////////////////////////////////////////////////////////
     // Interface
 protected:
-    virtual void OnMeasureSize(SkScalar width, AUIMeasureSpec widthSpec, SkScalar height, AUIMeasureSpec heightSpec) override;
-    virtual void OnUpdateChildPosition() override;
+    void OnMeasureSize(SkScalar width, AUIMeasureSpec widthSpec, SkScalar height, AUIMeasureSpec heightSpec) override;
+    void OnUpdateChildPosition() override;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -24,8 +24,13 @@ protected:
     //////////////////////////////////////////////////////////////////////////
     // Orientation
 public:
-    bool IsHorizontal() const { return m_bHorizontal; }
-    void SetHorizontal(bool horizontal) { m_bHorizontal = horizontal; }
+    bool IsHorizontal() const noexcept {
+        return m_bHorizontal;
+    }
+    void SetHorizontal(bool horizontal) noexcept {
+        m_bHorizontal = horizontal;
+    }
+    
 private:
-    bool m_bHorizontal;
+    bool m_bHorizontal = false;
 };

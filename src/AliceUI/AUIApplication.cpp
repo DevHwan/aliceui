@@ -54,14 +54,12 @@ AUIApplicationImpl::~AUIApplicationImpl()
 
 }
 
+static std::unique_ptr<AUIApplication> sGlobalApplication;
+
 AUIApplication::AUIApplication(std::unique_ptr<AUIApplicationImpl>&& pAppImpl)
     : m_pImpl(std::move(pAppImpl))
-    , m_pWidgetTree(std::make_unique<AUIWidgetTreeHelper>() )
-    , m_pLazyTaskManager(std::make_unique<AUILazyTaskManager>() )
-    , m_bVisualizeLayout( false )
-    , m_bTraceWidgetLifecycle( false )
-    , m_bInUpdateInstanceTask( false )
-    , m_bInitialized(false)
+    , m_pLazyTaskManager(std::make_unique<AUILazyTaskManager>())
+    , m_pWidgetTree(std::make_unique<AUIWidgetTreeHelper>())
 {
     AUIAssert(m_pImpl);
     m_arrWidgetLazyTask.reserve( 200 );
@@ -73,8 +71,6 @@ AUIApplication::~AUIApplication()
     m_Windows.clear();
     m_RegisteredWindows.clear();
 }
-
-static std::unique_ptr<AUIApplication> sGlobalApplication;
 
 bool AUIApplication::SetupApplication(std::unique_ptr<AUIApplicationImpl>&& pAppImpl)
 {
@@ -495,7 +491,6 @@ void AUIApplication::RunUpdateInstanceTask()
         for ( const auto& lazyTask : m_arrWidgetLazyTask )
         {
             const auto pWidget = lazyTask.fWidget;
-            const auto pWidgetManager = lazyTask.fWidgetManager;
             const auto taskType = lazyTask.fTaskType;
             if ( nullptr == pWidget )
             {

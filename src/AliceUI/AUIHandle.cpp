@@ -3,17 +3,6 @@
 #include "AUIWidget.h"
 
 AUIHandle::AUIHandle() noexcept
-    : m_bActivated( false )
-    , m_bActivatedAsModal(false)
-    , m_bTopMost( false )
-    , m_bNonActivate( false )
-    , m_bVisible( true )
-    , m_bMouseCaptured( false )
-    , m_iX( 0 )
-    , m_iY( 0 )
-    , m_iWidth( 0 )
-    , m_iHeight( 0 )
-    , m_Opacity(kAUIAlpha100 )
 {
 
 }

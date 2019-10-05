@@ -11,24 +11,20 @@ class ALICEUI_API AUIWindowTitleBarWidget : public AUIRelativeLayoutWidget
     using SuperWidget = AUIRelativeLayoutWidget;
 public:
     AUIWindowTitleBarWidget();
-    virtual ~AUIWindowTitleBarWidget();
+    ~AUIWindowTitleBarWidget() override;
 
 
 
     //////////////////////////////////////////////////////////////////////////
     // Event
 protected:
-    virtual bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override;
-    virtual bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
-    //virtual bool OnMouseLBtnDblClk(MAUIMouseEvent::EventFlag flag) override;
+    bool OnMouseLBtnDown(AUIMouseEvent::EventFlag flag) override;
+    bool OnMouseLBtnUp(AUIMouseEvent::EventFlag flag) override;
 
     //////////////////////////////////////////////////////////////////////////
     // Move state
 protected:
-    virtual bool OnDragging() override;
-private:
-    float m_fAbsPrevX;
-    float m_fAbsPrevY;
+    bool OnDragging() override;
 
     //////////////////////////////////////////////////////////////////////////
     // Dragging signal
@@ -55,10 +51,13 @@ public:
     std::shared_ptr<AUIImageButtonWidget> GetCloseButtonWidget() const {
         return m_pCloseButton;
     }
+    
 private:
     std::shared_ptr<AUIImageWidget> m_pIcon;
     std::shared_ptr<AUITextWidget> m_pTitleText;
     std::shared_ptr<AUIImageButtonWidget> m_pMinimizeButton;
     std::shared_ptr<AUIImageButtonWidget> m_pMaximizeButton;
     std::shared_ptr<AUIImageButtonWidget> m_pCloseButton;
+    float m_fAbsPrevX = -1.0f;
+    float m_fAbsPrevY = -1.0f;
 };

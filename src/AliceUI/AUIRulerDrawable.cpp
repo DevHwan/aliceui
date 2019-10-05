@@ -9,12 +9,6 @@ std::wstring ToFormattedStr(double val)
 }
 
 AUIRulerDrawable::AUIRulerDrawable()
-    : m_Location( AUIRulerLocation::kTop )
-    , m_RefPos( 0.0f )
-    , m_Basis( 5.0f )
-    , m_GradationSize( 5.0f )
-    , m_MaxTextWidth( 30.0f )
-    , m_MaxTextHeight( 15.0f )
 {
     m_LinePaint.setColor( 0xFFA8A7A7 );
     m_TextPaint.setColor(kAUIColorBlack );

@@ -6,32 +6,26 @@
 #include <iomanip>
 #include <exception>
 
-static const unsigned int DefaultPrecision = 4;
-
 AUIFloatStringFilter::AUIFloatStringFilter()
-    : m_uiPrecision( DefaultPrecision )
-    , m_eFormat( kDefault_Format )
 {
 
 }
 
 AUIFloatStringFilter::AUIFloatStringFilter( Format format )
-    : m_uiPrecision( DefaultPrecision )
-    , m_eFormat( format )
+    : m_eFormat(format)
 {
 
 }
 
 AUIFloatStringFilter::AUIFloatStringFilter( unsigned int precision )
-    : m_uiPrecision( precision )
-    , m_eFormat( kDefault_Format )
+    : m_uiPrecision(precision)
 {
 
 }
 
 AUIFloatStringFilter::AUIFloatStringFilter( Format format, unsigned int precision )
-    : m_uiPrecision( precision )
-    , m_eFormat( format )
+    : m_uiPrecision(precision)
+    , m_eFormat(format)
 {
 
 }

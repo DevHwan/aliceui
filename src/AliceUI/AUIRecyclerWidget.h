@@ -5,56 +5,42 @@
 
 class ALICEUI_API AUIRecyclerWidget : public AUILayoutWidget
 {
-    typedef AUILayoutWidget SuperClass;
-    typedef AUIRecyclerAdapter Adapter;
-    typedef AUIRecyclerLayoutManager LayoutManager;
+    using SuperWidget = AUILayoutWidget;
+    using Adapter = AUIRecyclerAdapter;
+    using LayoutManager = AUIRecyclerLayoutManager;
 public:
     AUIRecyclerWidget();
-    virtual ~AUIRecyclerWidget();
+    ~AUIRecyclerWidget() override;
 
 
     //////////////////////////////////////////////////////////////////////////
     // Adapter
 public:
-    void SetAdapter(std::shared_ptr< Adapter > pAdapter);
-    std::shared_ptr< Adapter > GetAdapter() const {
+    void SetAdapter(std::shared_ptr<Adapter> pAdapter);
+    std::shared_ptr<Adapter> GetAdapter() const {
         return m_pAdapter;
     }
-private:
-    std::shared_ptr< Adapter > m_pAdapter;
-
 
     //////////////////////////////////////////////////////////////////////////
     // LayoutManager
 public:
-    void SetLayoutManager(std::unique_ptr< LayoutManager > pLayoutManager);
-    LayoutManager* GetLayoutManager() const { AUIAssert(m_pLayoutManager); return m_pLayoutManager.get(); }
-private:
-    std::unique_ptr< LayoutManager > m_pLayoutManager;
-
+    void SetLayoutManager(std::unique_ptr<LayoutManager> pLayoutManager);
+    LayoutManager* GetLayoutManager() const {
+        AUIAssert(m_pLayoutManager);
+        return m_pLayoutManager.get();
+    }
 
     //////////////////////////////////////////////////////////////////////////
     // Measure
 protected:
-    virtual void OnMeasureSize(SkScalar width, AUIMeasureSpec widthSpec, SkScalar height, AUIMeasureSpec heightSpec) override;
-    virtual void OnUpdateChildPosition();
-
-    // NOTE : DO NOT CALL Directly!
-//    //////////////////////////////////////////////////////////////////////////
-//    // Public child interface
-//public:
-//    virtual void AddSubWidgetAt( const std::shared_ptr< AUIWidget >& widget, const size_t pos ) override;
-//    virtual void DelSubWidget( const std::shared_ptr< AUIWidget >& widget ) override;
-//    virtual void PopSubWidget() override;
-//    virtual void ClearSubWidget() override;
-//    virtual std::shared_ptr< AUIWidget > FindSubWidget( size_t pos ) override;
-//    virtual size_t SubWidgetCount() const override;
+    void OnMeasureSize(SkScalar width, AUIMeasureSpec widthSpec, SkScalar height, AUIMeasureSpec heightSpec) override;
+    void OnUpdateChildPosition() override;
 
     //////////////////////////////////////////////////////////////////////////
     // Internal
 protected:
     void SyncAdapter();
-    const std::vector< std::shared_ptr< AUIRecyclerWidgetHolder > >& GetWidgetHolders() const {
+    const std::vector<std::shared_ptr<AUIRecyclerWidgetHolder>>& GetWidgetHolders() const noexcept {
         return m_WidgetHolders;
     }
 private:
@@ -66,6 +52,11 @@ private:
     void ItemRangeChanged(size_t startPos, size_t itemCount);
     void ItemRangeInserted(size_t startPos, size_t itemCount);
     void ItemRangeRemoved(size_t startPos, size_t itemCount);
-    AUISlotPool m_spoolAdapter;
+    
+    
+private:
+    std::shared_ptr<Adapter> m_pAdapter;
+    std::unique_ptr<LayoutManager> m_pLayoutManager;
     std::vector<std::shared_ptr<AUIRecyclerWidgetHolder>> m_WidgetHolders;
+    AUISlotPool m_spoolAdapter;
 };

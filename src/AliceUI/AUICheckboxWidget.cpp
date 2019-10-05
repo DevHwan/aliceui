@@ -148,7 +148,6 @@ bool AUICheckboxWidget::OnMouseLBtnUp( AUIMouseEvent::EventFlag flag )
     if ( IsCheckable() == false )
         return true;
 
-    const auto curChecked = IsChecked();
     if ( IsUseIndeterminate() )
     {
         SetCheckedIndeterminate( false );

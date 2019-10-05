@@ -7,10 +7,8 @@
 
 
 AUITemplateProcessor::AUITemplateProcessor()
-    : m_pPool( new AUITemplatePool() )
-    , m_pRootWidget( new AUILinearLayoutWidget() )
-    , m_bLoaded( false )
-    , m_bTrPrepared( false )
+    : m_pPool(std::make_shared<AUITemplatePool>() )
+    , m_pRootWidget(std::make_shared<AUILinearLayoutWidget>())
 {
 
 }
