@@ -65,11 +65,13 @@ void main() {
 constexpr int kWindowWidth = 1280;
 constexpr int kWindowHeight = 720;
 
-std::unique_ptr<AUIRasterWidgetManager> gWidgetManager;
+std::weak_ptr<AUIRasterWidgetManager> gWidgetManager;
 
 static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
     assert(window);
-    assert(gWidgetManager);
+    
+    auto pWidgetManager = gWidgetManager.lock();
+    assert(pWidgetManager);
     
     const auto isShiftOn = !!(GLFW_MOD_SHIFT & mods);
     const auto isCtrlOn = !!(GLFW_MOD_CONTROL & mods);
@@ -97,29 +99,36 @@ static void keyCallback(GLFWwindow* window, int key, int scancode, int action, i
     }
     
     const AUIKeyboardEvent keyboardEvent(keyboardEventType, static_cast<unsigned int>(scancode), static_cast<AUIKeyboardEvent::MaskCode>(maskCode));
-    gWidgetManager->SendKeyboardEvent(keyboardEvent);
+    pWidgetManager->SendKeyboardEvent(keyboardEvent);
 }
 
 static void keyCharCallback(GLFWwindow* window, unsigned int codepoint) {
     assert(window);
-    assert(gWidgetManager);
+    
+    auto pWidgetManager = gWidgetManager.lock();
+    assert(pWidgetManager);
     
     const AUIKeyboardEvent::EventType keyboardEventType = AUIKeyboardEvent::kChar_EventType;
     
     const AUIKeyboardEvent keyboardEvent(keyboardEventType, codepoint, AUIKeyboardEvent::kNone_MaskCode);
-    gWidgetManager->SendKeyboardEvent(keyboardEvent);
+    pWidgetManager->SendKeyboardEvent(keyboardEvent);
 }
 
 static void cursorCallback(GLFWwindow* window, double xpos, double ypos) {
     assert(window);
-    assert(gWidgetManager);
+    
+    auto pWidgetManager = gWidgetManager.lock();
+    assert(pWidgetManager);
+    
     const AUIMouseEvent mouseEvent(AUIMouseEvent::kMove_EventType, AUIMouseEvent::kNone_EventFlag, static_cast<int>(xpos), static_cast<int>(ypos));
-    gWidgetManager->SendMouseEvent(mouseEvent);
+    pWidgetManager->SendMouseEvent(mouseEvent);
 }
 
 static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
     assert(window);
-    assert(gWidgetManager);
+    
+    auto pWidgetManager = gWidgetManager.lock();
+    assert(pWidgetManager);
 
     const auto isButtonDown = (GLFW_PRESS == action);
     const auto isButtonUp = (GLFW_RELEASE == action);
@@ -149,7 +158,7 @@ static void mouseButtonCallback(GLFWwindow* window, int button, int action, int 
     double ypos = 0.0;
     glfwGetCursorPos(window, &xpos, &ypos);
     const AUIMouseEvent mouseEvent(mouseButtonEventType, mouseButtonEventFlag, static_cast<int>(xpos), static_cast<int>(ypos));
-    gWidgetManager->SendMouseEvent(mouseEvent);
+    pWidgetManager->SendMouseEvent(mouseEvent);
 }
 
 int main() {
@@ -193,7 +202,8 @@ int main() {
 #endif
 
     // Create raster widget manager
-    gWidgetManager.reset(new AUIRasterWidgetManager());
+    auto pWidgetManager = std::make_shared<AUIRasterWidgetManager>();
+    gWidgetManager = pWidgetManager;
 
     AUISlotPool signalPool;
     
@@ -224,7 +234,7 @@ int main() {
     pRootLayout->AddSubWidget(pBaseLayout);
     pRootLayout->UpdateChildPosition();
     pRootLayout->UpdateSize();
-    gWidgetManager->CreateInstance(pRootLayout);
+    pWidgetManager->CreateInstance(pRootLayout);
     pRootLayout->SetDefaultSize(SkIntToScalar(kWindowWidth), SkIntToScalar(kWindowHeight));
 
     // Create skia surface
@@ -325,15 +335,15 @@ int main() {
 
             // Update time
             const auto currentTickTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-            gWidgetManager->SendTickTimeEvent(prevTickTime, currentTickTime);
+            pWidgetManager->SendTickTimeEvent(prevTickTime, currentTickTime);
             prevTickTime = currentTickTime;
 
             // Update instances
-            gWidgetManager->UpdateAllInstance();
+            pWidgetManager->UpdateAllInstance();
 
             // Render
             pSurface->getCanvas()->clear(SkColorSetARGB(255, 255, 255, 255));
-            gWidgetManager->Render(pSurface->getCanvas());
+            pWidgetManager->Render(pSurface->getCanvas());
             const auto pImage = pSurface->makeImageSnapshot();
             if (nullptr == pImage)
                 break;
@@ -369,8 +379,6 @@ int main() {
         }
     }
 
-    gWidgetManager.reset();
-    
     // Terminate
     glfwTerminate();
     
