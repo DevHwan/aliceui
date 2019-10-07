@@ -82,7 +82,7 @@ bool AUIRasterWidgetManager::OnInvoke( const std::shared_ptr< AUIWidget >& pWidg
 
     if (AUIPopupPos::kOptimal == opt)
     {
-        SkRect monitorRect;
+        SkRect monitorRect = SkRect::MakeEmpty();
         AUIApplication::Instance().GetMonitorRectFromPoint( monitorRect, popupPosX, popupPosY );
 
         if ( popupPosX + widgetWidth > monitorRect.right() )
@@ -96,7 +96,7 @@ bool AUIRasterWidgetManager::OnInvoke( const std::shared_ptr< AUIWidget >& pWidg
     }
     else if (AUIPopupPos::kParentOptimalAbove == opt)
     {
-        SkRect monitorRect;
+        SkRect monitorRect = SkRect::MakeEmpty();
         AUIApplication::Instance().GetMonitorRectFromPoint(monitorRect, popupPosX, popupPosY);
 
         if (popupPosX + widgetWidth > monitorRect.right())
@@ -110,7 +110,7 @@ bool AUIRasterWidgetManager::OnInvoke( const std::shared_ptr< AUIWidget >& pWidg
     }
     else if (AUIPopupPos::kParentOptimalBottom == opt)
     {
-        SkRect monitorRect;
+        SkRect monitorRect = SkRect::MakeEmpty();
         AUIApplication::Instance().GetMonitorRectFromPoint(monitorRect, popupPosX, popupPosY);
 
         if (popupPosX + widgetWidth > monitorRect.right())

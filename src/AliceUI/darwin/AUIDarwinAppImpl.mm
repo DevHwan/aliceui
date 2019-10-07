@@ -91,8 +91,14 @@ void AUIDarwinAppImpl::ConvertToDesktopPos(int& desktopX, int& desktopY, const i
 
 void AUIDarwinAppImpl::GetMonitorRectFromPoint(SkRect& monitorRect, const int& desktopX, const int& desktopY)
 {
-    // TODO
-    
+    NSScreen* screen = ((NSWindow*)AUIDarwinAppImpl::sRootWindow).screen;
+    if (nil == screen) {
+        return;
+    }
+    monitorRect = SkRect::MakeXYWH(screen.frame.origin.x,
+                                   screen.frame.origin.y,
+                                   screen.frame.size.width,
+                                   screen.frame.size.height);
 }
 
 void AUIDarwinAppImpl::GetMousePosition(int& x, int& y) const

@@ -6,9 +6,10 @@ class ALICEUI_API AUIDarwinHandle : public AUIHandle
 {
     using SuperClass = AUIHandle;
 public:
+    AUIDarwinHandle() noexcept;
     AUIDarwinHandle(void* native) noexcept;
     ~AUIDarwinHandle() noexcept override = default;
-    
+
     
     //////////////////////////////////////////////////////////////////////////
     // Title
@@ -82,6 +83,10 @@ public:
     void BeginModal() override;
     void EndModal(int result) override;
     
+public:
+    void SetNative(void* native) {
+        this->fNative = native;
+    }
 private:
     void* fNative = nullptr;
 };

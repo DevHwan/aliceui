@@ -3,6 +3,7 @@
 #endif
 
 #include <AUIDarwinAppImpl.h>
+#include <AUIDarwinHandle.h>
 #include <AUIRasterWidgetManager.h>
 #include <AUILinearLayoutWidget.h>
 #include <AUIColorDrawable.h>
@@ -12,6 +13,8 @@
 #include <AUIToggleWidget.h>
 #include <AUISliderWidget.h>
 #include <AUIApplication.h>
+#include <AUIComboWidget.h>
+#include <AUIArrayAdapter.h>
 
 #include <core/SkSurface.h>
 
@@ -195,9 +198,11 @@ int main(int argc, const char* argv[]) {
     // Init Alice UI Framework
     AUIDarwinAppImpl::InitRootWindow(nsWindow);
     AUIApplicationAutoInit appAutoInit(std::make_unique<AUIDarwinAppImpl>());
+    auto pRootWindowHandle = std::make_shared<AUIDarwinHandle>(nsWindow);
     
     // Create raster widget manager
     auto pWidgetManager = std::make_shared<AUIRasterWidgetManager>();
+    pWidgetManager->SetHandle(pRootWindowHandle);
     gWidgetManager = pWidgetManager;
 
     AUISlotPool signalPool;
@@ -210,7 +215,16 @@ int main(int argc, const char* argv[]) {
     auto pCheckBox = std::make_shared<AUICheckboxWidget>();
     auto pToggle = std::make_shared<AUIToggleWidget>();
     auto pSlider = std::make_shared<AUISliderWidget>();
-
+    auto pCombo = std::make_shared<AUIComboWidget>();
+    
+    
+    auto pComboTextAdapter = std::make_shared<AUIArrayAdapter<std::wstring>>();
+    pComboTextAdapter->Add(L"1. Apple");
+    pComboTextAdapter->Add(L"2. Banana");
+    pComboTextAdapter->Add(L"3. Chocolate");
+    pComboTextAdapter->Add(L"4. Doughnut");
+    pCombo->SetAdapter(pComboTextAdapter);
+    
     pEdit->SetDefaultSize(200.0f, 30.0f);
     pButton->SetDefaultSize(200.0f, 30.0f);
 
@@ -224,6 +238,7 @@ int main(int argc, const char* argv[]) {
     pBaseLayout->AddSubWidget(pCheckBox);
     pBaseLayout->AddSubWidget(pToggle);
     pBaseLayout->AddSubWidget(pSlider);
+    pBaseLayout->AddSubWidget(pCombo);
     
     pRootLayout->SetSizePolicy(AUISizePolicy::kParent, AUISizePolicy::kParent);
     pRootLayout->AddSubWidget(pBaseLayout);

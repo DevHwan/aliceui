@@ -4,14 +4,18 @@
 
 #if defined( _MSC_VER )
 #include "AUIMFCWindowHandle.h"
+#elif defined(__APPLE__)
+#include "AUIDarwinWindowHandle.h"
 #else
     // TODO
 #endif
 
 AUIForm::AUIForm()
 {
-#if defined( _MSC_VER )
+#if defined(_MSC_VER)
     m_pHandle = std::make_shared<AUIMFCWindowHandle>();
+#elif defined(__APPLE__)
+    m_pHandle = std::make_shared<AUIDarwinWindowHandle>();
 #else
     // TODO
 #endif
@@ -20,8 +24,10 @@ AUIForm::AUIForm()
 AUIForm::AUIForm( AUIForm&& form )
     : m_pHandle( std::move( form.m_pHandle ) )
 {
-#if defined( _MSC_VER )
+#if defined(_MSC_VER)
     form.m_pHandle = std::make_shared<AUIMFCWindowHandle>();
+#elif defined(__APPLE__)
+    form.m_pHandle = std::make_shared<AUIDarwinWindowHandle>();
 #else
     // TODO
 #endif

@@ -5,6 +5,12 @@
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
 
+AUIDarwinHandle::AUIDarwinHandle() noexcept
+    : fNative(nil)
+{
+    
+}
+
 AUIDarwinHandle::AUIDarwinHandle(void* native) noexcept
     : fNative(native)
 {
@@ -127,7 +133,9 @@ bool AUIDarwinHandle::IsResizeable() const
 
 void AUIDarwinHandle::SetSize(int width, int height)
 {
-    [(NSWindow*)fNative setContentSize:NSMakeSize((CGFloat)width, (CGFloat)height)];
+    CGFloat x = ((NSWindow*)fNative).frame.origin.x;
+    CGFloat y = ((NSWindow*)fNative).frame.origin.x;
+    [(NSWindow*)fNative setFrame:NSMakeRect(x, y, width, height) display:YES];
 }
 
 void AUIDarwinHandle::SetPosition(int x, int y)
@@ -137,27 +145,27 @@ void AUIDarwinHandle::SetPosition(int x, int y)
 
 void AUIDarwinHandle::SetPositionAndSize(int x, int y, int sx, int sy)
 {
-    [(NSWindow*)fNative setFrameOrigin:NSMakePoint((CGFloat)x, (CGFloat)y)];
-    [(NSWindow*)fNative setContentSize:NSMakeSize((CGFloat)sx, (CGFloat)sy)];
+    [(NSWindow*)fNative setFrameOrigin:NSMakePoint(x, y)];
+    [(NSWindow*)fNative setContentSize:NSMakeSize(sx, sy)];
 }
 
 void AUIDarwinHandle::GetSize(int& width, int& height)
 {
-    const auto winsize = [[(NSWindow*)fNative contentView] frame].size;
+    const auto winsize = ((NSWindow*)fNative).frame.size;
     width = (int)winsize.width;
     height = (int)winsize.height;
 }
 
 void AUIDarwinHandle::GetPosition(int& x, int& y)
 {
-    const auto pos = [[(NSWindow*)fNative contentView] frame].origin;
+    const auto pos = ((NSWindow*)fNative).frame.origin;
     x = (int)pos.x;
     y = (int)pos.y;
 }
 
 void AUIDarwinHandle::GetPositionAndSize(int& x, int& y, int& sx, int& sy)
 {
-    const auto windowFrame = [[(NSWindow*)fNative contentView] frame];
+    const auto windowFrame = ((NSWindow*)fNative).frame;
     sx = (int)windowFrame.size.width;
     sy = (int)windowFrame.size.height;
     x = (int)windowFrame.origin.x;
