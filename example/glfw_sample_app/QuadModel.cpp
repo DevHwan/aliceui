@@ -110,7 +110,9 @@ void QuadModel::Draw() {
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
     assert(GL_NO_ERROR == glGetError());
-
+    
+    glDisableVertexAttribArray(1);
+    assert(GL_NO_ERROR == glGetError());
     glDisableVertexAttribArray(0);
     assert(GL_NO_ERROR == glGetError());
 }

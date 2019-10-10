@@ -26,6 +26,9 @@ public:
     
     bool BindTexture(const Texture2D& texture, const SampleState& sampleState, const char* uniformName, const int uniformIndex);
 
+    bool SetUniform(const char* name, const int value);
+    bool SetUniform(const char* name, const glm::mat4& value);
+
     inline GLuint Id() const noexcept {
         return this->m_Id;
     }

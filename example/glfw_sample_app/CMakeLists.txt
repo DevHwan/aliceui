@@ -14,7 +14,8 @@ target_link_libraries(glfw_sample_app
     PRIVATE
         AliceUI
         CONAN_PKG::glfw
-        CONAN_PKG::glew)
+        CONAN_PKG::glew
+        CONAN_PKG::glm)
 
 if(ALICEUI_SKIA_IS_COMPONENT_BUILD)
     if(CMAKE_RUNTIME_OUTPUT_DIRECTORY)

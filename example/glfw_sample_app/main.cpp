@@ -22,6 +22,8 @@
 
 #include <core/SkSurface.h>
 
+#include <glm/glm.hpp>
+
 #include <iostream>
 #include <memory>
 
@@ -40,11 +42,12 @@ layout(location = 1) in vec2 texcoord;
 
 out vec2 oTexCoord;
 
+uniform mat4 uMatModelView;
+uniform mat4 uMatProjection;
+
 void main() {
     oTexCoord = texcoord;
-
-    gl_Position.xyz = position;
-    gl_Position.w = 1.0;
+    gl_Position = uMatProjection * uMatModelView * vec4(position, 1.0);
 }
 )";
 
@@ -62,8 +65,13 @@ void main() {
 }
 )";
 
-constexpr int kWindowWidth = 1280;
-constexpr int kWindowHeight = 720;
+constexpr const int kWindowWidth = 1280;
+constexpr const int kWindowHeight = 720;
+constexpr const GLfloat kWindowAspectRatio = static_cast<GLfloat>(kWindowHeight) / static_cast<GLfloat>(kWindowWidth);
+
+constexpr const int kWidgetWidth = kWindowWidth;
+constexpr const int kWidgetHeight = kWindowHeight;
+constexpr const GLfloat kWidget2WindowRatio = static_cast<GLfloat>(kWindowWidth) / static_cast<GLfloat>(kWidgetWidth);
 
 std::weak_ptr<AUIRasterWidgetManager> gWidgetManager;
 
@@ -224,18 +232,19 @@ int main() {
         std::wcout << L"Edit changed string : " << str << L'\n';
     });
     
+    pBaseLayout->SetBackgroundDrawable(std::make_shared<AUIColorDrawable>(SK_ColorWHITE));
     pBaseLayout->AddSubWidget(pButton);
     pBaseLayout->AddSubWidget(pEdit);
     pBaseLayout->AddSubWidget(pCheckBox);
     pBaseLayout->AddSubWidget(pToggle);
     pBaseLayout->AddSubWidget(pSlider);
     
-    pRootLayout->SetSizePolicy(AUISizePolicy::kParent, AUISizePolicy::kParent);
+    pRootLayout->SetSizePolicy(AUISizePolicy::kFixed, AUISizePolicy::kFixed);
     pRootLayout->AddSubWidget(pBaseLayout);
     pRootLayout->UpdateChildPosition();
     pRootLayout->UpdateSize();
     pWidgetManager->CreateInstance(pRootLayout);
-    pRootLayout->SetDefaultSize(SkIntToScalar(kWindowWidth), SkIntToScalar(kWindowHeight));
+    pRootLayout->SetDefaultSize(SkIntToScalar(kWidgetWidth), SkIntToScalar(kWidgetHeight));
 
     // Create skia surface
     auto pSurface = SkSurface::MakeRaster(SkImageInfo::MakeN32(kWindowWidth, kWindowHeight, SkAlphaType::kOpaque_SkAlphaType));
@@ -264,8 +273,8 @@ int main() {
         return EXIT_FAILURE;
     }
 
-    ShaderProgram texProgram;
-    if (false == texProgram.Create(vertexShader, texFragmentShader)) {
+    ShaderProgram shaderProgram;
+    if (false == shaderProgram.Create(vertexShader, texFragmentShader)) {
         std::cerr << "Failed to create shader program\n";
         return EXIT_FAILURE;
     }
@@ -287,43 +296,79 @@ int main() {
         std::cerr << "Failed to create texture\n";
         return EXIT_FAILURE;
     }
-    
-//    Texture2D cubeTexture;
-//    if (false == cubeTexture.Create()) {
-//        std::cerr << "Failed to create cube texture\n";
-//        return EXIT_FAILURE;
-//    }
-//    {
-//        auto pTextureSurface = SkSurface::MakeRaster(SkImageInfo::Make(256, 256, SkColorType::kRGBA_8888_SkColorType, SkAlphaType::kOpaque_SkAlphaType));
-//        auto pTextureCanvas = pTextureSurface->getCanvas();
-//        pTextureCanvas->clear(SkColorSetARGB(128, 255, 255, 255));
-//        SkPaint paint;
-//        paint.setColor(SK_ColorRED);
-//        pTextureCanvas->drawCircle(50, 50, 50, paint);
-//        pTextureCanvas->saveLayerAlpha(nullptr, 128);
-//        paint.setColor(SK_ColorBLUE);
-//        pTextureCanvas->drawCircle(100, 50, 50, paint);
-//        paint.setColor(SK_ColorGREEN);
-//        paint.setAlpha(128);
-//        pTextureCanvas->drawCircle(75, 90, 50, paint);
-//        pTextureCanvas->restore();
-//
-//        SkPixmap pixmap;
-//        if (pTextureSurface->peekPixels(&pixmap)) {
-//            cubeTexture.UpdateImage(pixmap);
-//        }
-//    }
-                          
+
+    Texture2D cubeTexture;
+    if (false == cubeTexture.Create()) {
+        std::cerr << "Failed to create cube texture\n";
+        return EXIT_FAILURE;
+    }
+    {
+        auto pTextureSurface = SkSurface::MakeRaster(SkImageInfo::Make(256, 256, SkColorType::kRGBA_8888_SkColorType, SkAlphaType::kOpaque_SkAlphaType));
+        constexpr const auto baseSize = 256.0f / 3.0f;
+        
+        auto pTextureCanvas = pTextureSurface->getCanvas();
+        pTextureCanvas->clear(SkColorSetARGB(255, 123, 45, 67));
+        SkPaint paint;
+        paint.setColor(SK_ColorRED);
+        pTextureCanvas->drawRect(SkRect::MakeXYWH(baseSize * 0.0f, baseSize * 0.0f, baseSize, baseSize), paint);
+        paint.setColor(SK_ColorBLUE);
+        pTextureCanvas->drawRect(SkRect::MakeXYWH(baseSize * 1.0f, baseSize * 0.0f, baseSize, baseSize), paint);
+        paint.setColor(SK_ColorCYAN);
+        pTextureCanvas->drawRect(SkRect::MakeXYWH(baseSize * 2.0f, baseSize * 0.0f, baseSize, baseSize), paint);
+        paint.setColor(SK_ColorGRAY);
+        pTextureCanvas->drawRect(SkRect::MakeXYWH(baseSize * 0.0f, baseSize * 1.0f, baseSize, baseSize), paint);
+        paint.setColor(SK_ColorGREEN);
+        pTextureCanvas->drawRect(SkRect::MakeXYWH(baseSize * 1.0f, baseSize * 1.0f, baseSize, baseSize), paint);
+        paint.setColor(SK_ColorYELLOW);
+        pTextureCanvas->drawRect(SkRect::MakeXYWH(baseSize * 2.0f, baseSize * 1.0f, baseSize, baseSize), paint);
+        paint.setColor(SK_ColorMAGENTA);
+        pTextureCanvas->drawRect(SkRect::MakeXYWH(baseSize * 0.0f, baseSize * 2.0f, baseSize, baseSize), paint);
+        paint.setColor(SK_ColorDKGRAY);
+        pTextureCanvas->drawRect(SkRect::MakeXYWH(baseSize * 1.0f, baseSize * 2.0f, baseSize, baseSize), paint);
+        paint.setColor(SK_ColorBLACK);
+        pTextureCanvas->drawRect(SkRect::MakeXYWH(baseSize * 2.0f, baseSize * 2.0f, baseSize, baseSize), paint);
+
+        auto pImage = pTextureSurface->makeImageSnapshot();
+        
+        SkPixmap pixmap;
+        if (pImage->peekPixels(&pixmap)) {
+            cubeTexture.UpdateImage(pixmap);
+        } else {
+            std::cerr << "Failed to upload texture\n";
+            return EXIT_FAILURE;
+        }
+    }
+
     SampleState samplerState;
     if (false == samplerState.Create()) {
         std::cerr << "Failed to create sampler state\n";
         return EXIT_FAILURE;
     }
 
+    // Set depth function
+    glDepthFunc(GL_LEQUAL);
+    
+    // Matrix
+    auto matModel = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f));
+    const auto matView = glm::lookAt(glm::vec3(0.0f, 0.0f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    const auto matProjection = glm::frustum(-2.0f, 2.0f, -2.0f * kWindowAspectRatio, 2.0f * kWindowAspectRatio, 1.0f, 100.0f);
+
+
+    const auto matUIModel = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f));
+    const auto matUIView = glm::lookAt(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    const auto matUIProjection = glm::frustum(-kWidget2WindowRatio, kWidget2WindowRatio, -kWidget2WindowRatio, kWidget2WindowRatio, 1.0f, 100.0f);
+    const auto matUIModelView = matUIView * matUIModel;
+    
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     assert(GL_NO_ERROR == glGetError());
 
+    GLfloat rotationUpdate = 0.0f;
     while (!glfwWindowShouldClose(window)) {
+
+        rotationUpdate += 0.01f;
+        matModel = glm::rotate(glm::mat4(1.0f), rotationUpdate, glm::vec3(1.0f, 1.0f, 1.0f));
+        const auto matModelView = matView * matModel;
+        
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         assert(GL_NO_ERROR == glGetError());
 
@@ -341,6 +386,9 @@ int main() {
             // Update instances
             pWidgetManager->UpdateAllInstance();
 
+            pRootLayout->GetWidth();
+            pRootLayout->GetHeight();
+            
             // Render
             pSurface->getCanvas()->clear(SkColorSetARGB(255, 255, 255, 255));
             pWidgetManager->Render(pSurface->getCanvas());
@@ -359,16 +407,28 @@ int main() {
 
         // Render in OpenGL
 
-        texProgram.UseProgram();
+        shaderProgram.UseProgram();
         {
-            texProgram.BindTexture(texture, samplerState, "uTexture", 0);
+            // Don't use depth test
+            glDisable(GL_DEPTH_TEST);
+
+            shaderProgram.BindTexture(texture, samplerState, "uTexture", 0);
+            shaderProgram.SetUniform("uMatModelView", matUIModelView);
+            shaderProgram.SetUniform("uMatProjection", matUIProjection);
+            shaderProgram.SetUniform("uDiscardTransparent", 1);
+
             quadModel.Draw();
             
-            //texProgram.BindTexture(cubeTexture, samplerState, "uTexture", 0);
-            //cubeModel.Draw();
-            
+            // Use depth test
+            glEnable(GL_DEPTH_TEST);
+
+            shaderProgram.BindTexture(cubeTexture, samplerState, "uTexture", 0);
+            shaderProgram.SetUniform("uMatModelView", matModelView);
+            shaderProgram.SetUniform("uMatProjection", matProjection);
+
+            cubeModel.Draw();
         }
-        texProgram.UnuseProgram();
+        shaderProgram.UnuseProgram();
 
         glfwSwapBuffers(window);
         glfwPollEvents();

@@ -105,3 +105,17 @@ bool ShaderProgram::BindTexture(const Texture2D& texture, const SampleState& sam
     assert(GL_NO_ERROR == glGetError());
     return true;
 }
+
+bool ShaderProgram::SetUniform(const char *name, const int value) {
+    const auto uniformId = this->GetUniformId(name);
+    glUniform1i(uniformId, value);
+    assert(GL_NO_ERROR == glGetError());
+    return true;
+}
+
+bool ShaderProgram::SetUniform(const char *name, const glm::mat4 &value) {
+    const auto uniformId = this->GetUniformId(name);
+    glUniformMatrix4fv(uniformId, 1, GL_FALSE, glm::value_ptr(value));
+    assert(GL_NO_ERROR == glGetError());
+    return true;
+}

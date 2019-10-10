@@ -1,6 +1,8 @@
 #include "Shader.h"
 
 #include <utility>
+#include <vector>
+#include <iostream>
 #include <cassert>
 
 Shader::~Shader() {
@@ -54,6 +56,11 @@ bool Shader::CreateFragmentShader(const char *shaderCode) {
     glGetShaderiv(this->m_Id, GL_COMPILE_STATUS, &result);
     assert(GL_NO_ERROR == glGetError());
     if (GL_FALSE == result) {
+        GLint maxLength = 0;
+        glGetShaderiv(this->m_Id, GL_INFO_LOG_LENGTH, &maxLength);
+        std::vector<GLchar> infoLog(maxLength);
+        glGetShaderInfoLog(this->m_Id, maxLength, &maxLength, infoLog.data());
+        std::cerr << "Shader compile error message : " << infoLog.data() << "\n";
         this->Destroy();
         return false;
     }
